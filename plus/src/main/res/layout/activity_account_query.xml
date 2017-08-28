@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="false"
+    >
+
+    <RelativeLayout
+        android:id="@+id/topBar"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/topbar_size"
+        android:background="@color/new_color_primary"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:text="精准查询"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title_size" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:id="@+id/account_query_back_img"
+            android:src="@drawable/icon_back" />
+
+
+        <ImageButton
+            android:id="@+id/add_account_query_ib"
+            android:background="@null"
+            android:clickable="true"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/icon_add"
+            android:layout_alignParentRight="true"
+            />
+
+    </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/emty_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="visible"
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@mipmap/zhanghaocx"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:text="未添加账号记录"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#808080"
+                android:text="点击右上角添加精准查询账号"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                />
+
+            <TextView
+                android:id="@+id/noaccount_to_regist_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@drawable/textselector"
+                android:text="未有账号？去注册>>>"
+                android:gravity="center"
+                android:padding="10dp"
+                />
+
+
+        </LinearLayout>
+
+
+        <ExpandableListView
+            android:id="@+id/account_query_elv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerHeight="15dp"
+            android:visibility="visible"
+            android:layout_marginTop="15dp"
+            android:cacheColorHint="#00000000"
+            android:childDivider="@null"
+            android:divider="@null"
+            android:listSelector="@android:color/transparent"
+            android:layout_marginBottom="20dp"
+            >
+        </ExpandableListView>
+
+
+</LinearLayout>

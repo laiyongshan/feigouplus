@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
+
+        <!--<ScrollView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/topBar"-->
+            <!--android:layout_marginBottom="10dp">-->
+
+            <!--<LinearLayout-->
+                <!--android:id="@+id/select_reco_layout"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentLeft="true"-->
+                <!--android:layout_alignParentStart="true"-->
+                <!--android:layout_alignParentTop="true"-->
+                <!--android:background="@color/white"-->
+                <!--android:clipToPadding="false"-->
+                <!--android:fitsSystemWindows="true"-->
+                <!--android:gravity="center_horizontal"-->
+                <!--android:orientation="vertical"-->
+                <!--android:paddingBottom="12dp">-->
+
+                <!--&lt;!&ndash;开始时间&ndash;&gt;-->
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="5dp"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:padding="8dp">-->
+
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="时间："-->
+                        <!--android:textColor="@color/new_color_primary"-->
+                        <!--android:textSize="16sp" />-->
+
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:background="@drawable/shape_corner_white_gray"-->
+                        <!--android:orientation="horizontal"-->
+                        <!--android:padding="10dp">-->
+
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="从" />-->
+
+                        <!--<TextView-->
+                            <!--android:id="@+id/start_date_tv"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="match_parent"-->
+                            <!--android:layout_marginLeft="8dp"-->
+                            <!--android:background="@color/lucency"-->
+                            <!--android:drawablePadding="8dp"-->
+                            <!--android:drawableRight="@drawable/nianshengr"-->
+                            <!--android:gravity="center_vertical"-->
+                            <!--android:textColor="#000" />-->
+                    <!--</LinearLayout>-->
+
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginLeft="8dp"-->
+                        <!--android:layout_marginRight="8dp"-->
+                        <!--android:text="—"-->
+                        <!--android:textColor="@color/new_color_primary" />-->
+                    <!--&lt;!&ndash;结束时间&ndash;&gt;-->
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginRight="15dp"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:background="@drawable/shape_corner_white_gray"-->
+                        <!--android:orientation="horizontal"-->
+                        <!--android:padding="10dp">-->
+
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="到" />-->
+
+                        <!--<TextView-->
+                            <!--android:id="@+id/over_date_tv"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="match_parent"-->
+                            <!--android:layout_marginLeft="8dp"-->
+                            <!--android:background="@color/lucency"-->
+                            <!--android:drawablePadding="8dp"-->
+                            <!--android:drawableRight="@drawable/nianshengr"-->
+                            <!--android:gravity="center_vertical"-->
+                            <!--android:textColor="#000" />-->
+                    <!--</LinearLayout>-->
+                <!--</LinearLayout>-->
+
+                <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:layout_margin="5dp"-->
+                    <!--android:background="@color/gray" />-->
+
+                <!--&lt;!&ndash;交易形式&ndash;&gt;-->
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:paddingLeft="15dp"-->
+                    <!--android:paddingRight="10dp">-->
+
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="交易形式："-->
+                        <!--android:textColor="@color/new_color_primary"-->
+                        <!--android:textSize="16sp" />-->
+
+                    <!--<com.example.youhe.youhecheguanjiaplus.widget.ChoiceGroup-->
+                        <!--android:id="@+id/choice_reco_group"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:background="@color/white"-->
+                        <!--android:padding="5dp" />-->
+                <!--</LinearLayout>-->
+
+                <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:layout_margin="5dp"-->
+                    <!--android:background="@color/gray" />-->
+
+                <!--&lt;!&ndash;类型&ndash;&gt;-->
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:orientation="vertical"-->
+                    <!--android:paddingLeft="15dp">-->
+
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="类型"-->
+                        <!--android:textColor="@color/new_color_primary"-->
+                        <!--android:textSize="16sp" />-->
+
+                    <!--<com.example.youhe.youhecheguanjiaplus.widget.ChoiceGroup-->
+                        <!--android:id="@+id/choice_type_group"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:background="@color/white"-->
+                        <!--android:padding="5dp" />-->
+                <!--</LinearLayout>-->
+
+                <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:layout_margin="5dp"-->
+                    <!--android:background="@color/gray" />-->
+
+                <!--&lt;!&ndash;交易卡号&ndash;&gt;-->
+                <!--&lt;!&ndash;开始时间&ndash;&gt;-->
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:focusable="true"-->
+                    <!--android:focusableInTouchMode="true"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:padding="15dp">-->
+
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="交易卡号："-->
+                        <!--android:textColor="@color/new_color_primary"-->
+                        <!--android:textSize="16sp" />-->
+
+                    <!--<EditText-->
+                        <!--android:id="@+id/trading_cardcode_et"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:background="@color/lucency"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:hint="请填写交易卡号"-->
+                        <!--android:textColor="#000"-->
+                        <!--android:textColorHint="@color/hint_gray"-->
+                        <!--android:textSize="16sp" />-->
+
+                <!--</LinearLayout>-->
+
+                <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:layout_margin="5dp"-->
+                    <!--android:background="@color/gray" />-->
+
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginBottom="12dp"-->
+                    <!--android:layout_marginLeft="24dp"-->
+                    <!--android:layout_marginRight="24dp"-->
+                    <!--android:layout_marginTop="12dp"-->
+                    <!--android:weightSum="2">-->
+
+                    <!--<Button-->
+                        <!--android:id="@+id/reset_btn"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="40dp"-->
+                        <!--android:layout_marginRight="10dp"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:background="@drawable/affirmbutton3"-->
+                        <!--android:padding="5dp"-->
+                        <!--android:text="重    置"-->
+                        <!--android:visibility="gone"-->
+                        <!--android:textColor="@color/white" />-->
+
+                    <!--<Button-->
+                        <!--android:id="@+id/sure_btn"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="40dp"-->
+                        <!--android:layout_marginLeft="10dp"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:background="@drawable/affirmbutton3"-->
+                        <!--android:padding="8dp"-->
+                        <!--android:text="筛    选"-->
+                        <!--android:textColor="@color/white" />-->
+                <!--</LinearLayout>-->
+            <!--</LinearLayout>-->
+        <!--</ScrollView>-->
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/topBar"
+            android:layout_marginBottom="10dp"
+            >
+
+            <LinearLayout
+                android:id="@+id/select_reco_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:paddingBottom="12dp"
+                android:fitsSystemWindows="true"
+                android:clipToPadding="false"
+                >
+
+                <!--开始时间-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="5dp"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="开始时间："
+                        android:textColor="@color/new_color_primary"
+                        android:textSize="16sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/start_date_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:hint="请选择开始日期"
+                        android:textSize="16sp"
+                        android:textColorHint="@color/hint_gray"
+                        android:drawableRight="@drawable/nianshengr"
+                        android:drawablePadding="15dp"
+                        android:textColor="#000"
+                        android:background="@color/lucency"
+                        />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray"
+                    android:layout_margin="5dp"
+                    />
+
+                <!--结束时间-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:gravity="center_vertical"
+                    >
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="结束时间："
+                        android:textColor="@color/new_color_primary"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/over_date_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:textSize="16sp"
+                        android:textColorHint="@color/hint_gray"
+                        android:drawableRight="@drawable/nianshengr"
+                        android:drawablePadding="15dp"
+                        android:textColor="#000"
+                        android:hint="请选择结束日期"
+                        android:background="@color/lucency"
+                        />
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray"
+                    android:layout_margin="5dp"
+                    />
+
+                <!--交易形式-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="10dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="交易形式："
+                        android:textColor="@color/new_color_primary"
+                        android:textSize="16sp"
+                        />
+
+                    <com.example.youhe.youhecheguanjiaplus.widget.ChoiceGroup
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/choice_reco_group"
+                        android:background="@color/white"
+                        android:padding="5dp"
+                        />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray"
+                    android:layout_margin="5dp"
+                    />
+
+                <!--类型-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="15dp"
+                    android:gravity="center_vertical"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="类型"
+                        android:textColor="@color/new_color_primary"
+                        android:textSize="16sp"
+                        />
+
+                    <com.example.youhe.youhecheguanjiaplus.widget.ChoiceGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/choice_type_group"
+                        android:background="@color/white"
+                        android:padding="5dp"
+                        />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray"
+                    android:layout_margin="5dp"
+                    />
+
+                <!--交易卡号-->
+                <!--开始时间-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:id="@+id/trading_layout"
+                    android:gravity="center_vertical"
+                    android:focusable="true"
+                    android:visibility="visible"
+                    android:focusableInTouchMode="true"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="交易卡号："
+                        android:textColor="@color/new_color_primary"
+                        android:textSize="16sp"
+                        />
+
+                    <EditText
+                        android:id="@+id/trading_cardcode_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:textSize="16sp"
+                        android:textColorHint="@color/hint_gray"
+                        android:textColor="#000"
+                        android:background="@color/lucency"
+                        android:hint="请填写交易卡号"
+                        />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray"
+                    android:layout_margin="5dp"
+                    android:visibility="visible"
+                    android:id="@+id/trading_view"/>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_margin="20dp"
+                    android:weightSum="2"
+                    >
+
+                    <Button
+                        android:id="@+id/reset_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginRight="10dp"
+                        android:padding="8dp"
+                        android:clickable="true"
+                        android:background="@drawable/affirmbutton3"
+                        android:text="重    置"
+                        android:textColor="@color/white"
+                        />
+
+                    <Button
+                        android:id="@+id/sure_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp"
+                        android:padding="8dp"
+                        android:background="@drawable/affirmbutton3"
+                        android:text="筛    选"
+                        android:textColor="@color/white"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+
+</layout>

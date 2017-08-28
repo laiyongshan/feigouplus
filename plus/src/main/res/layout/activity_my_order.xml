@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="false"
+    >
+
+    <RelativeLayout
+        android:id="@+id/re"
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="false"
+        android:background="@color/new_color_primary"
+        android:layout_height="@dimen/topbar_size"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:id="@+id/order_back_img"
+            android:src="@drawable/icon_back" />
+
+
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的订单"
+            android:textSize="@dimen/title_size"
+            android:textColor="#FFFFFF"
+            android:id="@+id/orderlist_title_tv"
+            android:layout_marginTop="5dp"
+            />
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/fragment_toolbar"
+            android:layout_marginRight="5dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:theme="@style/Theme.ToolBar.ZhiHu"
+            android:elevation="4dp"
+            >
+
+        </android.support.v7.widget.Toolbar>
+
+    </RelativeLayout>
+
+    <com.example.youhe.youhecheguanjiaplus.widget.SlidingTabLayout
+        android:id="@+id/sliding_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/new_color_primary"
+        android:paddingBottom="2dp"
+        />
+
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1"
+        android:background="@color/gray"
+        android:padding="5dp"
+        >
+
+    </android.support.v4.view.ViewPager>
+
+
+
+</LinearLayout>

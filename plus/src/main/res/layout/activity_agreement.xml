@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    >
+
+        <RelativeLayout
+            android:id="@+id/lay"
+            android:layout_width="match_parent"
+            android:layout_alignParentTop="true"
+            android:background="@color/new_color_primary"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/wangjimina_fanhuijian"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:onClick="fanhui"
+                android:layout_width="50dp"
+                android:clickable="true"
+                android:layout_height="@dimen/topbar_size"
+                android:src="@drawable/icon_back"
+                />
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="支付协议"
+                android:textSize="@dimen/title_size"
+                style="?android:attr/borderlessButtonStyle"
+                android:textColor="#FFFFFF"
+                android:id="@+id/textView" />
+        </RelativeLayout>
+
+
+    <WebView
+        android:layout_below="@+id/lay"
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </WebView>
+
+
+</RelativeLayout>

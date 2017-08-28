@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="false"
+    android:background="@color/gray"
+    >
+
+    <RelativeLayout
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:background="@color/new_color_primary"
+        android:layout_height="@dimen/topbar_size">
+
+        <ImageButton
+            android:id="@+id/apply_crash_back_ib"
+            android:background="@null"
+            android:clickable="true"
+            android:layout_width="50dp"
+            android:layout_height="500dp"
+            android:src="@drawable/icon_back"
+            />
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="提 现"
+            android:textSize="@dimen/title_size"
+            android:textColor="#FFFFFF"
+            android:id="@+id/textView" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/bankcard_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/laybeijin"
+        android:padding="15dp"
+        android:layout_marginTop="20dp"
+        >
+
+        <ImageView
+            android:id="@+id/union_icon_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_choose_bankcard"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_toRightOf="@+id/union_icon_iv"
+            android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"
+            >
+
+
+            <TextView
+                android:id="@+id/bank_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="选择银行卡"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:gravity="center_vertical"
+                android:paddingBottom="2dp"
+                />
+
+            <TextView
+                android:id="@+id/last_num_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="gone"
+                />
+
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_right"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            />
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_marginTop="20dp"
+        android:padding="15dp"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="提现金额"
+            android:textSize="18sp"
+            />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="5dp"
+            android:gravity="center_vertical"
+            >
+
+            <TextView
+                android:id="@+id/yuan_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:text="￥"
+                android:textColor="@color/black"
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+
+                <EditText
+                    android:id="@+id/money_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="40sp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/lucency"
+                    android:inputType="number"
+                    android:textColor="@color/new_color_primary"
+                    android:gravity="center_vertical"
+                    android:layout_centerVertical="true"
+                    android:maxLength="8"
+                    />
+
+                <TextView
+                    android:id="@+id/gather_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/red"
+                    android:text="需收取服务费￥"
+                    android:visibility="invisible"
+                    />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="可提现  ￥"
+                android:textSize="16sp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="18sp"
+                android:id="@+id/amount_tv" />
+
+
+            <TextView
+                android:id="@+id/all_amount_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="全部提现"
+                android:textSize="18sp"
+                android:textColor="@color/blue"
+                android:gravity="right"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/poundage_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text=""
+        android:textSize="15sp"
+        />
+
+
+
+    <Button
+        android:id="@+id/sure_apply_crash_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/affirmbutton3"
+        android:layout_marginTop="40dp"
+        android:text="确认提现"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        />
+    
+
+</LinearLayout>

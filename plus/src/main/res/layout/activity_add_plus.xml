@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            style="@style/layoutWrapMatchV"
+            android:clipToPadding="false"
+            android:fitsSystemWindows="true">
+
+            <RelativeLayout
+                android:id="@+id/layout_title"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/topbar_size"
+                android:background="@color/new_color_primary">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="添加车主卡"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:id="@+id/myassets_back_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="10dp"
+                    android:src="@drawable/icon_back" />
+            </RelativeLayout>
+
+            <LinearLayout style="@style/style_add_plus_item_layout">
+
+                <TextView
+                    style="@style/style_add_plus_item_text"
+                    android:text="    添加张数：" />
+
+                <EditText
+                    android:inputType="number"
+                    android:id="@+id/ed_count"
+                    style="@style/style_add_plus_item_edit"
+                    android:hint="请输入添加的数量" />
+            </LinearLayout>
+
+            <View style="@style/view_h_16_gray" />
+
+            <LinearLayout style="@style/style_add_plus_item_layout">
+
+                <TextView
+                    style="@style/style_add_plus_item_text"
+                    android:text="    是否免费：" />
+
+                <RadioGroup
+                    android:id="@+id/radio_group"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="8dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radioYes"
+                        style="@style/layoutWrapWrap"
+                        android:button="@drawable/selector_radio_green"
+                        android:text="  是"
+                        android:textColor="@color/new_color_primary" />
+
+                    <RadioButton
+                        android:id="@+id/radioNo"
+                        style="@style/layoutWrapWrap"
+                        android:layout_marginLeft="32dp"
+                        android:button="@drawable/selector_radio_green"
+                        android:checked="true"
+                        android:text="  否"
+                        android:textColor="@color/new_color_primary" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <View style="@style/view_h_16_gray" />
+
+            <LinearLayout
+                android:id="@+id/layout_single_price"
+                style="@style/style_add_plus_item_layout"
+                android:visibility="@{radioNo.checked?View.VISIBLE:View.GONE}">
+
+                <TextView
+                    style="@style/style_add_plus_item_text"
+                    android:text="单张卡费用：" />
+
+                <EditText
+                    android:inputType="number"
+                    android:id="@+id/ed_single_price"
+                    style="@style/style_add_plus_item_edit"
+                    android:hint="请输入单张卡费用" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/layout_single_price_view"
+                style="@style/view_h_16_gray"
+                android:visibility="@{radioNo.checked?View.VISIBLE:View.GONE}" />
+
+            <LinearLayout style="@style/style_add_plus_item_layout">
+
+                <TextView
+                    style="@style/style_add_plus_item_text"
+                    android:text="        有效期：" />
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    style="@style/style_add_plus_item_edit"
+                    android:gravity="center_vertical"
+                    android:text="" />
+            </LinearLayout>
+
+            <View style="@style/view_h_16_gray" />
+
+            <LinearLayout style="@style/style_add_plus_item_layout">
+
+                <TextView
+                    style="@style/style_add_plus_item_text"
+                    android:text="车主卡类型：" />
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:entries="@array/plus_type"
+                    android:gravity="center_vertical" />
+            </LinearLayout>
+
+            <View style="@style/view_h_16_gray" />
+
+            <LinearLayout
+                android:id="@+id/layout_scale"
+                style="@style/layoutWrapMatchV"
+                android:visibility="visible">
+
+                <LinearLayout style="@style/style_add_plus_item_layout">
+
+                    <TextView
+                        style="@style/style_add_plus_item_text"
+                        android:text="      1级比例：" />
+
+                    <SeekBar
+                        android:id="@+id/seek_scale_1"
+                        android:visibility="visible"
+                        style="@style/style_add_plus_item_edit"
+                        android:gravity="center_vertical" />
+
+                    <EditText
+                        android:id="@+id/ed_scale_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:inputType="number"
+                        android:maxLength="3"
+                        android:text="0"
+                        android:textColor="@color/plus_orange" />
+
+                    <TextView
+                        style="@style/layoutWrapWrap"
+                        android:layout_marginLeft="4dp"
+                        android:text="%"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <View style="@style/view_h_16_gray" />
+
+                <LinearLayout style="@style/style_add_plus_item_layout">
+
+                    <TextView
+                        style="@style/style_add_plus_item_text"
+                        android:text="      2级比例：" />
+
+                    <SeekBar
+                        android:id="@+id/seek_scale_2"
+                        style="@style/style_add_plus_item_edit"
+                        android:gravity="center_vertical" />
+
+                    <EditText
+                        android:id="@+id/ed_scale_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:inputType="number"
+                        android:maxLength="3"
+                        android:text="0"
+                        android:textColor="@color/plus_orange" />
+
+                    <TextView
+                        style="@style/layoutWrapWrap"
+                        android:layout_marginLeft="4dp"
+                        android:text="%"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <View style="@style/view_h_16_gray" />
+
+                <LinearLayout style="@style/style_add_plus_item_layout">
+
+                    <TextView
+                        style="@style/style_add_plus_item_text"
+                        android:text="      3级比例：" />
+
+                    <SeekBar
+                        android:id="@+id/seek_scale_3"
+                        style="@style/style_add_plus_item_edit"
+                        android:gravity="center_vertical" />
+
+                    <EditText
+                        android:id="@+id/ed_scale_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:inputType="number"
+                        android:maxLength="3"
+                        android:text="0"
+                        android:textColor="@color/plus_orange" />
+
+                    <TextView
+                        style="@style/layoutWrapWrap"
+                        android:layout_marginLeft="4dp"
+                        android:text="%"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <View style="@style/view_h_16_gray" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/layout_pay_price"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:visibility="visible"
+                android:layout_height="wrap_content">
+
+            <LinearLayout
+
+                style="@style/style_add_plus_item_layout">
+
+                <TextView
+                    style="@style/style_add_plus_item_text"
+                    android:text="    支付金额：" />
+
+                <TextView
+                    android:id="@+id/tv_price"
+                    style="@style/style_add_plus_item_edit"
+                    android:alpha="0.7"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textColor="@color/red" />
+            </LinearLayout>
+
+
+            <View style="@style/view_h_16_gray" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/layoutWrapMatchHR16L16"
+                android:layout_marginTop="16dp">
+
+                <TextView
+                    style="@style/layoutWrapWrap"
+                    android:text="本次最多可添加"
+                    android:textColor="@color/hint_gray" />
+
+                <TextView
+                    android:id="@+id/tv_alert_max_count"
+                    style="@style/layoutWrapWrap"
+                    android:text="10张"
+                    android:textColor="@color/plus_orange" />
+
+                <TextView
+                    style="@style/layoutWrapWrap"
+                    android:text="车主卡"
+                    android:textColor="@color/hint_gray" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/layoutWrapMatchHR16L16"
+                android:layout_marginTop="6dp"
+                android:visibility="@{radioNo.checked?View.VISIBLE:View.GONE}">
+
+                <TextView
+                    style="@style/layoutWrapWrap"
+                    android:text="单张卡费用最大为"
+                    android:textColor="@color/hint_gray" />
+
+                <TextView
+                    android:id="@+id/tv_alert_max_price"
+                    style="@style/layoutWrapWrap"
+                    android:text="¥100"
+                    android:textColor="@color/plus_orange" />
+                <TextView
+                    style="@style/layoutWrapWrap"
+                    android:text=" 最小为"
+                    android:textColor="@color/hint_gray" />
+                <TextView
+                    android:id="@+id/tv_alert_mix_price"
+                    style="@style/layoutWrapWrap"
+                    android:text="¥0"
+                    android:textColor="@color/plus_orange" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/layoutWrapMatchHR16L16"
+                android:layout_marginTop="6dp">
+
+                <TextView
+                    style="@style/layoutWrapWrap"
+                    android:text="3级分销返佣比例总和不能超过"
+                    android:textColor="@color/hint_gray" />
+
+                <TextView
+                    android:id="@+id/tv_alert_max_scale"
+                    style="@style/layoutWrapWrap"
+                    android:text="100%"
+                    android:textColor="@color/plus_orange" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/round_corner_new_color_primary"
+                android:text="立即生成卡片"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</layout>

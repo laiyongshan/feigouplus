@@ -1,0 +1,293 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion '25.0.2'
+
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
+
+
+    //签名 by jian 2017-5-2
+    signingConfigs {
+
+        release {
+            keyAlias 'yeoheplus'
+            keyPassword 'yeoheplus1026'
+            storeFile file('../jks/plus.jks')
+            storePassword 'yeoheplus1026'
+        }
+        debug {
+            keyAlias 'yeoheplus'
+            keyPassword 'yeoheplus1026'
+            storeFile file('../jks/plus.jks')
+            storePassword 'yeoheplus1026'
+        }
+
+    }
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
+    packagingOptions {
+        exclude 'META-INF/NOTICE' // will not include NOTICE file
+        exclude 'META-INF/LICENSE' // will not include LICENSE file
+        // as noted by @Vishnuvathsan you may also need to include
+        // variations on the file name. It depends on your dependencies.
+        // Some other common variations on notice and license file names
+        exclude 'META-INF/notice'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license'
+        exclude 'META-INF/license.txt'
+
+    }
+
+    defaultConfig {
+        applicationId "com.example.youhe.youhecheguanjiaplus"
+        minSdkVersion 15
+        targetSdkVersion 25
+
+        versionCode 50
+//        versionName "V2.3.4"
+        versionName "V2.4.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        externalNativeBuild {
+            cmake {
+                cppFlags "-fexceptions"
+            }
+        }
+    }
+
+
+    buildTypes {
+        debug {//by jian 2017-5-2
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+            manifestPlaceholders = [XG_ACCESS_ID: "2100263539", XG_ACCESS_KEY:"A595K7TGL6QG",baidu_api_key:"hA4LzuaKvZONIBxaizYosH7K88qmH2GO"]
+//            多app打包     Terminal输入命名行：gradlew assembleDebug
+//            applicationVariants.all { variant ->
+//                if (variant.buildType.name.equals('debug')) {
+//                variant.outputs.each { output ->
+//                    def outputFile = output.outputFile
+//                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+//                        def fileName = "android_v${defaultConfig.versionName}_${releaseTime()}_${variant.flavorName}.apk"
+//                        output.outputFile = new File(outputFile.parent, fileName)
+//                    }
+//                }
+//                }
+//            }
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            manifestPlaceholders = [XG_ACCESS_ID: "2100263539", XG_ACCESS_KEY:"A595K7TGL6QG",baidu_api_key:"hA4LzuaKvZONIBxaizYosH7K88qmH2GO"]
+
+            //            多app打包     Terminal输入命名行：gradlew assembleRelease  //by jian 2017-5-2
+//            applicationVariants.all { variant ->
+//                if (variant.buildType.name.equals('release')) {
+//                    variant.outputs.each { output ->
+//                        def outputFile = output.outputFile
+//                        if (outputFile != null && outputFile.name.endsWith('.apk')) {
+//                            def fileName = "android_v${defaultConfig.versionName}_${releaseTime()}_${variant.flavorName}.apk"
+//                            output.outputFile = new File(outputFile.parent, fileName)
+//                        }
+//                    }
+//                }
+//            }
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/maven/com.thoughtworks.xstream/xstream/pom.properties'
+        exclude 'META-INF/maven/com.thoughtworks.xstream/xstream/pom.xml'
+    }
+//
+//    sourceSets {
+//        //jian 2017-5-2
+////        main {
+////            jniLibs.srcDir 'libs'
+////        }
+//
+//        // Move the tests to tests/java, tests/res, etc...
+//        instrumentTest.setRoot('tests')
+//
+//        // Move the build types to build-types/<type>
+//        // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
+//        // This moves them out of them default location under src/<type>/... which would
+//        // conflict with src/ being used by the main source set.
+//        // Adding new build types or product flavors should be accompanied
+//        // by a similar customization.
+//        debug.setRoot('build-types/debug')
+//        release.setRoot('build-types/release')
+//    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs','src/main/jniLibs']
+        }
+    }
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+
+        maven { url "https://jitpack.io" }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+    }
+
+//    dependencies {
+//        compile 'com.github.sd6352051:NiftyNotification:1.2'
+//    }
+
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
+    dependencies {
+        compile 'com.github.sd6352051:NiftyDialogEffects:1.0.0'
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+
+    externalNativeBuild{
+        cmake{
+            path "CMakeLists.txt"
+        }
+    }
+
+
+    //    多app打包 //jian 2017-5-2
+//    productFlavors {
+////        友禾车管家
+//        cheguanjia {
+//            applicationId "com.example.youhe.youhecheguanjiaplus"
+//            signingConfig signingConfigs.youhecheguanjia
+//            manifestPlaceholders = [XG_ACCESS_ID: "2100257624", XG_ACCESS_KEY:"A187LPM8WY5K",baidu_api_key:"eGIhG16hG38FUSfoGdiF1DrX6kGMi7RF"]//信鸽配置
+//        }
+//        cheguanjiaplus {
+//            applicationId "com.example.youhe.youhecheguanjiaplus"
+//            signingConfig signingConfigs.cheguanjiaplus
+//            manifestPlaceholders = [XG_ACCESS_ID: "2100257624", XG_ACCESS_KEY:"A187LPM8WY5K",baidu_api_key:"eGIhG16hG38FUSfoGdiF1DrX6kGMi7RF"]//信鸽配置
+//        }
+//    }
+//    sourceSets { //jian 2017-5-2
+//        main {//友禾车管家
+//            manifest.srcFile 'src/main/AndroidManifest.xml'
+//            java.srcDirs = ['src/main/java']
+//            resources.srcDirs = ['src/main/java']
+//            aidl.srcDirs = ['src/main/aidl']
+//            renderscript.srcDirs = ['src/main/java']
+//            res.srcDirs = ['src/main/res']
+//            assets.srcDirs = ['src/main/assets']
+//            jniLibs.srcDirs = ['libs','src/main/jniLibs']
+//        }
+//
+//    }
+    dataBinding{
+        enabled =true
+    }
+
+}
+//jian 2017-5-2
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile files('libs/core.jar')
+    compile files('libs/pinyin4android1.0.jar')
+    compile files('libs/volley.jar')
+    compile files('libs/mobAPI-1.0.6.jar')
+    compile files('libs/MobCommons-2016.0727.1113.jar')
+    compile files('libs/MobTools-2016.0727.1113.jar')
+    compile('com.thoughtworks.xstream:xstream:1.4.7') {
+        exclude group: 'xmlpull'
+        exclude group: 'xpp3'
+    }
+    compile(name: 'libjoinpay-release', ext: 'aar')
+    compile files('libs/gson-2.6.2.jar')
+    compile files('libs/locSDK_6.12.jar')
+    compile files('libs/universal-image-loader-1.9.3.jar')
+    compile files('libs/baidumapapi_base_v3_6_0.jar')
+    compile files('libs/baidumapapi_map_v3_6_0.jar')
+    compile files('libs/baidumapapi_cloud_v3_6_0.jar')
+    compile files('libs/baidumapapi_radar_v3_6_0.jar')
+    compile files('libs/baidumapapi_search_v3_6_0.jar')
+    compile files('libs/baidumapapi_util_v3_6_0.jar')
+    compile files('libs/P84SDK_20161107_0950.jar')
+    compile files('libs/P84SDK_20161102_1250_YH.jar')
+    compile files('libs/js.jar')
+    //友盟
+    compile files('libs/SocialSDK_WeChat_Simplify.jar')
+    compile files('libs/SocialSDK_QQ_Simplify.jar')
+    compile files('libs/umeng_social_api.jar')
+    compile files('libs/umeng_social_net.jar')
+    compile files('libs/umeng_social_tool.jar')
+    testCompile 'junit:junit:4.12'
+    compile 'org.xutils:xutils:3.3.36'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'pub.devrel:easypermissions:0.1.7'
+    compile files('libs/jg_filter_sdk_1.1.jar')
+    compile files('libs/wup-1.0.0.E-SNAPSHOT.jar')
+    //    compile files('libs/Xg_sdk_v2.47_20161026_0936.jar')//jian 2017-5-2
+    compile files('libs/Xg_sdk_v3.1_20170417_0946.jar')
+    //jian 2017-5-2
+    compile files('libs/mid-core-sdk-3.7.2.jar')
+
+    //jian 2017-5-2
+
+    //    compile 'com.tencent.bugly:crashreport:latest.release' //jian 2017-5-5
+    compile 'com.tencent.bugly:nativecrashreport:latest.release'
+    //jian 2017-5-5
+
+    // 多dex配置
+
+    //    compile "com.android.support:multidex:1.0.1"
+
+    // 远程依赖集成方式（推荐）
+    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.android.support:support-v4:24.2.1'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.daimajia.androidanimations:library:1.0.3@aar'
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
+    compile 'com.squareup.okhttp:okhttp:2.4.0'
+    compile 'com.squareup.okio:okio:1.5.0'
+    compile 'com.android.support:design:25.3.1'
+
+    compile 'io.reactivex.rxjava2:rxjava:2.1.0'
+    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
+
+
+    compile 'com.android.support:multidex:1.0.1'
+}
+//App 虚拟内存分区 dex文件
+afterEvaluate {
+    tasks.matching {
+        it.name.startsWith('dex')
+    }.each { dx ->
+        if (dx.additionalParameters == null) {
+            dx.additionalParameters = []
+        }
+        dx.additionalParameters += '--set-max-idx-number=48000'
+    }
+}
+
+configurations {
+    compile.exclude module: 'baidumapapi_map_v3_6_0'
+    compile.exclude module:'gson'
+}
+
+// 依赖插件脚本
+apply from: 'tinker-support.gradle'

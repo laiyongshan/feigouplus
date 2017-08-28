@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="10dp"
+    >
+
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/gonggao"
+        android:layout_gravity="center_vertical"
+        android:scaleType="fitCenter"
+        />
+
+
+   <com.example.youhe.youhecheguanjiaplus.widget.MarqueeTextView
+       android:id="@+id/marqueeTv"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_gravity="center_vertical"
+       >
+   </com.example.youhe.youhecheguanjiaplus.widget.MarqueeTextView>
+
+
+
+</LinearLayout>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="false"
+    >
+
+    <RelativeLayout
+        android:id="@+id/lay"
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:background="@color/new_color_primary"
+        android:layout_height="@dimen/topbar_size">
+
+        <ImageButton
+            android:id="@+id/wangjimina_fanhuijian"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:onClick="fanhui"
+            android:layout_width="50dp"
+            android:clickable="true"
+            android:layout_height="40dp"
+            android:src="@drawable/left"
+            />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/title_size"
+            style="?android:attr/borderlessButtonStyle"
+            android:textColor="#FFFFFF"
+             />
+    </RelativeLayout>
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:id="@+id/myProgressBar"
+        android:layout_below="@id/lay"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+
+        />
+
+    <WebView
+        android:layout_below="@+id/myProgressBar"
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </WebView>
+
+
+</RelativeLayout>

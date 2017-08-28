@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="10dp"
+    >
+
+    <TextView
+        android:id="@+id/car_type_alpha"
+        android:layout_width="fill_parent"
+        android:layout_height="25dip"
+        android:background="@color/gray"
+        android:paddingBottom="2dip"
+        android:paddingLeft="13dip"
+        android:paddingTop="2dip"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/trading_type_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="车主卡收入"
+        android:textSize="15sp"
+        android:padding="2dp"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:paddingLeft="2dp"
+        >
+
+        <TextView
+            android:id="@+id/trading_from_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="源自:5656469769944664"
+            android:textSize="13sp"
+            android:layout_centerVertical="true"
+            android:textColor="#606060"
+            />
+
+        <TextView
+            android:id="@+id/trading_money_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+1000.00 元"
+            android:textSize="16sp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            />
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/trading_date_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="2017-07-08 08:12:11"
+        android:textSize="12sp"
+        android:paddingLeft="2dp"
+        />
+
+</LinearLayout>

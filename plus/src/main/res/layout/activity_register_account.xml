@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="false"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    >
+
+    <RelativeLayout
+        android:id="@+id/topBar"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/topbar_size"
+        android:background="@color/new_color_primary"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:text="精准查询注册"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title_size" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:id="@+id/register_account_back_img"
+            android:src="@drawable/icon_back" />
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp"
+            android:orientation="vertical"
+            >
+
+
+            <!--&lt;!&ndash;注册省份&ndash;&gt;-->
+            <!--<LinearLayout-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:background="@drawable/laybeijin"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:layout_marginBottom="5dp"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:layout_gravity="center_vertical"-->
+                    <!--android:textSize="16sp"-->
+                    <!--android:textColor="@color/black"-->
+                    <!--android:text="注册省份"-->
+                    <!--/>-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/province_tv"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center_vertical"-->
+                    <!--android:layout_marginLeft="15dp"-->
+                    <!--android:layout_marginRight="15dp"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:layout_marginBottom="5dp"-->
+                    <!--android:textSize="18sp"-->
+                    <!--android:lines="1"-->
+                    <!--android:hint="请选择注册省份"-->
+                    <!--android:drawableRight="@drawable/icon_xiala"-->
+                    <!--/>-->
+
+
+            <!--</LinearLayout>-->
+
+
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:background="@color/line_color"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--/>-->
+
+
+
+            <!--&lt;!&ndash;注册城市&ndash;&gt;-->
+            <!--<LinearLayout-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:background="@drawable/laybeijin"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:layout_marginBottom="5dp"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:layout_gravity="center_vertical"-->
+                    <!--android:textSize="16sp"-->
+                    <!--android:text="注册城市"-->
+                    <!--android:textColor="@color/black"-->
+                    <!--/>-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/city_tv"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center_vertical"-->
+                    <!--android:layout_marginLeft="15dp"-->
+                    <!--android:layout_marginRight="15dp"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:layout_marginBottom="5dp"-->
+                    <!--android:textSize="18sp"-->
+                    <!--android:lines="1"-->
+                    <!--android:hint="请选择注册城市"-->
+                    <!--android:drawableRight="@drawable/icon_xiala"-->
+                    <!--/>-->
+
+
+            <!--</LinearLayout>-->
+
+
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:background="@color/line_color"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--/>-->
+
+
+
+            <!--证件类型-->
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:background="@drawable/laybeijin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+
+                <TextView
+                    android:id="@+id/license_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="16sp"
+                    android:lines="1"
+                    android:hint="请选择证件类型"
+                    android:textColorHint="@color/new_color_primary"
+                    android:drawableRight="@drawable/icon_xiala"
+                    android:drawableLeft="@drawable/zhengjianleixing"
+                    android:drawablePadding="12dp"
+                    />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/new_color_primary"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                />
+
+
+            <!--身份证明号码-->
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:background="@drawable/laybeijin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                >
+
+
+                <EditText
+                    android:id="@+id/id_num_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:background="@color/lucency"
+                    android:hint="请输入身份证明号码"
+                    android:textColorHint="@color/new_color_primary"
+                    android:textSize="16sp"
+                    android:drawableLeft="@drawable/zhanghao"
+                    android:drawablePadding="12dp"
+                    />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/new_color_primary"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                />
+
+
+            <!--姓名-->
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:background="@drawable/laybeijin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:weightSum="6"
+                >
+
+
+                <EditText
+                    android:id="@+id/id_name_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="4"
+                    android:background="@color/lucency"
+                    android:hint="请输入姓名"
+                    android:textColorHint="@color/new_color_primary"
+                    android:textSize="16sp"
+                    android:drawableLeft="@drawable/icon_username"
+                    android:drawablePadding="12dp"
+                    />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/new_color_primary"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                />
+
+
+
+            <!--&lt;!&ndash;手机号码&ndash;&gt;-->
+            <!--<LinearLayout-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:background="@drawable/laybeijin"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:weightSum="6"-->
+                <!--&gt;-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="68dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:layout_marginBottom="5dp"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:layout_gravity="center_vertical"-->
+                    <!--android:textSize="16sp"-->
+                    <!--android:text="手机号码"-->
+                    <!--android:gravity="right"-->
+                    <!--android:textColor="@color/black" />-->
+
+                <!--<EditText-->
+                    <!--android:id="@+id/user_phone_et"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="15dp"-->
+                    <!--android:layout_weight="4"-->
+                    <!--android:inputType="number"-->
+                    <!--android:maxLength="11"-->
+                    <!--android:background="@color/lucency"-->
+                    <!--android:hint="请输入手机号码"-->
+                    <!--android:textSize="16sp"-->
+                    <!--/>-->
+
+            <!--</LinearLayout>-->
+
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:background="@color/line_color"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--/>-->
+
+
+            <!--密码-->
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:background="@drawable/laybeijin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:weightSum="6"
+                >
+
+
+                <EditText
+                    android:id="@+id/id_psw_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="4"
+                    android:inputType="textPassword"
+                    android:background="@color/lucency"
+                    android:hint="请输入密码"
+                    android:textColorHint="@color/new_color_primary"
+                    android:textSize="16sp"
+                    android:drawableLeft="@drawable/icon_psw"
+                    android:drawablePadding="12dp"
+                    />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/new_color_primary"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                />
+
+            <!--确认密码-->
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:background="@drawable/laybeijin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:weightSum="6"
+                >
+
+                <EditText
+                    android:id="@+id/id_agine_psw_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="4"
+                    android:inputType="textPassword"
+                    android:background="@color/lucency"
+                    android:hint="请再次输入密码"
+                    android:textColorHint="@color/new_color_primary"
+                    android:textSize="16sp"
+                    android:drawableLeft="@drawable/icon_psw"
+                    android:drawablePadding="12dp"
+                    />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/new_color_primary"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                />
+
+
+            <RelativeLayout
+                android:layout_above="@+id/pay"
+                android:layout_marginBottom="1dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/laybeijin"
+                android:gravity="center_vertical"
+                android:layout_marginTop="10dp"
+                >
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/isread_cb"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentLeft="true"
+                    android:checked="true"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="阅读并同意"
+                    android:id="@+id/tv1"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/isread_cb"
+                    android:layout_toEndOf="@+id/isread_cb"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="1dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="《授权服务协议》"
+                    android:id="@+id/register_sevice_tv"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/tv1"
+                    android:layout_toEndOf="@+id/tv1"
+                    android:textColor="@drawable/textselector"
+                    android:layout_marginLeft="1dp"
+                    />
+
+            </RelativeLayout>
+
+
+            <Button
+                android:id="@+id/register_next1_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="下 一 步"
+                android:background="@drawable/affirmbutton3"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:layout_marginTop="20dp"
+                />
+
+
+            <TextView
+                android:id="@+id/register_account_erro_msg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/zhuyi"
+                android:drawablePadding="10dp"
+                android:layout_marginTop="15dp"
+                android:visibility="invisible"
+                android:textColor="@color/red"
+                />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

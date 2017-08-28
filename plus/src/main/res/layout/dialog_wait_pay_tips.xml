@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="10dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:minHeight="100dp"
+    android:minWidth="400dp"
+    android:gravity="center"
+    >
+
+    <TextView
+        android:id="@+id/wai_pay_tips_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_wait_pay_tips"
+        android:textSize="16sp"
+        android:paddingTop="10dp"
+        android:gravity="left"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        >
+
+
+        <TextView
+            android:id="@+id/wait_pay_dialog_sure_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="确定"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="@color/blue"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

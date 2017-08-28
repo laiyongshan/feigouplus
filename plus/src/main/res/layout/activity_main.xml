@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="false"
+   >
+    <!-- 存放主要页面内容 -->
+
+      <FrameLayout
+           android:id="@+id/maincontent"
+             android:layout_width="fill_parent"
+             android:layout_height="0dp"
+             android:layout_weight="1"
+          >
+         </FrameLayout>
+
+         <!-- 底层菜单 -->
+         <com.example.youhe.youhecheguanjiaplus.widget.SavFragmentTabHost
+             android:id="@android:id/tabhost"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="1dp"
+             android:padding="2dp"
+              >
+
+             <FrameLayout
+                 android:id="@android:id/tabcontent"
+                 android:layout_width="0dp"
+                 android:layout_height="0dp"
+                 android:layout_weight="0" >
+             </FrameLayout>
+         </com.example.youhe.youhecheguanjiaplus.widget.SavFragmentTabHost>
+
+    </LinearLayout>

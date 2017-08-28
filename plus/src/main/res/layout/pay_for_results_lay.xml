@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+        <LinearLayout
+
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.example.youhe.youhecheguanjiaplus.widget.DrawHookView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_above="@+id/text"
+                android:layout_marginBottom="10dp"
+                android:layout_centerInParent="true">
+            </com.example.youhe.youhecheguanjiaplus.widget.DrawHookView>
+
+            <TextView
+                android:id="@+id/text"
+                android:layout_above="@+id/text2"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#a0a0a0"
+                android:text=""
+                android:textSize="20sp"
+                android:layout_marginBottom="10dp"
+                />
+
+
+            <TextView
+                android:id="@+id/text2"
+                android:layout_marginBottom="15dp"
+                android:layout_above="@+id/textdoll"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#a0a0a0"
+                android:text="您已付款成功,若想查看订单详情,请查看我的订单"
+                android:textSize="13sp"
+                />
+
+            <TextView
+                android:id="@+id/textdoll"
+                android:layout_above="@+id/denglijian"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:textSize="30sp"
+                android:text=""
+                />
+
+        </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/denglijian"
+        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/affirmbutton2"
+            />
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="完成"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            />
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

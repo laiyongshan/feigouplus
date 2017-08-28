@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:id="@+id/plus_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="2dp"
+        android:background="@color/white"
+        android:clipChildren="false"
+        android:fitsSystemWindows="false"
+        android:orientation="vertical">
+        <!--FAFBFD-->
+        <RelativeLayout
+            android:id="@+id/layout_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/topbar_size"
+            android:layout_alignParentTop="true"
+            android:background="@color/new_color_primary">
+
+            <ImageView
+                android:id="@+id/image_auto_refresh"
+                android:layout_width="35dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:clickable="true"
+                android:src="@mipmap/ic_auto_refresh" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/plus_title"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/image_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:clickable="true"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:src="@drawable/shaixuan" />
+        </RelativeLayout>
+
+        <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            android:layout_marginTop="45dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/layout_no"
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginTop="45dp"
+            android:background="@drawable/round_corner_white3"
+            android:gravity="center"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/image_no"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/meiyouneirong" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/image_no"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="12dp"
+                android:lineSpacingExtra="6dp"
+                android:text="没有车主卡记录\n请您点击下方添加"
+                android:textColor="@color/hint_gray"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_share"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/text_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:clickable="true"
+                    android:drawableLeft="@drawable/selector_share"
+                    android:drawablePadding="8dp"
+                    android:enabled="true"
+                    android:text="分享"
+                    android:textColor="@drawable/selector_share_text"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/text_QR"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:clickable="true"
+                    android:drawableLeft="@drawable/erweima"
+                    android:drawablePadding="8dp"
+                    android:text="二维码"
+                    android:textColor="@drawable/selector_share_text"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/text_copy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="32dp"
+                    android:clickable="true"
+                    android:drawableLeft="@drawable/selector_copy"
+                    android:drawablePadding="8dp"
+                    android:text="复制"
+                    android:textColor="@drawable/selector_share_text"
+                    android:textSize="17sp" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/text_show_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="查看更多"
+                android:layout_marginTop="8dp"
+                android:layout_gravity="center"
+                android:clickable="true"
+                android:textSize="17sp"
+                android:textColor="@color/new_color_primary"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/layout_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            android:visibility="invisible">
+
+            <ImageView
+                android:id="@+id/image_first"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:src="@drawable/first" />
+
+            <TextView
+                android:id="@+id/text_page"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:text="1/50"
+                android:textColor="@color/black"
+                android:textSize="17sp" />
+
+            <ImageView
+                android:id="@+id/image_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:src="@drawable/end" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/round_corner_new_color_primary_16"
+            android:clickable="true"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="增加车主卡"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+</layout>

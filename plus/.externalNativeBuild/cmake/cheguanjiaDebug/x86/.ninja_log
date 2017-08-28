@@ -1,0 +1,4 @@
+# ninja log v5
+1	355	0	CMakeFiles/native-lib.dir/src/main/cpp/Md5.cpp.o	6c18b9b7e39b595d
+7	371	0	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	c3cf17ce1f217fe
+371	645	0	../../../../build/intermediates/cmake/cheguanjia/debug/obj/x86/libnative-lib.so	dcc610a652ba1abd

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    >
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/illegal_list_layout"/>
+        <include layout="@layout/activity_no_illegal"/>
+
+
+        <RelativeLayout
+            android:id="@+id/commit_layout"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:background="@color/white"
+            android:paddingLeft="15dp"
+            android:paddingBottom="10dp"
+            android:layout_gravity="bottom">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/yingfu_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#606060"
+                    android:textSize="16sp"
+                    android:text="共计费用"
+                    android:layout_marginRight="3dp"
+                    />
+
+                <TextView
+                    android:id="@+id/totalprice_tv1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/red"
+                    android:textSize="23sp"
+                    android:text="待报价"
+                    android:layout_toRightOf="@id/yingfu_tv"
+                    />
+
+                <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textColor="#606060"-->
+                <!--android:textSize="18sp"-->
+                <!--android:text="元"-->
+                <!--android:layout_toRightOf="@id/totalprice_tv1"-->
+                <!--android:layout_marginLeft="3dp"-->
+                <!--/>-->
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#303030"
+                    android:textSize="14sp"
+                    android:text="服务须知"
+                    android:drawableLeft="@drawable/wenhao_01"
+                    android:drawablePadding="5dp"
+                    android:id="@+id/payment_instructions_tv"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#303030"
+                    android:textSize="13sp"
+                    android:text="已选"
+                    android:drawablePadding="5dp"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/count_illegal_choose_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/blue"
+                    android:textSize="18sp"
+                    android:text=""
+                    android:drawablePadding="5dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#303030"
+                    android:textSize="13sp"
+                    android:text="条"
+                    android:drawablePadding="5dp"
+                    />
+
+            </LinearLayout>
+
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="缴费说明"-->
+            <!--android:id="@+id/yuanjia_tv"-->
+            <!--android:textSize="16sp"-->
+            <!--android:drawableLeft="@drawable/wenhao_01"-->
+            <!--android:paddingTop="5dp"-->
+            <!--android:drawablePadding="5dp"-->
+            <!--android:layout_below="@+id/totalprice_tv"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_alignParentStart="true" />-->
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="提交订单"
+                android:textColor="@color/white"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:id="@+id/commitOrder_btn"
+                android:background="@drawable/tijiao_bg"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+
+        <include layout="@layout/activity_no_illegal"/>
+    </FrameLayout>
+
+</LinearLayout>

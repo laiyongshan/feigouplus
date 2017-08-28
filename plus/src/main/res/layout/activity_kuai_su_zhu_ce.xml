@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="2dp"
+    android:background="@color/white"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/make_sure_register"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_height="@dimen/topbar_size"
+            android:background="@color/new_color_primary"
+            android:gravity="center_vertical"
+            >
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="手机验证码登录"
+                android:textSize="@dimen/title_size"
+                android:textColor="@color/white"
+                android:id="@+id/textView"
+                android:layout_centerInParent="true"
+                />
+
+            <ImageButton
+                android:id="@+id/wangjimina_fanhuijian"
+                android:onClick="fanhui"
+                android:clickable="true"
+                android:layout_width="40dp"
+                android:layout_height="50dp"
+                android:src="@drawable/icon_back"
+                android:background="@color/lucency"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true" />
+        </RelativeLayout>
+
+        <!--<RelativeLayout-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+            <!--<ImageView-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@drawable/logo"-->
+                <!--/>-->
+        <!--</RelativeLayout>-->
+
+        <!--请输入手机号码-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="20dp"
+            android:orientation="vertical"
+            android:layout_marginRight="20dp"
+            >
+
+           <com.example.youhe.youhecheguanjiaplus.widget.ClearEditText
+                android:id="@+id/et_shouji"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:phoneNumber="true"
+                android:hint="@string/edit_phone_num"
+                android:textSize="16sp"
+                android:drawableLeft="@drawable/icon_phone"
+                android:drawablePadding="20dp"
+                android:textColorHint="#a0a0a0"
+                android:textColor="@color/new_color_primary"
+               android:layout_marginLeft="20dp"
+               android:background="@color/white"
+               android:maxLength="11"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/new_color_primary"
+                android:layout_marginTop="5dp"
+                />
+
+
+        <!--请输入验证码-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center_vertical"
+            >
+
+
+            <EditText
+                android:id="@+id/et_yanzhenmima"
+                style="@style/EditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:drawableLeft="@drawable/icon_yzm"
+                android:drawablePadding="20dp"
+                android:hint="@string/edit_auth_code"
+                android:inputType="number"
+                android:textColor="@color/new_color_primary"
+                android:textColorHint="#a0a0a0"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="20dp"
+                android:background="#a0a0a0"
+                />
+
+            <com.example.youhe.youhecheguanjiaplus.widget.TimeButton
+                android:id="@+id/button1"
+                android:layout_centerVertical="true"
+                android:onClick="yanZhenMa"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:padding="5dp"
+                android:background="@drawable/affirmbutton2"
+                android:layout_width="wrap_content"
+                android:layout_height="25sp"
+                android:text=""
+                android:textSize="12sp"
+                android:textColor="#FFFFFF"
+                />
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/new_color_primary"
+            android:layout_marginTop="5dp"
+            />
+        </LinearLayout>
+
+        <!--登录-->
+
+        <RelativeLayout
+            android:id="@+id/denglijian"
+            android:onClick="denglu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            >
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@drawable/affirmbutton2"-->
+                <!--/>-->
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/login"
+                android:background="@drawable/affirmbutton3"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                />
+        </RelativeLayout>
+        <!--<Button-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/denglijian"-->
+            <!--android:layout_marginLeft="40dp"-->
+            <!--android:layout_marginRight="40dp"-->
+            <!--android:layout_marginTop="50dp"-->
+            <!--android:background="@drawable/loginbutton"-->
+             <!--/>-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="遇到问题？你可以"
+            />
+            <TextView
+                android:id="@+id/contact_service_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="联系客服"
+                android:textColor="@color/blue"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

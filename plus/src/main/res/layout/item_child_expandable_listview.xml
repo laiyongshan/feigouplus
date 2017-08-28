@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@mipmap/child_account_bg"
+    android:id="@+id/child_expandable_layout"
+    android:weightSum="4"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginTop="10dp"
+    android:paddingLeft="30dp"
+    >
+
+
+    <TextView
+        android:id="@+id/carnum_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_weight="1"
+        android:textSize="15sp"
+        android:gravity="center_vertical"
+        android:text=""
+        android:layout_marginTop="5dp"
+        />
+
+
+    <TextView
+        android:id="@+id/car_vin_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#808080"
+        android:layout_weight="1"
+        android:textSize="16sp"
+        android:gravity="center_vertical"
+        android:text=""
+        android:layout_marginTop="3dp"
+        />
+
+
+    <TextView
+        android:id="@+id/car_engine_no_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#808080"
+        android:layout_weight="1"
+        android:textSize="16sp"
+        android:gravity="center_vertical"
+        android:text=""
+        android:layout_marginTop="3dp"
+        />
+</LinearLayout>

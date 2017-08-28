@@ -1,0 +1,512 @@
+<resources>
+    <string name="app_name">飞狗Plus</string>
+    <string name="main_title">飞狗Plus</string>
+    <string name="plus_title">车主卡</string>
+    <string name="plus_invite">邀请码</string>
+    <string name="scan_tips">将二维码图片对准扫描框即可自动扫描</string>
+    <string name="tips">您尚未添加违章查询的车辆，\n系统无法判断您是否有违章需要办理</string>
+    <string name="exit">确定退出飞狗Plus吗？</string>
+    <string name="apptype">1</string>
+    <string name="xieyi">《飞狗Plus用户服务协议》</string>
+
+    <string name="packagename">com.example.youhe.youhecheguanjiaplus</string>
+
+
+    <string name="platinum_creditCar_str">白金信用卡 20万额度秒批</string>
+    <string name="youth_loan_str">最高额度5万 最快5分钟放款</string>
+    <string name="apply_credit_card_title">在线申请信用卡</string>
+    <string name="apply_credit_card_tips">国内20几家银行信用卡在线申请</string>
+
+    <string name="go_to_122"><u>未有密码？点击注册122官网</u></string>
+
+    <!--添加车辆-->
+    <string name="addcar_tips">所填信息为当地交管局查询所需，您的车辆信息\n我们将严格保密,请放心填写</string>
+    <string name="addcar_tips2">点击查看</string>
+    <string name="message_tips">开通新违章消息通知服务</string>
+    <string name="save_check">保存并查询</string>
+    <string name="save">保存</string>
+    <string name="deletecar">删除车辆，您车辆相关记录将彻底删除(包括历史违章信息),且不能恢复，请慎重操作！</string>
+    <string name="delete">删除车辆</string>
+    <string name="cancel">取消</string>
+    <string name="add_info">补充资料</string>
+    <string name="shezhe">设置</string>
+    <string name="add_info_tips">根据交通管理局的违章处理要求，您如若需要下单处理，则需要补充此车车主的行驶证、驾驶证等相关资料。</string>
+    <string name="major_violation_tips">根据交通管理局的违章处理要求，您如若需要下单处理，则需要提供此车车主相关的驾照信息。</string>
+    <string name="remin_user_add_info_tips">若修改车牌号码，请点击车主资料修改相关信息</string>
+    <string name="remin_user_photo_tips1">1. 特别注意：请拍照时确保证件边缘完整并且字体清晰可辨认的拍入照片内，否则将造成无法办理,敬请理解</string>
+    <string name="remin_user_photo_tips2">2. 请提供清晰的图片，拍照时请防止反光;\n3. 照片模糊和字体无法清晰辨识的将可能造成无法办理,敬请理解。</string>
+    <string name="upload_file_help_tips">1.根据交通管理局的违章处理要求，您如若需要下单处理，则需要补充此车车主的行驶证或驾驶证等相关资料;
+        \n\n2.请提供清晰的图片，拍照时请防止反光;\n\n3.图片模糊或字体无法清晰辨认的将可能造成无法办理的情况;\n\n4.行驶证信息仅用于认证，我们将为您严格保密。</string>
+    <string name="driving_license_phone_number_tips">请提供驾照办理时登记的手机</string>
+    <string name="add_major_violation_tips">请对照本人驾照核对填写信息</string>
+    <string name="dialog_add_major_tips">您尚未添加过驾驶证信息，是否马上添加</string>
+    <string name="dialog_commit_tips">未选择任何违章或违章已全部提交，用户可以到主界面的\"订单查询\"页面中查看</string>
+    <string name="dialog_commit12_tips">您提交的订单中含有 12分 待报价订单，处理12分特殊订单需要邮寄车主本人的行驶证原件方可办理，具体地址稍后会有客服人员与您联系，办理时长需要2—4周时间，请客户知悉，是否继续提交？</string>
+    <string name="dialog_commit_fujian_tips"> \"闽\" 牌福建车辆或者"苏E"牌车辆订单,需要邮寄车主本人的行驶证原件方可办理,具体地址稍后会有客服人员与您联系,办理时长需要2—4周时间，请客户知悉，是否继续提交？</string>
+    <string name="dialog_wait_pay_tips">待报价订单，客服人员将在一个工作日内为您报价,报价后,用户可到订单查询的未支付页面中查看并选择支付。</string>
+    <string name="dialog_types_order_tips">您的订单中包含有普通订单和待报价订单，用户可先行支付普通订单，对于待报价订单客服人员将在一个工作日内为您报价，报价后,用户可到订单查询的未支付页面选择支付。</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
+    <string name="add_major_tips">尚未添加驾驶证信息\n无法使用本人本车模式办理违章哦</string>
+    <string name="add_major_tips2">1.本人本车代办模式下，需提供当前车辆车主本人的驾照信息;\n2.添加后，您将可以直接在本平台中处理车辆违章。</string>
+    <string name="can_not_pick">该城市不支持挑选违章处理，需要提交全部违章方可接收办理</string>
+
+
+    <!--账号查询-->
+    <string name="carowner_user">在本地拥有机动车且在办理机动车业务是填写的手机号与现有手机号码相同的个人用户，可以进行网上注册</string>
+    <string name="driver_user">在本地拥有驾驶证且在办理驾驶证申领业务是填写的手机号码与现有的手机号码相同的个人用户，可进行网上注册</string>
+    <string name="bin_veh_tips">用户只能绑定本人名下的机动车</string>
+    <string name="alipay_authent">去支付宝登录后授权验证</string>
+    
+    <!--车辆年检-->
+    <string name="commission_title">年检代办流程</string>
+    <string name="commission1">支付订单(填写年检订单并支付)</string>
+    <string name="commission2">上门收件(支付后快递上门收取资料)</string>
+    <string name="commission3">证件年审(资料审核无误后交由车管所办理年审)</string>
+    <string name="commission4">确认收件(收到资料后对资料进行审核)</string>
+    <string name="commission5">处理完成(年审完成，寄回年审资料、年检和环保标志)</string>
+
+    <string name="commission_title2">六年内汽车年检业务代办</string>
+    <string name="commission6">车辆符合六年免检条件</string>
+    <string name="commission7">车辆必须是7座以下（不含7座）的非营运车辆</string>
+
+    <string name="commission_title3">办理年检前，需准备以下材料并交给收件人员</string>
+    <string name="commission8">以上资料缺一不可，否则无法办理，若客户有提前购买保险，请将新旧两张保单交强险副本原件一并寄出</string>
+    <string name="commission9">· 行驶证原件\n· 有效交强险副本单原件\n· 有效车船税原件\n· 身份证复印件\n· 车辆登记证复印件</string>
+
+    <string name="annual_hint1">请选择省份前缀</string>
+    <string name="annual_hint2">请输入车牌号码</string>
+    <string name="annual_hint3">请输入车身架号</string>
+    <string name="annual_hint4">请输入发动机号</string>
+    <string name="annual_hint5">请选择年审日期</string>
+    <string name="annual_hint6">请输入车主姓名</string>
+    <string name="annual_hint7">请输入车主手机号码</string>
+    <string name="annual_hint8">请输入您的收件地址</string>
+    <string name="annual_hint9">请输入车主身份证后4位</string>
+
+
+
+    <!--提交详情-->
+    <string name="illegalAdd">违章地点：</string>
+    <string name="illegalContent">违章内容：</string>
+    <string name="illegalTime">违章时间：</string>
+    <string name="nowState">当前状态：</string>
+    <string name="illegalmoney">罚款金额：</string>
+    <string name="koufen">扣分情况：</string>
+    <string name="illegalpeple">服  务  费：</string>
+    <string name="latefee">滞  纳  金：</string>
+    <string name="handleremark">处理说明：</string>
+    <string name="illegalguangbo">提交后，友车将在7个工作日内为您办理</string>
+    <string name="illegaltips">可缴费违章</string>
+    <string name="usediscount">使用优惠券</string>
+    <string name="no_illegal">没有相关类型违章。</string>
+    <string name="specia_illegal_tips">下列待报价处理违章暂无实时报价，
+        我们将在您提交订单后工作日24小时之内给出报价并有专门客服通知您，办理时长需要3个星期。</string>
+
+    <string name="tips12">
+        1. 超证悉知：周期一年以内已经使用过三本证为同一台车处理后，后续需要再处理简称超证，对于超证服务可能需要用户补缴费用，将有客服人员与用户联系，敬请须知；\n\n
+        2. 对于待报价的订单，用户可先提交，待报价之后在订单查询的未支付页面中选择支付；\n\n
+        3. 未支付的订单只为用户保留1天时间，不便之处，敬请原谅；\n\n
+        4. 12分特殊处理订单需要邮寄车主行驶证原件和交强险原件，办理时长需要2-4个星期，请用户知悉。
+    </string>
+
+    <string name="user_konw">
+        一、订单说明：\n
+         1. 付款成功后请勿通过其他渠道重复处理，产生的纠纷不作退款。\n
+         2. 周期一年以内已经使用过三本证为同一台车处理后，后续需要再处理简称<u>超证</u>。\n\n
+        二、 以下情况可能会产生订单金额外的<u>补款费用</u>，届时客服会联系您商议补款相关事宜，敬请留意：\n
+                1. 车辆发生<u>超证</u>或<u>0分0罚款</u>违章\n
+                2. 车辆在机场路段违章\n
+                3. 公司车0分订单\n
+                4. 粤X Y E字母开头车牌在外省违章\n
+                5. 提交的违章与实际处理违章罚款金额不一致
+    </string>
+
+    <string name="service_call">如果仍未能解决您的疑问，请及时联系我们</string>
+    <string name="network_request_error">无法连接到网络，请重新加载！</string>
+    <string name="reload">刷新看看</string>
+    <string name="commission_type">代办类型</string>
+    <string name="owner_car_commission">本人本车代办</string>
+    <string name="no_owner_car_commission">非本人本车代办</string>
+
+
+    <!--支付订单-->
+    <string name="orderMesage">订单信息</string>
+    <string name="yuepay">使用友禾车管家余额支付：</string>
+    <string name="paytips">由于各银行的单日，单笔交易会有最高限额。\n如订单超过支付限额，请分批提交缴费订单哦~</string>
+    <string name="isread">点击"注册"，即表示同意</string>
+    <string name="paynow">立即支付</string>
+
+    <!--首页-->
+    <string name="nologintips">登录后车辆信息永不丢失，并为您推荐精准服务哦~</string>
+    <string name="apply_card_title">信用卡申请</string>
+
+    <string name="oilprice_api_title_province">省份</string>
+    <string name="oilprice_api_title_dieselOil0">0号</string>
+    <string name="oilprice_api_title_gasoline90">89号</string>
+    <string name="oilprice_api_title_gasoline93">92号</string>
+    <string name="oilprice_api_title_gasoline97">95号</string>
+
+    <string name="err_net">网络连接错误，请检查网络连接设置</string>
+    <string name="error_raise">发现异常,请刷新重试！</string>
+
+    <string name="choose_device_tips">提示：\n请确认手机蓝牙和设备蓝牙已经打开</string>
+    <string name="notImplementFunction">暂未是先此功能!</string>
+    <string name="insert_data_wait_str">正在处理数据信息，请稍候！</string>
+    <string name="notif_no_init">刷卡器还未个人化，不能正常使用！</string>
+    <string name="timeout">数据接收超时，请重试！</string>
+    <string name="cardNum_error">卡号信息有误，请重新刷卡！</string>
+    <string name="amount_type_RMB">元</string>
+    <string name="psw_length_error">密码应该由6位数字组成，请检测！</string>
+    <string name="longtime_no_touch">由于长时间不操作，为了保护您的交易密码安全，已清除数据信息，请重新输入！</string>
+    <string name="no_implement_func">暂未实现的功能，请点击  余额查询  执行相应功能！</string>
+    <string name="card_count_beyond">绑定的卡数量已达到上限！</string>
+    <string name="pop_notice">提示</string>
+    <string name="main_nullify_str">注销</string>
+    <string name="main_bluetooth_str">蓝牙</string>
+    <string name="app_ok">确定</string>
+    <string name="app_cancel">取消</string>
+    <string name="app_back">返回</string>
+    <string name="app_next">下一步</string>
+    <!-- top_linear -->
+    <string name="last_str">last</string>
+    <string name="next_str">next</string>
+    <string name="title_str">title</string>
+
+
+    <!--登录注册-->
+    <string name="edit_phone_num">请输入手机号</string>
+    <string name="edit_password">请填写密码</string>
+    <string name="edit_password2">请输入6~16位字母数字组合</string>
+    <string name="edit_password3">请再次确认密码</string>
+    <string name="login">登    录</string>
+    <string name="register">快速注册</string>
+    <string name="auth_login">手机验证码登录</string>
+    <string name="forget_password">忘记密码?</string>
+    <string name="edit_auth_code">请输入验证码</string>
+    <string name="make_sure_register">请在登录前确认该手机账号是否已经注册</string>
+    <string name="edit_user_name">请输入您的名字</string>
+    <string name="edit_plus_name">请输入车主卡号码</string>
+    <string name="edit_plus_name_honour">请输入尊享卡号</string>
+    <string name="edit_plus_name_invitation">请输入邀请码</string>
+    <string name="edit_user_idcard_num">请输入您的身份证号码</string>
+    <string name="machine_serial_number">请先获取机器序列号</string>
+
+    <string name="add_bankcard_tips">请确保姓名、身份证、银行卡开户人为同一个人</string>
+    <string name="add_bankcard_tips2">Tips\n请填写真实信息才能提现\n仅支持储蓄卡，请不要填写信用卡\n绑定62开头，有银联标识的储蓄卡，提现更及时</string>
+
+    <!-- MainActivity -->
+    <string name="main_next_text">绑卡查询</string>
+    <string name="main_notif_dubi">激活失败，请打开声音设置，检查是否有特殊音效开启，如果有请先关闭再重新激活！</string>
+    <string name="pos_info_obtain">正在获取终端信息，请稍候！</string>
+    <string name="pos_info_length_error">终端信息信息获取失败！</string>
+    <string name="main_notif_sure">初始化完成，为了保证您能安心使用，运行此软件期间请不要拔出刷卡器，(*^__^*)！</string>
+    <string name="main_notif_pairing">正在配对检测，请稍候！</string>
+    <string name="main_notif_pair_success">刷卡器检测配对成功！</string>
+    <string name="main_notif_pair_fail">刷卡器检测配对失败,请检查刷卡器是否已插好并重试！</string>
+    <string name="main_title_friendly">温馨提示</string>
+    <string name="main_btn_activate">激活</string>
+    <string name="main_notif_need_activate">认证条件不满足，需要激活！</string>
+    <string name="main_notif_activating">正在激活，请稍候！</string>
+    <string name="main_notif_reset_activate">激活失败，请重新激活！</string>
+    <string name="main_btn_network">打开网络</string>
+    <string name="main_notif_no_network">当前网络不可用，请先设置网络！</string>
+    <string name="main_notif_init_caCer">正在初始化CA根证书，请稍候！</string>
+    <string name="main_toast_caCer_success">CA根证书获取成功！</string>
+    <string name="main_notif_init_serverCer">正在初始化服务端证书，请稍候！</string>
+    <string name="main_toast_serverCer_success">服务端证书获取成功！</string>
+    <string name="main_notif_init_clientCer">正在初始化终端证书，请稍候！</string>
+    <string name="main_toast_clientCer_success">终端证书获取成功！</string>
+    <!--
+    <string name="main_btn_check">自检</string>
+	<string name="main_btn_again_check">重新自检</string>
+	<string name="main_notif_no_pos_check">为了保护您的正常使用，请先进行自检！</string>
+	<string name="main_notif_pos_check_timeout">自检操作超时，请重新操作！</string>
+	<string name="main_notif_pos_checking">正在进行POS自检，请稍候！</string>
+	<string name="main_notif_pos_check_success">POS自检通过！</string>
+    -->
+    <string name="main_notif_pos_check_fail">抱歉，终端自检失败，不能进行正常交易！</string>
+    <string name="main_btn_auth">认证</string>
+    <string name="main_notif_auth_safety">正在进行安全性认证，请稍候！</string>
+    <string name="main_notif_no_auth">终端未认证，请先进行认证！</string>
+    <string name="main_notif_auth_info">正在获取认证信息，请稍候！</string>
+    <string name="main_notif_auth_info_success">认证信息获取成功！</string>
+    <string name="main_notif_auth_info_fail">认证信息获取失败,请重新获取！</string>
+    <string name="main_notif_auth_info_timeout">认证信息获取超时,请重新操作！</string>
+    <string name="main_toast_auth_safety_success">终端认证成功！</string>
+    <string name="main_toast_auth_safety_fail">终端认证失败！</string>
+    <string name="main_btn_again_auth_safety">重新认证</string>
+    <string name="main_sure_exit">确定退出应用程序？</string>
+    <string name="main_menu_posinfo_str">终端信息</string>
+    <string name="main_menu_cardCount_str">修改数量</string>
+    <string name="main_initState_device_check">正在检测设备个人化状态，请稍候！</string>
+    <string name="main_init_device_ing">正在对设备进行个人化，请稍候！</string>
+    <string name="main_init_device_success">设备个人化完成！</string>
+    <string name="main_init_device_fail">设备个人化失败，请重试！</string>
+    <string name="main_init_device_download_cer_fail">证书下载失败！</string>
+    <string name="main_init_device_no">设备还未个人化，请先个人化！</string>
+    <string name="main_initState_device_yes">已个人化</string>
+    <string name="main_initState_device_no">未个人化</string>
+    <string name="main_dialog_delete_device_initData">是否确定删除设备个人化数据?</string>
+    <string name="main_delete_device_initData_ing">正在删除个人化数据，请稍候！</string>
+    <string name="main_delete_device_initData_success">个人化数据删除成功！</string>
+    <string name="main_delete_device_initData_fail">个人化数据删除失败，请重试！</string>
+    <string name="main_write_userinfo_success">写入用户信息成功！</string>
+    <string name="main_write_userinfo_fail">写入用户信息失败，请重试！</string>
+
+    <!-- PosInfoShowActivity -->
+    <string name="posInfo_title">终端信息</string>
+    <string name="posInfo_csn">终端CSN号:</string>
+    <string name="posInfo_deceive_id">设备版本号:</string>
+    <string name="posInfo_vender_code">厂家代码:</string>
+    <string name="posInfo_ability">读卡器能力:</string>
+    <string name="posInfo_ability_se">支持缺省SE模块</string>
+    <string name="posInfo_ability_touch_IC">支持接触式IC</string>
+    <string name="posInfo_ability_no_touch_IC">支持非接触式IC</string>
+    <string name="posInfo_ability_upcard">支持磁条卡</string>
+
+    <!-- SlotCardActivity -->
+    <string name="slot_title">刷卡获取卡号</string>
+    <string name="slot_notif_insert">请插入刷卡器</string>
+    <string name="slot_notif_slotCard">请刷卡</string>
+    <string name="slot_cardNum_auth">卡号获取成功，正在进行认证，请稍候！</string>
+    <string name="slot_cardNum_auth_seccess">卡号信息认证成功，可以正常使用！</string>
+    <string name="slot_cardNum_auth_fail">卡号信息认证失败！</string>
+    <string name="slot_cardNum_auth_exception">网络异常！</string>
+
+    <!-- AlertCardCountActivity -->
+    <string name="alert_title">修改绑定上限</string>
+    <string name="alert_card_count">绑定上限:</string>
+    <string name="alert_hint_card_count">请输入绑定数量上限值</string>
+    <string name="alert_notif_post">正在进行数据上传，请稍候！</string>
+    <string name="alert_count_error">数据不合法，请检测！</string>
+    <string name="alert_count_too_big">数量上限为10，请重新输入！</string>
+    <string name="alert_notif_set_success">银行卡绑定数量修改成功！</string>
+    <string name="alert_notif_set_fail">银行卡绑定数量修改失败！</string>
+
+    <!-- finallypay -->
+    <string name="finallypay_title">最终支付</string>
+    <string name="finallypay_card_number_str">卡号:</string>
+    <string name="finallypay_card_type_str">卡类型:</string>
+    <string name="finallypay_bank_str">银行:</string>
+    <string name="finallypay_psw_str">密码:</string>
+    <string name="finallypay_psw_hint_str">请输入银行卡密码(4-12位)</string>
+    <string name="finallypay_card_user_str">持卡人:</string>
+    <string name="finallypay_card_user_hint_str">请输入该持卡人姓名</string>
+    <string name="finallypay_identity_id_str">身份证号码:</string>
+    <string name="finallypay_identity_id_hint_str">请输入该持卡人身份证</string>
+    <string name="finallypay_phone_number_str">手机号码:</string>
+    <string name="finallypay_phone_number_hint_str">请输入开卡时填写的手机号</string>
+    <string name="finallypay_crad_number_null">卡号信息不能为空，请先刷卡获取卡号</string>
+    <string name="finallypay_trade_time">正在获取服务器时间，请稍候！</string>
+    <string name="finallypay_trade_enc_msg">正在进行交易信息加密处理，请稍候！</string>
+    <string name="finallypay_trading">正在进行交易处理，请稍候！</string>
+    <string name="finallypay_get_data_form_net">正在与服务器通信获取数据，请稍候！</string>
+    <string name="finallypay_trade_dec_result">正在进行交易结果解密处理，请稍候！</string>
+    <string name="finallypay_trade_fail">交易失败，请重试！</string>
+    <string name="finallypay_trade_enc_fail">交易信息加密失败！</string>
+    <string name="finallypay_trade_psw_error">密码输入有误，请重新输入！</string>
+    <string name="finallypay_trade_result_error">交易结果信息有误！</string>
+    <string name="finallypay_fail_get_csn">获取CSN失败！</string>
+    <string name="finallypay_mac_verify_fail">MAC校验错误！</string>
+    <string name="finallypay_type_1">借记卡</string>
+    <string name="finallypay_type_2">准贷记卡</string>
+    <string name="finallypay_type_3">信用卡</string>
+    <string name="finallypay_repay_card_type_error">不能使用信用卡对信用卡进行还款，请使用借记卡或准贷记卡！</string>
+    <string name="finallypay_notif_unknow_card_type">未知的银行卡类型，请换张银行卡！</string>
+    <string name="finallypay_notif_psw_length_error">密码必须由6位数字组成，请重新输入！</string>
+    <string name="finallypay_notif_name_null">姓名不能为空，请输入！</string>
+    <string name="finallypay_notif_identity_id_null">身份证号不能为空，请输入！</string>
+    <string name="finallypay_notif_identity_id_error">身份证号只能为数字或英文字母，请检查！</string>
+    <string name="finallypay_notif_phone_number_null">手机号不能为空，请输入！</string>
+    <string name="finallypay_notif_card_number_fail">卡号获取失败，请重新刷卡获取卡号！</string>
+
+    <!-- indent -->
+    <string name="indent_title">交易订单</string>
+    <string name="indent_content_str">订单内容:</string>
+    <string name="indent_card_number_str">银行卡号:</string>
+    <string name="indent_spend_str">交易金额:</string>
+    <string name="indent_factorage_str">手  续  费:</string>
+    <string name="indent_total_spend_str">付款总金额</string>
+    <string name="indent_total_spend_hint_str">0 元</string>
+    <string name="indent_pay_btn_str">刷卡支付订单</string>
+
+    <!-- repayment -->
+    <string name="repay_title">信用卡还款</string>
+    <string name="repay_slot_btn_str">刷卡获取卡号</string>
+    <string name="repay_slot_info_str">请输入还款信息:</string>
+    <string name="repay_card_number_hint_str">请刷卡获取您的信用卡卡号</string>
+    <string name="repay_card_bank_str">发卡银行:</string>
+    <string name="repay_card_bank_hint_str">根据卡号自动匹配</string>
+    <string name="repay_name_str">姓名:</string>
+    <string name="repay_spend_str">还款金额:</string>
+    <string name="repay_spend_hint_str">请输入还款金额</string>
+    <string name="repay_notif_isnot_credit">此卡不是信用卡，请使用信用卡重新刷卡！</string>
+    <string name="repay_notif_card_type_error">未知卡类型，请使用信用卡重新刷卡！</string>
+    <string name="repay_notif_amount_null">还款金额不能为空，请输入！</string>
+    <string name="repay_notif_amount_type_error">无效金额</string>
+
+    <!-- checkbalance -->
+    <string name="checkbalance_title">余额查询</string>
+    <string name="checkbalance_slot_info_str">借记卡信息:</string>
+    <string name="checkbalance_card_number_str">借记卡卡号:</string>
+    <string name="checkbalance_card_number_hint_str">请输入借记卡卡号</string>
+    <string name="checkbalance_card_psw_str">卡号查询密码:</string>
+    <string name="checkbalance_card_psw_hint_str">请输入卡号查询密码</string>
+    <string name="checkbalance_balance_str">余额查询</string>
+    <string name="checkbalance_trade_str">交易查询</string>
+    <string name="checkbalance_toast_trade_money_null">消费金额不能为空，请输入!</string>
+    <string name="checkbalance_toast_trade_money_error">输入金额格式不合法，请检测!</string>
+    <string name="checkbalance_trade_start_time_str">交易起始时间:</string>
+    <string name="checkbalance_trade_end_time_str">交易结束时间:</string>
+    <string name="checkbalance_notif_get_cardNum">请先获取卡号！</string>
+    <string name="checkbalance_notif_cardNum_length_error">卡号长度有误，请重新获取卡号！</string>
+    <string name="checkbalance_notif_tradeMsg_null">部分交易信息丢失，请重新进行交易处理！</string>
+    <string name="checkbalance_notif_waiting">等待操作...</string>
+    <string name="checkbalance_notif_icorup">请刷卡或者插入IC卡...</string>
+    <string name="checkbalance_notif_ic">请插入IC卡...</string>
+    <string name="checkbalance_notif_ic_ing">正在读取IC卡数据，请稍候...</string>
+    <string name="checkbalance_notif_ic_error">IC卡数据读取错误，请重试...</string>
+    <string name="checkbalance_notif_up">请刷磁条卡...</string>
+    <string name="checkbalance_notif_up_ing">正在读取磁条卡数据，请稍候...</string>
+    <string name="checkbalance_notif_up_error">磁条卡数据读取错误，请重试...</string>
+    <string name="checkbalance_notif_up2_error">二磁道信息读取失败!</string>
+    <string name="checkbalance_notif_up2_success">二磁道信息读取成功，长度为: %1$d</string>
+    <string name="checkbalance_notif_up3_error">三磁道信息读取失败!</string>
+    <string name="checkbalance_notif_up3_success">三磁道信息读取成功，长度为: %1$d</string>
+    <string name="checkbalance_notif_receive_error">数据接收错误，请重试...</string>
+    <string name="checkbalance_notif_receive_timeout">数据接收超时，请重试...</string>
+    <string name="checkbalance_notif_receive_apdu_error">指令数据接收错误，请重试...</string>
+    <string name="checkbalance_notif_operate_cancle_ing">正在取消刷卡等待操作...</string>
+    <string name="checkbalance_notif_operate_cancle_success">刷卡等待操作已取消</string>
+    <string name="checkbalance_notif_operate_cancle_fail">刷卡等待操作取消失败...</string>
+    <string name="checkbalance_notif_device_refuse">终端拒绝交易</string>
+    <string name="checkbalance_notif_getPin_ing">正在加密PinBlock</string>
+    <string name="checkbalance_notif_getPin_success">PinBlock加密成功</string>
+    <string name="checkbalance_notif_getPin_fail">PinBlock加密失败</string>
+    <string name="checkbalance_notif_pboc_two_ing">正在进行二次授权操作，请稍候！</string>
+    <string name="checkbalance_notif_pboc_two_success">二次授权操作成功！</string>
+    <string name="checkbalance_notif_pboc_two_fail">二次授权操作失败，请重试！</string>
+    <string name="checkbalance_notif_pboc_end">PBOC流程结束！</string>
+    <string name="checkbalance_sup_code_str">商户代码：</string>
+    <string name="checkbalance_sup_code_hint_str">请输入商户代码</string>
+    <string name="checkbalance_sup_name_str">商户名称：</string>
+    <string name="checkbalance_sup_name_hint_str">请输入商户名称</string>
+    <string name="checkbalance_ter_code_str">终端代码：</string>
+    <string name="checkbalance_ter_code_hint_str">请输入终端代码</string>
+    <string name="checkbalance_indent_num_str">订单号：</string>
+    <string name="checkbalance_indent_num_hint_str">87654321</string>
+    <string name="checkbalance_trade_money_str">金额：</string>
+    <string name="checkbalance_trade_money_hint_str">请输入金额</string>
+    <string name="checkbalance_trade_money_type_str">交易币种：</string>
+    <string name="checkbalance_trade_money_type_hint_str">请输入交易币种</string>
+    <string name="checkbalance_sup_country_str">商户国家代码：</string>
+    <string name="checkbalance_sup_country_hint_str">请输入商户国家代码</string>
+    <string name="finallypay_trade_ing_msg">正在与设备进行交互，请稍候！</string>
+    <string name="checkbalance_toast_senddata">发送指令，指令ID：%1$s</string>
+    <string name="checkbalance_toast_senddata_success">发送指令成功，指令ID：%1$s</string>
+    <string name="checkbalance_toast_senddata_fail">发送指令失败，指令ID：%1$s</string>
+    <string name="checkbalance_toast_senddata_cancle">发送取消指令，指令ID：%1$s</string>
+    <string name="checkbalance_toast_senddata_success_cancle">发送取消指令成功，指令ID：%1$s</string>
+    <string name="checkbalance_toast_senddata_fail_cancle">发送取消指令失败，指令ID：%1$s</string>
+    <string name="checkbalance_toast_sign_success">签到成功</string>
+    <string name="checkbalance_toast_sign_fail">签到失败</string>
+    <string name="checkbalance_toast_loadmainkey_success">导入主密钥成功</string>
+    <string name="checkbalance_toast_loadmainkey_fail">导入主密钥失败</string>
+    <string name="checkbalance_toast_loadworkkey_success">导入工作密钥成功</string>
+    <string name="checkbalance_toast_loadworkkey_fail">导入工作密钥失败</string>
+
+    <!-- inputPsw -->
+    <string name="inputPsw_title">输入密码</string>
+    <string name="inputPsw_psw_return_error">请输入正确密码并确认返回！</string>
+    <string name="inputPsw_psw_length_error">密码长度不足4位，请继续输入！</string>
+    <string name="inputPsw_psw_length_beyond">密码只能由4-12位数字组成！</string>
+
+    <!-- CardListShowActivity -->
+    <string name="cardlist_title">银行卡信息</string>
+    <string name="cardlist_null_str">未检测到相应的银行卡绑定信息，点击重新查询！</string>
+    <string name="cardlist_next_text_part">解绑前5张卡</string>
+    <string name="cardlist_next_text_all">解绑前5张卡</string>
+    <string name="cardlist_notif_cant_release">未检测到相应的银行卡绑定信息，无法进行解绑操作！</string>
+
+    <!-- DeviceManagerActivity -->
+    <string name="blue_scan">搜索</string>
+    <string name="blue_stop_scan">停止</string>
+    <string name="toast_pro_connecting">正在连接，请稍候！</string>
+    <string name="toast_connect_success">连接成功！</string>
+    <string name="toast_connect_fail">连接失败！</string>
+    <string name="toast_no_connected">未连接设备！</string>
+    <string name="toast_device_disconnect">已断开连接！</string>
+    <string name="deviceinfo_list_text">设备列表</string>
+    <string name="deviceinf_get_deviceinfo">正在获取设备信息，请稍候！</string>
+    <string name="device_get_deviceinfo_fail">获取设备信息失败！</string>
+    <string name="device_not_select">没有选择设备！</string>
+
+    <!-- DeviceInfoActivity -->
+    <string name="deviceinfo_name_text">设备名称</string>
+    <string name="deviceinfo_serial_text">序列号</string>
+    <string name="deviceinfo_softversion_text">软件版本号</string>
+    <string name="deviceinfo_hardversion_text">硬件版本号</string>
+    <string name="deviceinfo_initState_text">个人化状态</string>
+    <string name="checkbalance_time">时间:</string>
+    <string name="checkbalance_func_tag_tradeset">交易功能设置</string>
+    <string name="checkbalance_trade_func_tag">功能选择</string>
+    <string name="checkbalance_func_tag_onlineset">联机设置</string>
+    <string name="online_success_str">联机成功</string>
+    <string name="online_fail_str">联机失败</string>
+    <string name="checkbalance_trade_tag_CASE">CASE</string>
+    <string name="checkbalance_trade_tag_ARC">ARC</string>
+    <string name="checkbalance_trade_tag_IAD">IAD</string>
+    <string name="checkbalance_trade_CASE_content_str">CASE内容</string>
+    <string name="checkbalance_func_tag_TAC_set">终端应用设置</string>
+    <string name="checkbalance_func_tag_TAC_set_success">终端应用设置成功！</string>
+    <string name="checkbalance_func_tag_TAC_set_fail">终端应用设置失败，请重试！</string>
+    <string name="checkbalance_trade_TAC_set_default_str">TAC-缺省(DF11)</string>
+    <string name="checkbalance_trade_TAC_set_online_str">TAC-联机(DF12)</string>
+    <string name="checkbalance_trade_TAC_set_refuse_str">TAC-拒绝(DF13)</string>
+    <string name="checkbalance_spendinfo_AID_str">AID(9F06):</string>
+    <string name="checkbalance_spendinfo_appVersion_str">应用版本(9F09):</string>
+    <string name="checkbalance_func_tag_spendInfo_set">终端特性设置</string>
+    <string name="checkbalance_func_tag_spendInfo_set_success">终端特性设置成功！</string>
+    <string name="checkbalance_func_tag_spendInfo_set_fail">终端特性设置失败，请重试！</string>
+    <string name="checkbalance_spendinfo_terCounCode_str">终端国家代码(9F1A):</string>
+    <string name="checkbalance_spendinfo_currencyCode_str">交易货币代码(5F2A):</string>
+    <string name="checkbalance_spendinfo_IFD_str">IFD序列号(9F1E):</string>
+    <string name="checkbalance_func_tag_spendInfo_show_str">交易信息</string>
+    <string name="checkbalance_toast_read_reverInfo">读取冲正信息</string>
+    <string name="checkbalance_toast_read_reverInfo_success">读取冲正信息成功!</string>
+    <string name="checkbalance_toast_read_reverInfo_fail">读取冲正信息失败，请重试!</string>
+    <string name="checkbalance_toast_clear_reverInfo">清除冲正信息</string>
+    <string name="checkbalance_toast_clear_reverInfo_success">清除冲正信息成功!</string>
+    <string name="checkbalance_toast_clear_reverInfo_fail">清除冲正信息失败，请重试!</string>
+    <string name="checkbalance_get_ic_cardnum_success">获取IC卡卡号成功!</string>
+    <string name="checkbalance_get_ic_cardnum_fail">获取IC卡卡号失败，请重试!</string>
+    <string name="title_activity_sdk">SDKActivity</string>
+    <string name="title_activity_loadmainkey">LoadMainKeyActivity</string>
+    <string name="menu_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+
+    <string name="soft_update_no">已经是最新版本</string>
+    <string name="soft_update_title">软件更新</string>
+    <string name="soft_update_info">检测到新版本，立即更新吗</string>
+    <string name="soft_update_updatebtn">更新</string>
+    <string name="soft_update_later">稍后更新</string>
+    <string name="soft_updating">正在更新</string>
+    <string name="soft_update_cancel">取消</string>
+
+
+    <!--ListView-->
+    <string name="xlistview_header_hint_normal">下拉刷新</string>
+
+    <string name="xlistview_header_hint_ready">松开刷新数据</string>
+
+    <string name="xlistview_header_hint_loading">正在加载...</string>
+
+    <string name="xlistview_header_last_time">上次更新时间：</string>
+
+    <string name="xlistview_footer_hint_normal">查看更多</string>
+
+    <string name="xlistview_footer_hint_ready">松开载入更多</string>
+    <string name="copy_alert">内容已复制到粘贴板</string>
+    <string name="days">日</string>
+</resources>

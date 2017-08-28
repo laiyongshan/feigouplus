@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="false"
+   >
+
+    <!--标题栏-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:background="@color/new_color_primary"
+        android:layout_height="@dimen/topbar_size">
+
+        <Button
+            android:id="@+id/wangjimina_fanhuijian"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:background="@color/new_color_primary"
+            android:onClick="fanhui"
+            android:layout_width="50dp"
+            android:clickable="true"
+            android:layout_height="45dp"
+            android:text="取消"
+            android:textColor="#FFFFFF"
+            />
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="补充昵称"
+            android:textSize="@dimen/title_size"
+            style="?android:attr/borderlessButtonStyle"
+            android:textColor="#FFFFFF"
+            android:id="@+id/textView" />
+
+        <Button
+            android:id="@+id/bt_save"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@color/new_color_primary"
+            android:onClick="fanhui"
+            android:layout_width="50dp"
+            android:clickable="true"
+            android:layout_height="45dp"
+            android:text="保存"
+            android:textColor="#FFFFFF"
+            />
+    </RelativeLayout>
+
+    <com.example.youhe.youhecheguanjiaplus.widget.ClearEditText
+        android:id="@+id/et"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#FFFFFF"
+        android:textSize="18sp"
+        android:lines="1"
+        android:textColor="@color/black"
+        />
+
+</LinearLayout>

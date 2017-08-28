@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+	android:background="@color/white"
+	android:gravity="center_vertical"
+
+	>
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+		android:gravity="center_vertical"
+        >
+        
+		      <ImageView
+		        android:id="@+id/pay_icon"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+				  android:layout_alignParentLeft="true"
+				  android:layout_centerVertical="true"
+				  android:padding="10dp"
+		        />
+
+			<TextView
+				  android:id="@+id/pay_style_tv"
+				  android:layout_width="wrap_content"
+				  android:layout_height="wrap_content"
+				  android:layout_marginLeft="10dp"
+				  android:textColor="#ff323232"
+				  android:textSize="16.0sp"
+				  android:typeface="monospace"
+				  android:layout_toRightOf="@id/pay_icon"
+				  android:gravity="center_vertical"
+				  android:text=""
+				  android:layout_centerVertical="true"
+				android:layout_toLeftOf="@+id/rdBtn"
+				android:layout_marginRight="10dp"
+				/>
+
+
+				  <RadioButton
+					  android:id="@+id/rdBtn"
+					  android:layout_width="wrap_content"
+					  android:layout_height="wrap_content"
+					  android:button="@null"
+					  android:checked="true"
+					  android:layout_centerVertical="true"
+					  android:background="@drawable/radio_check_bg"
+					  android:layout_alignParentRight="true"
+					  android:layout_marginRight="15dp"
+					  />
+
+	</RelativeLayout>
+
+</LinearLayout>

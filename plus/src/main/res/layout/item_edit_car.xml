@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--车辆验证-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:visibility="visible"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center"
+            android:layout_marginRight="10dp"
+            android:text="车辆验证"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="10dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            />
+
+        <RelativeLayout
+            android:id="@+id/car_verify_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="6dp"
+            >
+
+            <TextView
+                android:id="@+id/verify_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="未验证"
+                android:layout_toLeftOf="@+id/verify_img"
+                android:layout_marginRight="10dp"
+                android:textSize="15sp"
+                android:textColor="@color/blue"
+                android:gravity="center_vertical"
+                />
+
+            <ImageView
+                android:id="@+id/verify_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_right"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"
+        />
+
+
+    <!--车主资料-->
+    <LinearLayout
+        android:id="@+id/updata_car_owner_info_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="@drawable/laybeijin"
+        android:visibility="visible"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginRight="10dp"
+            android:text="车主资料"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="10dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            />
+
+        <RelativeLayout
+            android:id="@+id/car_owner_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="6dp"
+            >
+
+            <TextView
+                android:id="@+id/car_owner_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="点击添加/修改"
+                android:layout_toLeftOf="@+id/car_owner_right_img"
+                android:layout_marginRight="10dp"
+                android:textSize="15sp"
+                android:textColor="@color/blue"
+                android:gravity="center_vertical"
+                />
+
+            <ImageView
+                android:id="@+id/car_owner_right_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_right"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"
+        />
+
+
+</LinearLayout>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/no_illegal_layout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:visibility="invisible"
+    >
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_no_illegal"
+        android:layout_marginBottom="20dp"
+        />
+
+    <TextView
+        android:id="@+id/no_illegal_tips_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/no_illegal"
+        android:drawablePadding="30dp"
+        android:gravity="center"
+        android:textSize="13sp"
+        />
+
+
+
+</LinearLayout>

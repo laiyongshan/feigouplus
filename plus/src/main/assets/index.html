@@ -1,0 +1,32 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+    </head>
+    <body>
+        <a href="flydogcar://path?sourceApplication=safiri">1</a>
+        <button onclick="flydogcheck()" style="width: 50px;height: 50px;"></button>
+        <script>
+            function flydogcheck() {
+                if(navigator.userAgent.match(/(iPhone|iPod|iPad);?/i))
+                {
+                    var the_href="http://www.baidu.com";//获得下载链接
+                    window.location="flydogcar://path?sourceApplication=tf-iOS";//打开某手机上的某个app应用
+                    setTimeout(function(){
+                               window.location=the_href;//如果超时就跳转到app下载页
+                               },500);
+                }
+                if(navigator.userAgent.match(/android/i))
+                {
+                    var the_href="http://www.baidu.com";//获得下载链接
+                    window.location="flydogcar://path?sourceApplication=tf-android";//打开某手机上的某个app应用
+                    setTimeout(function(){
+                               window.location=the_href;//如果超时就跳转到app下载页
+                               },500);
+                }
+                
+                
+            }
+
+        </script>
+    </body>
+</html>

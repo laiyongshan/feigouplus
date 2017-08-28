@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/car_linea_drawerlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+        <!--<RelativeLayout-->
+            <!--android:id="@+id/searchBarContainer"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="48dp"-->
+            <!--android:background="@color/gray" >-->
+
+            <!--<ClearEditText-->
+                <!--android:id="@+id/filter_car_model"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="fill_parent"-->
+                <!--android:layout_alignParentLeft="true"-->
+                <!--android:layout_margin="5dip"-->
+                <!--android:background="@drawable/search_puin"-->
+                <!--android:drawableLeft="@drawable/icon_search"-->
+                <!--android:imeOptions="actionDone"-->
+                <!--android:maxLines="1"-->
+                <!--android:paddingLeft="5dip"-->
+                <!--android:paddingRight="25dip"-->
+                <!--android:singleLine="true"-->
+                <!--android:text=""-->
+                <!--android:hint="请输入品牌名称"-->
+                <!--android:textSize="12dip"-->
+                <!--android:drawablePadding="5dp"-->
+                <!--/>-->
+
+        <!--</RelativeLayout>-->
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <ListView
+                android:id="@+id/car_model_lv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none"
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:background="#50F0EEEF"
+                android:gravity="center_vertical"
+                android:paddingTop="1dp"
+                android:paddingBottom="1dp"
+                >
+
+                <com.example.youhe.youhecheguanjiaplus.city.IndexListView
+                    android:id="@+id/car_model_letterListView"
+                    android:layout_width="28dip"
+                    android:layout_height="wrap_content"
+                    android:background="#22505050"
+                    />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        </LinearLayout>
+
+
+        <!--android:layout_gravity="end"属性使这部分作为侧滑部分-->
+        <LinearLayout
+            android:id="@+id/llMenu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <!--用于设置菜单项-->
+            <ListView
+                android:id="@+id/car_line_menu_lv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@null" />
+
+        </LinearLayout>
+    </android.support.v4.widget.DrawerLayout>
+
+</LinearLayout>

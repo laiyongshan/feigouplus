@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#F0F0F0"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:background="@color/new_color_primary"
+        android:layout_height="@dimen/topbar_size">
+
+        <ImageButton
+            android:id="@+id/wangjimina_fanhuijian"
+            android:background="@null"
+            android:onClick="fanhui"
+            android:clickable="true"
+            android:layout_width="50dp"
+            android:layout_height="500dp"
+            android:src="@drawable/left"
+            />
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="刷卡支付"
+            android:textSize="@dimen/title_size"
+            android:textColor="#FFFFFF"
+            android:id="@+id/textView" />
+    </RelativeLayout>
+    <!--收款方-->
+    <LinearLayout
+        android:background="#F0F0F0"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="-- 支付信息 --"
+            android:textColor="#717171"
+            android:textSize="20sp"
+            />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="收款方："
+                android:textSize="18sp"
+                android:textColor="#717171"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="违章充值"
+                android:textSize="18sp"
+                android:textColor="#717171"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:text="支付金额："
+                android:textSize="18sp"
+                android:textColor="#717171"
+                />
+
+            <TextView
+                android:id="@+id/shoukuanfang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="15dp"
+                android:textSize="18sp"
+                android:textColor="#717171"
+                />
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="商品信息："
+                android:textSize="18sp"
+                android:textColor="#717171"
+                />
+            <TextView
+                android:id="@+id/zonjinew"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:textSize="18sp"
+                android:textColor="#717171"
+                />
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bolang"
+        />
+
+
+    <RelativeLayout
+        android:id="@+id/lay"
+        android:background="#FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+
+       <!-- <TextView
+            android:layout_toLeftOf="@+id/text_shijian"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="#000000"
+            android:text="超时:"
+            android:textSize="20sp"
+            />
+        <TextView
+            android:id="@+id/text_shijian"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="#000000"
+            android:text=""
+            android:textSize="20sp"
+            />-->
+
+        <!--纵向双向刷卡-->
+        <RelativeLayout
+            android:id="@+id/sha"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            >
+
+            <ImageView
+                android:id="@+id/img_shuak"
+                android:layout_width="180dp"
+                android:layout_height="200dp"
+                android:visibility="gone"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/ic_jp_swipcard1"
+                android:layout_centerHorizontal="true" />
+
+            <ImageView
+                android:id="@+id/img_shuaka"
+                android:layout_width="180dp"
+                android:layout_height="200dp"
+                android:src="@drawable/ic_jp_swipcard1"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true" />
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="100dp"
+                android:src="@drawable/shangxia"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+
+                />
+        </RelativeLayout>
+
+        <!--插卡-->
+        <RelativeLayout
+            android:id="@+id/sha2"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            >
+
+            <ImageView
+                android:layout_marginTop="20dp"
+                android:layout_width="200dp"
+                android:layout_height="160dp"
+                android:src="@drawable/chaka2"
+                android:layout_centerHorizontal="true" />
+
+            <ImageView
+                android:id="@+id/img_shuaka2"
+                android:layout_width="200dp"
+                android:layout_height="170dp"
+                android:src="@drawable/chaka1"
+                android:layout_marginRight="10dp"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+
+                />
+        </RelativeLayout>
+
+
+        <!--滴卡-->
+        <RelativeLayout
+            android:id="@+id/sha3"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            >
+
+
+            <ImageView
+
+                android:layout_width="200dp"
+                android:layout_height="220dp"
+                android:src="@drawable/jiqi"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                />
+
+
+            <ImageView
+                android:id="@+id/img_chaka3"
+                android:layout_width="180dp"
+                android:layout_height="200dp"
+                android:src="@drawable/shou"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+
+
+
+
+        <TextView
+            android:id="@+id/text_shu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/kahao"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            android:layout_centerHorizontal="true"
+            android:textColor="#000000"
+            android:text="请输入密码......"
+            android:textSize="12sp"
+            />
+
+
+        <com.example.youhe.youhecheguanjiaplus.widget.PasswordInputView
+            android:id="@+id/password_view"
+            android:layout_width="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_height="40dp"
+            android:background="@null"
+            android:visibility="gone"
+            android:cursorVisible="false"
+            android:inputType="number"
+            android:focusable="false"
+            />
+        <TextView
+            android:id="@+id/kahao"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/password_view"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:visibility="gone"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+    </RelativeLayout>
+
+</LinearLayout>

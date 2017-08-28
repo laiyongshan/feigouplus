@@ -1,0 +1,759 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.youhe.youhecheguanjiaplus">
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+
+    <!--<uses-sdk android:minSdkVersion="14"-->
+    <!--android:targetSdkVersion="22" />-->
+    <!-- 【常用】 信鸽SDK所需权限 -->
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <!-- 【可选】 信鸽SDK所需权限 -->
+    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.BATTERY_STATS" />
+
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+
+    <!-- 这个权限用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 这个权限用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_GPS" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 访问网络，网络定位需要上网 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!-- 屏幕一直亮着，电源管理权限 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- 与SDCard相关的权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <!-- 访问网络的权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 设置网络的权限 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- 蓝牙相关权限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED" />
+
+    <!-- android 6.0蓝牙权限申请 -->
+    <!-- <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/> -->
+
+    <!-- 定义广播权限 -->
+    <!--<permission android:name="com.plus.orderbroadcast.Permission.ORDER" />-->
+
+    <!-- 使用广播权限 -->
+    <!--<uses-permission android:name="com.example.orderbroadcast.Permission.ORDER" />-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <!-- 智能POS机所需要的权限 -->
+    <!-- 1、设置打印机权限 -->
+    <uses-permission android:name="android.permission.CLOUDPOS_PRINTER" />
+    <!-- 2、访问密码键盘权限 -->
+    <uses-permission android:name="android.permission.CLOUDPOS_PINPAD" />
+    <!-- 3、密码键盘计算Pinblock权限 -->
+    <uses-permission android:name="android.permission.CLOUDPOS_PINPAD_PIN_BLOCK" />
+    <!-- 4、密码键盘计算Mac权限 -->
+    <uses-permission android:name="android.permission.CLOUDPOS_PINPAD_PIN_MAC" />
+    <!-- 5、密码键盘加密数据权限 -->
+    <uses-permission android:name="android.permission.CLOUDPOS_PINPAD_ENCRYPT_DATA" />
+    <!-- 6、密码键盘更新终端主密钥权限 -->
+    <uses-permission android:name="android.permission.CLOUDPOS_PINPAD_UPDATE_MKEY" />
+    <!-- 7、密码键盘更新工作密钥权限 -->
+    <uses-permission android:name="android.permission.CLOUDPOS_PINPAD_UPDATE_WKEY" />
+    <!-- 8、访问接触式IC卡读卡设备权限 -->
+    <uses-permission android:name="android.permission.CLOUDPOS_ICCARD" />
+    <!-- 9、访问EMV权限 -->
+    <uses-permission android:name="android.permission.CLOUDPOS_EMVL2" />
+    <!-- 10、访问非接触IC卡读卡设备权限 -->
+    <uses-permission android:name="android.permission.CLOUDPOS_RFCARD" />
+    <!-- 11、访问磁条卡读卡器设备权限 -->
+    <uses-permission android:name="android.permission.CLOUDPOS_MAGCARD" />
+    <!-- 12、获取磁道明文接口权限 -->
+    <uses-permission android:name="android.permission.CLOUDPOS_MAGCARD_GETTRACKDATA" />
+    <!-- 13、获取磁道密文数据接口权限 -->
+    <uses-permission android:name="android.permission.CLOUDPOS_MAGCARD_GETENCRYPTTRACKDATA" />
+    <!-- 14、访问PSAM卡设备权限 -->
+    <uses-permission android:name="android.permission.CLOUDPOS_PSAMCARD" />
+    <!-- 15、访问串口设备权限 -->
+    <uses-permission android:name="android.permission.CLOUDPOS_SERIALPORT" />
+    <!-- 16、访问系统设备权限 -->
+    <uses-permission android:name="android.permission.CLOUDPOS_SYSTEMDEV" />
+    <!-- 17、设置系统时钟权限 -->
+    <uses-permission android:name="android.permission.CLOUDPOS_SYSTEMDEV_ALARM" />
+    <!-- 18、访问静默安装权限 -->
+    <uses-permission android:name="android.permission.CLOUDPOS_SYSTEMDEV_INSTALL" />
+    <!-- 19、更新终端OS、驱动权限 -->
+    <uses-permission android:name="android.permission.CLOUDPOS_SYSTEMDEV_OS_UPDATE" />
+
+    <!-- if you want to load images from a file OR from the internet -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!--<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>-->
+
+    <application
+        android:name="com.example.youhe.youhecheguanjiaplus.app.AppContext"
+        android:allowBackup="true"
+        android:icon="@mipmap/icon_app"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.youhe.youhecheguanjiaplus.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+
+        <!--tools:ignore="AllowBackup"-->
+        <!--tools:replace="label,allowBackup,icon,theme">-->
+
+
+        <!--<meta-data-->
+        <!--android:name="com.baidu.lbsapi.API_KEY"-->
+        <!--android:value="eGIhG16hG38FUSfoGdiF1DrX6kGMi7RF" />-->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="${baidu_api_key}" />
+
+        <meta-data
+            android:name="com.tencent.rdm.uuid"
+            android:value="0a9aa75a-e184-4958-86ab-49f55e11e619" />
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
+
+        <!-- 运行后台服务 -->
+        <service android:name="com.example.youhe.youhecheguanjiaplus.logic.MainService" />
+
+        <!-- 网络状态监听广播接收者 -->
+        <receiver android:name="com.example.youhe.youhecheguanjiaplus.utils.NetReceiver" />
+
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.AppStart"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <!--为浏览器 提供访问的路径-->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="path"
+                    android:scheme="flydogplus" />
+            </intent-filter>
+        </activity>
+
+        <!--新的支付页面-->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.NewJoinpayActivity"
+            android:screenOrientation="portrait" />
+
+        <!--订单列表-->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.OrderActivity"
+            android:screenOrientation="portrait" />
+
+        <!--其他订单补充资料-->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.FurtherInfoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/transcutestyle" />
+
+        <!-- 界面 -->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.GuideActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <!--主界面-->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.MainActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize">
+
+        </activity>
+
+        <activity
+            android:name="com.zxing.android.CaptureActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.IllegalActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.UploadDravingLisenceActivivty"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.AddMajorviolationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.MajorViolationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.city.CityActivty"
+            android:screenOrientation="portrait" />
+        <!-- 登录界面 -->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.DenLuActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <!-- 快速注册界面 -->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.KuaiSuZhuCheActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <!-- 忘记密码界面 -->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.WanJiMimaActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <!-- 快速注册界面 -->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.ShouJiDengLuActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+
+        <!--申请提现列表-->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.Apply_for_Crash_Activity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.ApplyCrashActivity"
+            android:screenOrientation="portrait" />
+
+        <!--实名认证-->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.RealNameActivity"
+            android:screenOrientation="portrait" />
+
+        <!--我的银行卡-->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.MyBankCardActivity"
+            android:screenOrientation="portrait" />
+
+
+        <!--添加银行卡-->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.AddMyBankCarActivity"
+            android:screenOrientation="portrait" />
+
+        <!--&lt;!&ndash; 设置界面 &ndash;&gt;-->
+        <!--<activity-->
+        <!--android:name=".ui.base.SettingUpActivity"-->
+        <!--android:screenOrientation="portrait" />-->
+        <!-- 消息界面 -->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.AddCarActivity"
+            android:screenOrientation="portrait" />
+        <!--&lt;!&ndash; 我的订单界面 &ndash;&gt;-->
+        <!--<activity-->
+        <!--android:name=".ui.base.MyOrderActivity"-->
+        <!--android:screenOrientation="portrait" />-->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.CommitDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.PayActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.IllegalCodeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.HeatMapActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.EditCarActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.IllegalQueryActivty"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.UploadProActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.UploadFileHelpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.SelectPicActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/transcutestyle" />
+
+        <!-- 提交订单详情 -->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.OilPriceAPIActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+
+
+        <!-- 个人信息界面 -->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.PersonalinformationActivity"
+            android:screenOrientation="portrait" />
+
+
+        <!-- 设置名称界面 -->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.TheNameOfTheSetActivity"
+            android:screenOrientation="portrait" />
+
+
+        <!-- 获取pos机序列号界面 -->
+        <activity
+            android:name="com.thepos.biz.ui.base.GainSerialNumberActivity2"
+            android:screenOrientation="portrait" />
+
+        <!-- 重置密码 -->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.ChangePasswordActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- 跟换手机界面 -->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.ReplaceMobilePhoneNumberActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- 关于我们 -->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.YeoActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.OrderdetaiActivity2"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.CommentWebActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <!-- 点单详情界面 -->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.OrderdetaiActivity3"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.OrderdetaiActivityV2"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.OrderDetailSubActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <!--车辆年检-->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.AnnualInspectionActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- Pos机刷卡支付界面 -->
+        <activity android:name="com.joinpay.sdk.ui.JpayActivity" />
+
+        <activity android:name="com.joinpay.sdk.ui.TransResultActivity" />
+
+        <activity
+            android:name="com.joinpay.sdk.ui.ElectronicSignatureActivity"
+            android:screenOrientation="landscape" />
+
+        <!-- 免责声明界面 -->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.DisclaimerActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <!-- 意见反馈界面 -->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.FeedbackActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <!-- 加入我们界面 -->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.JoinUsActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <!-- 智能POS支付 -->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.SmarPOStActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <!-- P92支付 -->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.P92PayActivity"
+            android:screenOrientation="portrait" />
+        <!-- P92智能签名墙 -->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.SignInActivity"
+            android:screenOrientation="landscape" />
+        <!-- P92交易完成界面 -->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.TheDealActivity"
+
+            android:screenOrientation="portrait"></activity>
+        <!-- P92交易失败界面 -->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.FailurePayActivity"
+            android:screenOrientation="portrait" />
+
+        <activity android:name="com.example.youhe.youhecheguanjiaplus.ui.base.OtherTheOrderActivity"></activity>
+
+        <!--车系选择-->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.CarModelActivity"
+            android:screenOrientation="portrait" />
+
+        <!--车型选择-->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.CarTypeActivity"
+            android:screenOrientation="portrait" />
+
+        <!--账号查询-->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.AccountQueryActivity"
+            android:screenOrientation="portrait" />
+
+        <!--添加账号-->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.AddAcountActivity"
+            android:screenOrientation="portrait" />
+
+        <!--注册其他订单账号-->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.RegisterAccountActivit"
+            android:screenOrientation="portrait" />
+
+        <!--获取122支持的省份-->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.ListActivity"
+            android:screenOrientation="portrait" />
+
+        <!--获取122注册城市-->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.RegisterCityListActivity"
+            android:screenOrientation="portrait" />
+
+        <!--122注册车主类型-->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.CarOwnerTypeActivity"
+            android:screenOrientation="portrait" />
+
+        <!--选择注册省份证明-->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.RegistgerLicenseActivity"
+            android:screenOrientation="portrait" />
+
+        <!--精准查询修改密码-->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.AccountChangePswActivity"
+            android:screenOrientation="portrait" />
+
+        <!--绑定本人车辆-->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.AccountAddCarActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.ScanQrPayActivity"
+            android:screenOrientation="portrait" />
+        <!--订单补款列表-->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.OrderFillingListActivity"
+            android:screenOrientation="portrait" />
+
+        <!--订单类型选择界面-->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.OrderStyleActivity"
+            android:screenOrientation="portrait" />
+
+        <!--余额支付成功页面-->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.BalancePaySuccActivity"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="toPaySucc"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+        <!--年检订单详情-->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.AnnualDetailActivity"
+            android:screenOrientation="portrait" />
+
+        <!--物流信息页面-->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.ExpressCheckActivity"
+            android:screenOrientation="portrait" />
+
+        <!--添加快递单号页面-->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.AddExpressCodeActivity"
+            android:screenOrientation="portrait" />
+
+        <!--我的资产-->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.MyAssetsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.AddPlusActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.PlusListActivity"
+            android:screenOrientation="portrait" />
+
+        <!--交易记录查询-->
+
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.CheckRecoActivity"
+            android:screenOrientation="portrait" />
+
+
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.TradingRecoActivity"
+            android:screenOrientation="portrait" />
+
+        <!--贷款-->
+        <activity
+            android:name="com.linkpay.loansdk.activity.LinkPayLoanActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name="com.example.youhe.youhecheguanjiaplus.ui.base.LoanActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/transcutestyle"
+            />
+        <!--交易记录-->
+        <activity android:name=".ui.base.TradingReco2Activity"
+            android:screenOrientation="portrait"/>
+
+        <!--信鸽配置 start  jian 2017-5-2-->
+        <activity
+            android:name="com.tencent.android.tpush.XGPushActivity"
+            android:exported="false">
+            <intent-filter>
+                <!-- 若使用AndroidStudio，请设置android:name="android.intent.action"-->
+                <action android:name="android.intent.action" />
+            </intent-filter>
+        </activity>
+
+        <!-- 【必须】 信鸽receiver广播接收 -->
+        <receiver
+            android:name="com.tencent.android.tpush.XGPushReceiver"
+            android:process=":xg_service_v3">
+            <intent-filter android:priority="0x7fffffff">
+                <!-- 【必须】 信鸽SDK的内部广播 -->
+                <action android:name="com.tencent.android.tpush.action.SDK" />
+                <action android:name="com.tencent.android.tpush.action.INTERNAL_PUSH_MESSAGE" />
+                <!-- 【必须】 系统广播：开屏和网络切换 -->
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <!-- 【可选】 一些常用的系统广播，增强信鸽service的复活机会，请根据需要选择。当然，你也可以添加APP自定义的一些广播让启动service -->
+                <action android:name="android.bluetooth.adapter.action.STATE_CHANGED" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+            <!-- 【可选】 usb相关的系统广播，增强信鸽service的复活机会，请根据需要添加 -->
+            <intent-filter android:priority="0x7fffffff">
+                <action android:name="android.intent.action.MEDIA_UNMOUNTED" />
+                <action android:name="android.intent.action.MEDIA_REMOVED" />
+                <action android:name="android.intent.action.MEDIA_CHECKING" />
+                <action android:name="android.intent.action.MEDIA_EJECT" />
+
+                <data android:scheme="file" />
+            </intent-filter>
+        </receiver>
+        <!-- 【必须】 信鸽service -->
+        <service
+            android:name="com.tencent.android.tpush.service.XGPushServiceV3"
+            android:exported="true"
+            android:persistent="true"
+            android:process=":xg_service_v3" />
+        <!-- 【必须】 增强xg_service存活率  -->
+        <service
+            android:name="com.tencent.android.tpush.service.XGDaemonService"
+            android:process=":xg_service_v3" />
+        <!-- 【必须】 通知service，此选项有助于提高抵达率 -->
+        <!--<service-->
+        <!--android:name="com.tencent.android.tpush.rpc.XGRemoteService"-->
+        <!--android:exported="true">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="${applicationId}.PUSH_ACTION" />-->
+        <!--</intent-filter>-->
+        <!--</service>-->
+
+        <!-- 【必须】 请将YOUR_ACCESS_ID修改为APP的AccessId，“21”开头的10位数字，中间没空格 -->
+        <meta-data
+            android:name="XG_V2_ACCESS_ID"
+            android:value="${XG_ACCESS_ID}" />
+        <!-- 【必须】 请将YOUR_ACCESS_KEY修改为APP的AccessKey，“A”开头的12位字符串，中间没空格 -->
+        <meta-data
+            android:name="XG_V2_ACCESS_KEY"
+            android:value="${XG_ACCESS_KEY}" />
+        <!-- 这里是业务自定义的receiver，若已配置请设置exported为false，否则可忽略之 -->
+        <receiver
+            android:name="com.example.youhe.youhecheguanjiaplus.receiver.MessageReceiver"
+            android:exported="true">
+            <intent-filter>
+                <!-- 接收消息透传 -->
+                <action android:name="com.tencent.android.tpush.action.PUSH_MESSAGE" />
+                <!-- 监听注册、反注册、设置/删除标签、通知被点击等处理结果 -->
+                <action android:name="com.tencent.android.tpush.action.FEEDBACK" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 【必须】 通知service，其中android:name部分要改为当前包名 -->
+        <service
+            android:name="com.tencent.android.tpush.rpc.XGRemoteService"
+            android:exported="true">
+            <intent-filter>
+                <!-- 【必须】 请修改为当前APP名包.PUSH_ACTION，如demo的包名为：com.qq.xgdemo -->
+                <action android:name="${applicationId}.PUSH_ACTION" />
+            </intent-filter>
+        </service>
+
+        <!-- 【必须】 【注意】authorities修改为 包名.AUTH_XGPUSH, 如demo的包名为：com.qq.xgdemo-->
+        <provider
+            android:name="com.tencent.android.tpush.XGPushProvider"
+            android:authorities="${applicationId}.AUTH_XGPUSH"
+            android:exported="true" />
+
+        <!-- 【必须】 【注意】authorities修改为 包名.TPUSH_PROVIDER, 如demo的包名为：com.qq.xgdemo-->
+        <provider
+            android:name="com.tencent.android.tpush.SettingsContentProvider"
+            android:authorities="${applicationId}.TPUSH_PROVIDER"
+            android:exported="false" />
+
+        <!-- 【必须】 【注意】authorities修改为 包名.TENCENT.MID.V3, 如demo的包名为：com.qq.xgdemo-->
+        <provider
+            android:name="com.tencent.mid.api.MidProvider"
+            android:authorities="${applicationId}.TENCENT.MID.V3"
+            android:exported="true">
+
+        </provider>
+
+        <!--信鸽配置 end  jian 2017-5-2-->
+
+        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <!--腾讯bugly提示用户重启应用对话框-->
+        <activity
+            android:name="com.tencent.bugly.beta.ui.BetaActivity"
+            android:theme="@android:style/Theme.Translucent" />
+
+        <!--友盟 分享配置 start-->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="596321a6e88bad176f00139e">
+
+        </meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Umeng">
+
+        </meta-data>
+        <!--  QQ-->
+        <!-- tencent -->
+        <activity
+            android:name="com.umeng.qq.tencent.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="tencent1106314864"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.umeng.qq.tencent.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
+        <!--<activity-->
+        <!--android:name=".wxapi.WXEntryActivity"-->
+        <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
+        <!--android:exported="true"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
+        <!--友盟 分享配置 end-->
+
+    </application>
+
+</manifest>

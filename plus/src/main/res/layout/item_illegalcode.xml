@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:background="@color/gray"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp"
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:id="@+id/code_linearLayout"
+        android:background="@color/white"
+        android:paddingBottom="10dip"
+        android:paddingTop="10dip"
+        android:weightSum="3"
+        >
+
+        <TextView
+            android:id="@+id/code_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="代码："
+            android:textColor="@color/new_color_primary"
+            android:layout_marginLeft="10dip"
+            android:textSize="18sp"
+            android:layout_weight="1"
+            android:gravity="left"
+            />
+
+        <TextView
+            android:id="@+id/koufen_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="扣分："
+            android:textColor="@color/new_color_primary"
+            android:layout_marginLeft="10dip"
+            android:textSize="18sp"
+            android:layout_weight="1"
+            android:gravity="left"
+            />
+
+        <TextView
+            android:id="@+id/fakuan_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="罚款："
+            android:textColor="@color/new_color_primary"
+            android:layout_marginLeft="10dip"
+            android:textSize="18sp"
+            android:background="@color/white"
+            android:layout_weight="1"
+            android:gravity="left"
+            />
+
+
+    </LinearLayout>
+
+    <!--<View-->
+        <!--android:id="@+id/line_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:background="@color/gray"-->
+        <!--android:layout_below="@+id/code_linearLayout"-->
+        <!--/>-->
+
+    <TextView
+        android:id="@+id/content_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text=""
+        android:layout_below="@+id/code_linearLayout"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:background="@color/white"
+        />
+
+</RelativeLayout>

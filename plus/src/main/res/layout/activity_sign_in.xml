@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+
+    <ImageView
+        android:id="@+id/iv"
+        android:background="#FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:id="@+id/rla"
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:background="@color/new_color_primary"
+        android:layout_height="@dimen/topbar_size">
+
+        <ImageButton
+            android:id="@+id/wangjimina_fanhuijian"
+            android:background="@null"
+            android:onClick="fanhui"
+            android:clickable="true"
+            android:layout_width="50dp"
+            android:layout_height="500dp"
+            android:src="@drawable/left"
+            />
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="电子签名"
+            android:textSize="@dimen/title_size"
+            android:textColor="#FFFFFF"
+            android:id="@+id/textView" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="6dp"
+            />
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="5dp"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_marginLeft="5dp"
+            android:id="@+id/bt2"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:onClick="clear"
+            android:background="@drawable/affirmbutton3"
+            android:textColor="#FFFFFF"
+            android:text="重签" />
+
+        <Button
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:id="@+id/bt"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:background="@drawable/affirmbutton3"
+            android:onClick="save"
+            android:textColor="#FFFFFF"
+            android:text="确定" />
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

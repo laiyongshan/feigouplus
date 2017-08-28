@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="2dp"
+    android:background="@color/white"
+    android:scrollbars="none"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="false"
+    >
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:background="@color/new_color_primary"
+        android:layout_height="@dimen/topbar_size"
+        >
+
+        <ImageButton
+            android:background="@null"
+            android:onClick="fanhui"
+            android:clickable="true"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/icon_back"
+            />
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="登 录"
+            android:textSize="@dimen/title_size"
+            android:textColor="#FFFFFF"
+            android:id="@+id/textView"
+            />
+    </RelativeLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        >
+
+        <!--<RelativeLayout-->
+            <!--android:layout_marginTop="30dp"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="180dp"-->
+                <!--android:layout_height="120dp"-->
+                <!--android:src="@drawable/icon_touxiang"-->
+                <!--android:layout_alignParentTop="true"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:id="@+id/imageView4" />-->
+        <!--</RelativeLayout>-->
+
+        <!--请输入手机号码-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <com.example.youhe.youhecheguanjiaplus.widget.ClearEditText
+                android:id="@+id/et_shouji"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/edit_phone_num"
+                android:phoneNumber="true"
+                style="@style/EditText"
+                android:textSize="20sp"
+                android:drawableLeft="@drawable/icon_phone"
+                android:drawablePadding="20dp"
+                android:textColorHint="#a0a0a0"
+                android:maxLength="11"
+                android:background="@color/white"
+                android:textColor="@color/new_color_primary"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/lucency3"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                />
+
+            <!--请输入密码-->
+
+
+            <com.example.youhe.youhecheguanjiaplus.widget.ClearEditText
+                android:id="@+id/et_mima"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/edit_password"
+                android:layout_marginTop="15dp"
+                style="@style/EditText"
+                android:layout_gravity="center_vertical"
+                android:textSize="20sp"
+                android:lines="1"
+                android:drawableLeft="@drawable/icon_psw"
+                android:drawablePadding="19dp"
+                android:textColorHint="#a0a0a0"
+                android:inputType="textPassword"
+                android:background="@color/white"
+                android:textColor="@color/new_color_primary"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/lucency3"
+                android:layout_marginTop="10dp"
+                />
+        </LinearLayout>
+
+
+
+
+        <!--登录-->
+
+        <RelativeLayout
+            android:id="@+id/dengluq"
+            android:onClick="denglu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:src="@drawable/affirmbutton3"
+                />
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/login"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/tv_kuaisuzhuce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:onClick="denglu"
+                android:text="@string/register"
+                android:clickable="true"
+                android:textColor="@drawable/textselector2"
+                android:textSize="15sp"
+                />
+
+            <TextView
+                android:id="@+id/tv_shoujilianzheng"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="denglu"
+                android:clickable="true"
+                android:text="@string/auth_login"
+                android:textColor="@drawable/textselector2"
+                android:textSize="15sp"
+                android:layout_alignParentLeft="true"
+                />
+
+            <!--<TextView-->
+            <!--android:id="@+id/tv_jihuoshoujizhanghao"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_marginRight="40dp"-->
+            <!--android:text="激活手机帐户"-->
+            <!--android:clickable="true"-->
+            <!--android:onClick="denglu"-->
+            <!--android:textColor="@drawable/textselector2"-->
+            <!--android:textSize="12sp" />-->
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom|center_horizontal"
+            >
+
+            <TextView
+                android:id="@+id/tv_wangjimima"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/forget_password"
+                android:clickable="true"
+                android:onClick="denglu"
+                android:textColor="@drawable/textselector2"
+                android:textSize="14sp"
+                android:layout_marginBottom="10dp"
+                />
+
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="更多"-->
+            <!--android:textColor="@color/colorPrimary"-->
+            <!--android:layout_marginBottom="10dp"-->
+            <!--android:textSize="16sp"-->
+            <!--/>-->
+
+        </LinearLayout>
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="50dp"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<RelativeLayout-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="0.05dp"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:layout_weight="1"-->
+        <!--android:background="#929292">-->
+
+        <!--</RelativeLayout>-->
+
+
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="20dp"-->
+        <!--android:layout_marginRight="20dp"-->
+        <!--android:text="其他方式登录"-->
+        <!--android:textColor="@drawable/textselector2"-->
+        <!--android:textSize="13sp" />-->
+
+        <!--<RelativeLayout-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="0.05dp"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:layout_weight="1"-->
+        <!--android:background="#929292">-->
+
+        <!--</RelativeLayout>-->
+        <!--</LinearLayout>-->
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="40dp"-->
+        <!--android:gravity="center"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<LinearLayout-->
+        <!--android:id="@+id/qqdenglu"-->
+        <!--android:onClick="denglu"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginRight="60dp"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:src="@drawable/img_login_qq" />-->
+
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_marginTop="5dp"-->
+        <!--android:text="QQ"-->
+        <!--android:textColor="#929292"-->
+        <!--android:textSize="10sp" />-->
+        <!--</LinearLayout>-->
+
+        <!--<LinearLayout-->
+        <!--android:onClick="denglu"-->
+        <!--android:id="@+id/weixindenglu"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:src="@drawable/img_login_wechat" />-->
+
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_marginTop="5dp"-->
+        <!--android:text="微信"-->
+        <!--android:textColor="#929292"-->
+        <!--android:textSize="10sp" />-->
+        <!--</LinearLayout>-->
+
+        <!--</LinearLayout>-->
+
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

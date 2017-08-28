@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:padding="20dp"
+    android:background="@color/white"
+    android:minWidth="300dp"
+    >
+
+    <ImageView
+        android:id="@+id/dismiss_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:src="@drawable/cuo_01"
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="用户登录密码"
+        android:textColor="@color/new_color_primary"
+        android:textSize="18sp"
+        />
+
+    <EditText
+        android:id="@+id/user_psw_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/lucency"
+        android:padding="20dp"
+        android:inputType="textPassword"
+        android:gravity="center"
+        android:textSize="18sp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"
+        android:layout_marginBottom="15dp"
+        />
+
+    <Button
+        android:id="@+id/commit_check_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="提交审核"
+        android:background="@drawable/affirmbutton3"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:padding="10dp"
+        />
+
+</LinearLayout>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="2dp"
+    android:background="#F1F1F1"
+    android:scrollbars="none"
+    android:fillViewport="false">
+
+
+        <RelativeLayout
+            android:id="@+id/lyay"
+            android:layout_width="match_parent"
+            android:layout_alignParentTop="true"
+            android:background="@color/new_color_primary"
+            android:layout_height="@dimen/topbar_size">
+
+            <ImageButton
+                android:id="@+id/wangjimina_fanhuijian"
+                android:background="@null"
+                android:layout_centerVertical="true"
+                android:onClick="fanhui"
+                android:clickable="true"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/left"
+                />
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="支付操作"
+                android:textSize="@dimen/title_size"
+                android:textColor="#FFFFFF"
+                android:id="@+id/textView" />
+
+            <ImageButton
+                android:id="@+id/search_bt"
+                android:background="@null"
+                android:layout_centerVertical="true"
+                android:clickable="true"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/appkefu_faq_search"
+                />
+
+
+        </RelativeLayout>
+
+        <ListView
+            android:layout_below="@+id/lyay"
+            android:layout_above="@+id/layw"
+            android:id="@+id/devicename_listview"
+            android:scrollbars="none"
+            android:layout_width="match_parent"
+            android:layout_height="250dp">
+        </ListView>
+
+        <LinearLayout
+            android:id="@+id/layw"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/toobtain_bt"
+                android:layout_marginTop="10dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/affirmbutton3"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/white"
+                android:text="插卡"
+                android:textSize="15sp"
+                />
+            <Button
+                android:layout_marginTop="10dp"
+                android:id="@+id/termination_bt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="gain"
+                android:background="@drawable/affirmbutton3"
+                android:text="断开设备"
+                android:textSize="15sp"
+                android:textColor="@color/white"
+                />
+
+        </LinearLayout>
+
+</RelativeLayout>

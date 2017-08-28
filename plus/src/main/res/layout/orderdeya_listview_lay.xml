@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginTop="15dp"
+    android:background="#FFFFFF">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="车牌号码:"
+            style="@style/orderdetaitvsty1"
+            />
+
+        <TextView
+            android:id="@+id/car_num_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            style="@style/orderdetaitvsty2"
+            />
+    </LinearLayout>
+
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv1_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="违章内容:"
+                style="@style/orderdetaitvsty1"
+                />
+
+            <TextView
+                android:id="@+id/tv2_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                style="@style/orderdetaitvsty2"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv1_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="违章地点:"
+                style="@style/orderdetaitvsty1"
+                />
+
+            <TextView
+                android:id="@+id/tv2_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                style="@style/orderdetaitvsty2"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv1_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="违章时间:"
+                style="@style/orderdetaitvsty1"
+                />
+
+            <TextView
+                android:id="@+id/tv2_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                style="@style/orderdetaitvsty2"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv1_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="扣分情况:"
+                style="@style/orderdetaitvsty1"
+                />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv2_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    style="@style/orderdetaitvsty2"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="分"
+                    style="@style/orderdetaitvsty2"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv1_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="罚款金额:"
+                style="@style/orderdetaitvsty1"
+                />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="￥"
+                    android:textSize="10sp"
+                    android:textColor="#F70000"
+                    style="@style/orderdetaitvsty2"
+                    />
+                <TextView
+                    android:id="@+id/tv2_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="#F70000"
+                    android:textSize="14sp"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv1_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="服  务  费:"
+                style="@style/orderdetaitvsty1"
+                />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_marginBottom="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="￥"
+                    android:textSize="10sp"
+                    style="@style/orderdetaitvsty2"
+                    android:textColor="@color/red"
+                    />
+                <TextView
+                    android:id="@+id/tv2_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/red"
+                    android:textSize="14sp"
+                    android:text=""
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/zhinanjin"
+        android:orientation="horizontal"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv1_7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="滞  纳  金:"
+            style="@style/orderdetaitvsty1"
+            />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginBottom="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥"
+                android:textColor="#F70000"
+                android:textSize="10sp"
+                style="@style/orderdetaitvsty2"
+                />
+            <TextView
+                android:id="@+id/tv2_7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#F70000"
+                android:textSize="14sp"
+                android:text=""
+
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/count_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginRight="15dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        />
+
+
+
+
+</LinearLayout>

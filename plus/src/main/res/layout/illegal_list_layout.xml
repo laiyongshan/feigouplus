@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    android:paddingBottom="70dp"
+    android:id="@+id/illegal_list_layout"
+    >
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+
+
+                    <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:drawableLeft="@drawable/laba"-->
+                        <!--android:drawablePadding="5dip"-->
+                        <!--android:layout_marginLeft="10dip"-->
+                        <!--android:layout_marginTop="3dip"-->
+                        <!--android:layout_marginBottom="3dip"-->
+                        <!--android:text="@string/illegalguangbo"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--/>-->
+
+                    <com.example.youhe.youhecheguanjiaplus.widget.MyListView
+                        android:id="@+id/illegal_lv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:divider="@color/gray"
+                        android:dividerHeight="10dp"
+                        android:layout_marginTop="5dp"
+                        />
+
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/no_illegal_tv"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="100dip"-->
+                        <!--android:background="@color/white"-->
+                        <!--android:text="没有普通处理违章~~"-->
+                        <!--android:gravity="center"-->
+                        <!--android:visibility="visible"-->
+                        <!--/>-->
+
+                    <!--<RelativeLayout-->
+                        <!--android:id="@+id/illegal_12_tips_layout"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:paddingTop="10dp"-->
+                        <!--android:paddingBottom="10dp"-->
+                        <!--android:gravity="center"-->
+                        <!--&gt;-->
+
+                        <!--<TextView-->
+                            <!--android:id="@+id/specia_illegal_tips"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:gravity="center"-->
+                            <!--android:drawablePadding="5dip"-->
+                            <!--android:paddingLeft="20dp"-->
+                            <!--android:paddingRight="20dp"-->
+                            <!--android:text="@string/specia_illegal_tips"-->
+                            <!--android:textSize="12sp"-->
+                            <!--android:layout_alignParentTop="true"-->
+                            <!--android:layout_alignParentLeft="true"-->
+                            <!--android:layout_alignParentStart="true" />-->
+
+                        <!--<LinearLayout-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:gravity="center"-->
+                            <!--android:layout_below="@+id/specia_illegal_tips"-->
+                            <!--android:layout_alignLeft="@+id/specia_illegal_tips"-->
+                            <!--android:layout_alignStart="@+id/specia_illegal_tips"-->
+                            <!--&gt;-->
+                            <!--<TextView-->
+                                <!--android:id="@+id/specia_illegal_tips1"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:drawablePadding="5dip"-->
+                                <!--android:text="了解更多请点击"-->
+                                <!--android:textSize="10sp"-->
+                                <!--android:layout_gravity="center"-->
+                                <!--/>-->
+
+                            <!--<TextView-->
+                                <!--android:id="@+id/warm_prompt_tv"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:textColor="@color/blue"-->
+                                <!--android:text="温馨提示~~"-->
+                                <!--android:textSize="13sp"-->
+                                <!--android:layout_below="@+id/specia_illegal_tips"-->
+                                <!--android:layout_toRightOf="@+id/specia_illegal_tips1"-->
+                                <!--android:layout_toEndOf="@+id/specia_illegal_tips1" />-->
+
+                        <!--</LinearLayout>-->
+
+                    <!--</RelativeLayout>-->
+
+                    <!--<RelativeLayout-->
+                        <!--android:id="@+id/illegal_12_layout"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content">-->
+
+                        <!--<MyListView-->
+                            <!--android:id="@+id/illegal_lv12"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:background="@color/white"-->
+                            <!--android:divider="@color/gray"-->
+                            <!--android:dividerHeight="10dp"-->
+                            <!--android:layout_marginTop="5dp"/>-->
+
+                        <!--<TextView-->
+                            <!--android:id="@+id/no_illegal_12_tv"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="100dip"-->
+                            <!--android:background="@color/white"-->
+                            <!--android:text="没有特殊处理违章~~"-->
+                            <!--android:gravity="center"-->
+                            <!--android:visibility="visible"-->
+                            <!--/>-->
+
+                    <!--</RelativeLayout>-->
+
+            </LinearLayout>
+        </ScrollView>
+</LinearLayout>

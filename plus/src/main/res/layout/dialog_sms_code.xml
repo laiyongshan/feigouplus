@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:minWidth="1000dp"
+    android:minHeight="230dp"
+    >
+
+    <RelativeLayout
+        android:id="@+id/topBar"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/topbar_size"
+        android:background="#505050"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:text="短信验证码"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:padding="10dp"-->
+        <!--android:id="@+id/account_query_back_img"-->
+        <!--android:src="@drawable/icon_back" />-->
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        >
+
+
+        <RelativeLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:padding="10dp"
+            android:background="@mipmap/kuang"
+            >
+
+            <EditText
+                android:id="@+id/sms_code_et"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/icon_yzm"
+                android:layout_alignParentLeft="true"
+                android:hint="请输入短信验证码"
+                android:drawablePadding="10dp"
+                android:background="@color/lucency"
+                />
+
+            <com.example.youhe.youhecheguanjiaplus.widget.TimeButton
+                android:id="@+id/get_smscode_timebutton"
+                android:layout_centerVertical="true"
+                android:onClick="yanZhenMa"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:padding="5dp"
+                android:background="@drawable/affirmbutton2"
+                android:layout_width="wrap_content"
+                android:layout_height="25sp"
+                android:text=""
+                android:textSize="12sp"
+                android:textColor="#FFFFFF"
+                />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+
+    <Button
+        android:id="@+id/register_finish_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="确      定"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:background="@drawable/tijiaoa2"
+        android:layout_gravity="bottom"
+        android:layout_margin="30dp"
+        android:padding="10dp"
+        />
+
+
+</LinearLayout>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="20dp"
+    android:id="@+id/account_change_psw1"
+    >
+
+    <TextView
+        android:id="@+id/province_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="5dp"
+        android:textSize="16sp"
+        android:lines="1"
+        android:hint="请选择机动车登记省份"
+        android:drawableRight="@drawable/icon_xiala"
+        android:drawableLeft="@drawable/shengfen"
+        android:drawablePadding="10dp"
+        android:layout_marginTop="30dp"
+        android:textColorHint="@color/new_color_primary"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/new_color_primary"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"
+        />
+
+    <!--身份证明号码-->
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:background="@drawable/laybeijin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        >
+
+
+        <EditText
+            android:id="@+id/id_num_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:background="@color/lucency"
+            android:hint="请输入身份证明号码"
+            android:textColorHint="@color/new_color_primary"
+            android:textSize="16sp"
+            android:drawableLeft="@drawable/zhanghao"
+            android:drawablePadding="12dp"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/new_color_primary"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"
+        />
+
+
+    <!--姓名-->
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:background="@drawable/laybeijin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:weightSum="6"
+        >
+
+
+        <EditText
+            android:id="@+id/id_name_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="4"
+            android:background="@color/lucency"
+            android:hint="请输入姓名"
+            android:textColorHint="@color/new_color_primary"
+            android:textSize="16sp"
+            android:drawableLeft="@drawable/icon_username"
+            android:drawablePadding="12dp"
+            />
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/new_color_primary"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"
+        />
+
+    <Button
+        android:id="@+id/next_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/affirmbutton3"
+        android:text="下 一 步"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        />
+
+
+    <TextView
+        android:id="@+id/erro_msg_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/zhuyi"
+        android:drawablePadding="10dp"
+        android:layout_marginTop="15dp"
+        android:visibility="gone"
+        />
+
+</LinearLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="plus_type">
+        <item>普通车主卡</item>
+        <item>三级分销</item>
+    </string-array>
+    <string-array name="plus_role">
+        <item>PLUS用户</item>
+        <item>车主卡用户</item>
+    </string-array>
+</resources>

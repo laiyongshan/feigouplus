@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/new_color_primary"
+    android:paddingBottom="10dp"
+    >
+
+
+    <com.example.youhe.youhecheguanjiaplus.widget.MyGridView
+        android:id="@+id/funcation_gv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:horizontalSpacing="8dip"
+        android:numColumns="4"
+        android:scrollbars="none"
+        android:verticalSpacing="5dip"
+        android:background="@color/new_color_primary"
+        />
+
+
+
+</LinearLayout>

@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="2dp"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="false"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_alignParentTop="true"
+            android:background="@color/new_color_primary"
+            android:layout_height="@dimen/topbar_size">
+
+            <ImageButton
+                android:id="@+id/wangjimina_fanhuijian"
+                android:background="@null"
+                android:onClick="fanhui"
+                android:clickable="true"
+                android:layout_width="50dp"
+                android:layout_height="500dp"
+                android:src="@drawable/icon_back"
+                />
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="修改密码"
+                android:textSize="@dimen/title_size"
+                android:textColor="#FFFFFF"
+                android:id="@+id/textView" />
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:orientation="vertical"
+            >
+
+        <!--请输入手机号码-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--<ImageView-->
+                <!--android:layout_width="35dp"-->
+                <!--android:layout_height="35dp"-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:layout_marginLeft="40dp"-->
+                <!--android:src="@drawable/phone" />-->
+
+            <com.example.youhe.youhecheguanjiaplus.widget.ClearEditText
+                android:id="@+id/et_shouji"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:phoneNumber="true"
+                android:hint="@string/edit_phone_num"
+                style="@style/EditText"
+                android:drawableLeft="@drawable/icon_phone"
+                android:textSize="16sp"
+                android:drawablePadding="20dp"
+                android:textColorHint="#a0a0a0"
+                android:textColor="@color/black"
+                android:background="@color/lucency"
+                android:maxLength="11"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E0E8F9"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                />
+
+        </LinearLayout>
+
+
+    <!--请输入验证码-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        >
+
+            <!--<ImageView-->
+                <!--android:id="@+id/imgh"-->
+                <!--android:layout_width="35dp"-->
+                <!--android:layout_height="35dp"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:src="@drawable/yanzheng"-->
+                <!--android:layout_alignParentLeft="true"-->
+                <!--android:layout_alignParentStart="true" />-->
+
+        <com.example.youhe.youhecheguanjiaplus.widget.ClearEditText
+            android:id="@+id/et_yanzhenmima"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/edit_auth_code"
+            style="@style/EditText"
+            android:textColorHint="#a0a0a0"
+            android:textColor="@color/black"
+            android:drawableLeft="@drawable/icon_yzm"
+            android:textSize="16sp"
+            android:drawablePadding="20dp"
+            android:background="@color/lucency"
+            android:inputType="number"
+            />
+
+        <LinearLayout
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="#a0a0a0"
+            />
+
+        <com.example.youhe.youhecheguanjiaplus.widget.TimeButton
+                android:id="@+id/button1"
+                android:layout_centerVertical="true"
+                android:onClick="yanZhenMa"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/affirmbutton3"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:text=""
+                android:textSize="10sp"
+                android:textColor="#FFFFFF"
+                />
+
+        </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E0E8F9"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                />
+
+
+        <!--请输入密码-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <!--<ImageView-->
+                <!--android:layout_width="35dp"-->
+                <!--android:layout_height="35dp"-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:layout_marginLeft="40dp"-->
+                <!--android:src="@drawable/keywork1" />-->
+
+            <com.example.youhe.youhecheguanjiaplus.widget.ClearEditText
+                android:id="@+id/et_mima"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="40dp"
+                android:hint="@string/edit_password2"
+                style="@style/EditText"
+                android:drawableLeft="@drawable/icon_psw"
+                android:textSize="16sp"
+                android:drawablePadding="20dp"
+                android:textColorHint="#a0a0a0"
+                android:background="@color/lucency"
+                android:textColor="@color/black"
+                android:inputType="textPassword"
+                 />
+        </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E0E8F9"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                />
+
+        <!--再次请输入密码-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <com.example.youhe.youhecheguanjiaplus.widget.ClearEditText
+                android:id="@+id/et_mima2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="40dp"
+                android:hint="@string/edit_password3"
+                style="@style/EditText"
+                android:drawableLeft="@drawable/icon_psw"
+                android:textSize="16sp"
+                android:drawablePadding="20dp"
+                android:textColorHint="#a0a0a0"
+                android:background="@color/lucency"
+                android:textColor="@color/black"
+                android:inputType="textPassword"
+                />
+        </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E0E8F9"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                />
+
+        <!--登录-->
+
+            <TextView
+                android:id="@+id/queding"
+                android:onClick="confirm"
+                android:layout_marginTop="45dp"
+                android:layout_marginBottom="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="确定"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:background="@drawable/affirmbutton3"
+                android:gravity="center"
+                android:padding="10dp"
+                />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="遇到问题？你可以"
+                    />
+                <TextView
+                    android:id="@+id/contact_service_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="联系客服"
+                    android:textColor="@color/blue"
+                    />
+
+            </LinearLayout>
+
+        <!--<Button-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/denglijian"-->
+            <!--android:onClick="confirm"-->
+            <!--android:layout_marginLeft="40dp"-->
+            <!--android:layout_marginRight="40dp"-->
+            <!--android:layout_marginTop="50dp"-->
+            <!--android:background="@drawable/affirmbutton"-->
+            <!--/>-->
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

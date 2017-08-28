@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="false"
+    android:background="@color/gray"
+    >
+
+
+    <RelativeLayout
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:background="@color/new_color_primary"
+        android:layout_height="@dimen/topbar_size">
+
+        <ImageButton
+            android:id="@+id/apply_crash_back_ib"
+            android:background="@null"
+            android:clickable="true"
+            android:layout_width="50dp"
+            android:layout_height="500dp"
+            android:src="@drawable/icon_back"
+            />
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="提现记录"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:id="@+id/textView" />
+    </RelativeLayout>
+
+
+    <Button
+        android:id="@+id/apply_crash_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:background="@drawable/affirmbutton3"
+        android:text="申请提现"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:textSize="18sp"
+        />
+
+
+    <LinearLayout
+        android:id="@+id/list_emty_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="visible"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_no_bank_card"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:text="没有提现记录"
+            android:gravity="center"
+            android:paddingTop="20dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="#606060"
+            android:text="点击下方提现"
+            android:gravity="center"
+            android:padding="10dp"
+            />
+
+
+    </LinearLayout>
+
+
+    <ListView
+        android:id="@+id/applyfor_crash_lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:dividerHeight="10dp"
+        android:divider="@color/gray"
+        android:layout_below="@+id/title_layout"
+        android:padding="3dp"
+        android:layout_marginTop="10dp"
+        android:layout_above="@+id/apply_crash_btn"
+         />
+
+
+</RelativeLayout>

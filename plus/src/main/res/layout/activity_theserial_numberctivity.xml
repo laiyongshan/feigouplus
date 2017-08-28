@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginBottom="2dp"
+    android:background="#F1F1F1"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="false"
+    >
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_alignParentTop="true"
+            android:background="@color/new_color_primary"
+            android:layout_height="@dimen/topbar_size">
+
+            <ImageButton
+                android:id="@+id/wangjimina_fanhuijian"
+                android:background="@null"
+                android:onClick="fanhui"
+                android:clickable="true"
+                android:layout_centerVertical="true"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/left"
+                />
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="设备操作"
+                android:textSize="@dimen/title_size"
+                android:textColor="#FFFFFF"
+                android:id="@+id/textView" />
+
+            <ImageButton
+                android:id="@+id/search_bt"
+                android:background="@null"
+                android:clickable="true"
+                android:layout_centerVertical="true"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/appkefu_faq_search"
+                />
+        </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F1F1F1">
+
+        <ListView
+            android:layout_below="@+id/lay"
+            android:id="@+id/devicename_listview"
+            android:scrollbars="none"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ListView>
+
+        <LinearLayout
+            android:id="@+id/lay"
+            android:layout_marginTop="10dp"
+            android:layout_above="@+id/termination_bt"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"
+                android:textColor="#2B2B2B"
+                android:text="请点击列表获取序列号"
+                />
+
+        </LinearLayout>
+
+
+
+
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/otherorder_further_info_layout"
+    android:theme="@style/transcutestyle"
+    android:fitsSystemWindows="true"
+    >
+
+
+    <ScrollView
+        android:id="@+id/otherorder_further_info_scrollview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="14dp"
+        android:scrollbars="none"
+
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <ViewSwitcher
+            android:id="@+id/further_info__view_switcher"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+
+                <TextView
+                    android:id="@+id/further_info_carnum_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#D7FFF4"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/dark_blue"
+                    android:text=""
+                    android:textSize="26sp"
+                    android:paddingTop="40dp"
+                    android:paddingBottom="20dp"
+                    android:layout_marginTop="50dp"
+                     />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_further_info_car"
+                    android:id="@+id/imageView3"
+                    android:layout_centerHorizontal="true" />
+
+                <Button
+                    android:id="@+id/further_info_close_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/further_info_close_button"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:background="@color/white"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    >
+
+                    <ImageView
+                        android:id="@+id/icon_further_122_usename"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_username2"
+                        android:scaleType="fitXY"
+                        android:layout_centerVertical="true"
+                        />
+
+                    <com.example.youhe.youhecheguanjiaplus.widget.ClearEditText
+                        android:id="@+id/et_further_122_usename"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/icon_further_122_usename"
+                        android:layout_marginLeft="15dp"
+                        android:hint="请输入车主真实姓名"
+                        android:layout_centerVertical="true"
+                        />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignLeft="@+id/et_further_122_usename"
+                        android:layout_below="@+id/et_further_122_usename"
+                        android:background="@color/gray"
+                        />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    >
+
+                    <ImageView
+                        android:id="@+id/icon_further_idcard_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_further_idcard_num"
+                        android:scaleType="fitXY"
+                        android:layout_centerVertical="true"
+                        />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignLeft="@+id/et_further_info_idcar"
+                        android:layout_below="@+id/et_further_info_idcar"
+                        android:background="@color/gray"
+                        />
+
+                    <com.example.youhe.youhecheguanjiaplus.widget.ClearEditText
+                        android:id="@+id/et_further_info_idcar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="请输入车主身份证号"
+                        android:layout_toRightOf="@+id/icon_further_idcard_num"
+                        android:layout_marginLeft="15dp"
+                        android:layout_centerVertical="true"
+                        android:maxLength="18"
+                         />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    >
+
+                    <com.example.youhe.youhecheguanjiaplus.widget.ClearEditText
+                        android:id="@+id/et_further_phone_num"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/icon_further_phone_num"
+                        android:layout_marginLeft="15dp"
+                        android:hint="请输入车主手机号码"
+                        android:layout_centerVertical="true"
+                        android:maxLength="11"
+                        android:inputType="number"
+                        />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignLeft="@+id/et_further_phone_num"
+                        android:layout_below="@+id/et_further_phone_num"
+                        android:background="@color/gray"
+                        />
+
+                    <ImageView
+                        android:id="@+id/icon_further_phone_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_further_phone"
+                        android:scaleType="fitXY"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    >
+
+                    <ImageView
+                        android:id="@+id/icon_further_122_psd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_further_psd"
+                        android:scaleType="fitXY"
+                        android:layout_centerVertical="true"
+                        />
+
+                    <com.example.youhe.youhecheguanjiaplus.widget.ClearEditText
+                        android:id="@+id/et_further_122_psd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/icon_further_122_psd"
+                        android:layout_marginLeft="15dp"
+                        android:hint="请输入车主122官网密码"
+                        android:layout_centerVertical="true"
+                        android:inputType="textPassword"
+                        />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignLeft="@+id/et_further_122_psd"
+                        android:layout_below="@+id/et_further_122_psd"
+                        android:background="@color/gray"
+                        />
+
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/go_to_122_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/go_to_122"
+                    android:textSize="18sp"
+                    android:drawableLeft="@drawable/icon_go_to122"
+                    android:drawablePadding="10dp"
+                    android:autoLink="all"
+                    />
+
+
+                <Button
+                    android:id="@+id/commit_other_order_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:text="提交订单"
+                    android:textColor="@color/white"
+                    android:background="@drawable/commit_otherorder_btn_bg"
+                    />
+
+
+            </LinearLayout>
+
+
+            </LinearLayout>
+
+        </ViewSwitcher>
+
+    </ScrollView>
+
+
+</RelativeLayout>

@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="false"
+    >
+
+
+        <RelativeLayout
+            android:id="@+id/lay1"
+            android:layout_width="match_parent"
+            android:layout_alignParentTop="true"
+            android:background="@color/new_color_primary"
+            android:layout_height="@dimen/topbar_size">
+
+            <ImageButton
+                android:id="@+id/wangjimina_fanhuijian"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:onClick="fanhui"
+                android:layout_width="50dp"
+                android:clickable="true"
+                android:layout_height="40dp"
+                android:src="@drawable/icon_back"
+                />
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="关于我们"
+                android:textSize="@dimen/title_size"
+                style="?android:attr/borderlessButtonStyle"
+                android:textColor="#FFFFFF"
+                android:id="@+id/textView" />
+        </RelativeLayout>
+
+
+
+        <ImageView
+            android:id="@+id/img1"
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:src="@mipmap/icon_app"
+            android:layout_below="@+id/lay1"
+            android:layout_centerHorizontal="true" />
+        <TextView
+            android:id="@+id/tx"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/img1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textSize="18sp"
+            android:textColor="#212121"
+            android:text="友禾车管家"
+            />
+
+        <LinearLayout
+            android:id="@+id/lay2"
+            android:layout_below="@+id/tx"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="35dp"
+            android:layout_marginLeft="35dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/dian1"
+                android:layout_marginTop="5dp"
+                android:background="@color/new_color_primary"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_width="5dp"
+                android:layout_height="5dp">
+            </RelativeLayout>
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_alignParentTop="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#909090"
+                android:textSize="15sp"
+                android:text="友车APP由广州友禾旗下独立开发运营模块，致力为汽车后服务市场提供专业、便捷、权威的解决方案。"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lay3"
+            android:layout_below="@+id/lay2"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="35dp"
+            android:layout_marginLeft="35dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_marginTop="5dp"
+                android:background="@color/new_color_primary"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_width="5dp"
+                android:layout_height="5dp">
+            </RelativeLayout>
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_alignParentTop="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#909090"
+                android:textSize="15sp"
+                android:text="友车APP以车主服务至上，以违章查询、提醒、代缴等业务为切入点，为用户提供极致体验。"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/lay4"
+            android:layout_below="@+id/lay3"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="35dp"
+            android:layout_marginLeft="35dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_marginTop="5dp"
+                android:background="@color/new_color_primary"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_width="5dp"
+                android:layout_height="5dp">
+            </RelativeLayout>
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_alignParentTop="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#909090"
+                android:textSize="15sp"
+                android:text="客服热线："
+                />
+            <TextView
+                android:id="@+id/tv_extnumble"
+                android:layout_marginLeft="5dp"
+                android:onClick="boda"
+                android:layout_gravity="center_vertical"
+                android:layout_alignParentTop="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@drawable/textselector"
+                android:textSize="15sp"
+                android:text="4006-999-790"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lay5"
+            android:layout_below="@+id/lay4"
+            android:layout_marginRight="35dp"
+            android:layout_marginLeft="35dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!--<RelativeLayout-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:background="#ABCD05"-->
+                <!--android:layout_alignParentLeft="true"-->
+                <!--android:layout_alignParentTop="true"-->
+                <!--android:layout_width="5dp"-->
+                <!--android:layout_height="5dp">-->
+            <!--</RelativeLayout>-->
+
+            <!--<TextView-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:layout_alignParentTop="true"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textColor="#909090"-->
+                <!--android:textSize="15sp"-->
+                <!--android:text="招商电话："-->
+                <!--/>-->
+            <!--<TextView-->
+                <!--android:id="@+id/tv"-->
+                <!--android:layout_marginLeft="5dp"-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:onClick="zhao"-->
+                <!--android:layout_alignParentTop="true"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textColor="@drawable/textselector"-->
+                <!--android:textSize="15sp"-->
+                <!--android:text="18002212313"-->
+                <!--/>-->
+
+        </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/lay6"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lay5"
+        android:layout_alignLeft="@+id/lay5"
+        android:layout_alignStart="@+id/lay5">
+
+        <RelativeLayout
+            android:layout_marginTop="5dp"
+            android:background="@color/new_color_primary"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_width="5dp"
+            android:layout_height="5dp">
+        </RelativeLayout>
+
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_alignParentTop="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#909090"
+            android:textSize="15sp"
+            android:text="欢迎加入我们："
+            />
+        <TextView
+            android:id="@+id/tv5"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="center_vertical"
+            android:onClick="jiaru"
+            android:layout_alignParentTop="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@drawable/textselector"
+            android:textSize="15sp"
+            android:text="加入申请 > >"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center_vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#909090"
+        android:textSize="12sp"
+        android:layout_marginBottom="20dp"
+        android:text="广州友禾信息科技有限公司"
+        />
+
+</RelativeLayout>

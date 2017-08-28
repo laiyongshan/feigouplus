@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minHeight="950dp"
+    android:minWidth="800dp"
+    android:background="@color/white"
+    >
+
+    <RelativeLayout
+        android:id="@+id/topBar"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/topbar_size"
+        android:background="@color/new_color_primary"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:text="用户类型"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:id="@+id/car_owner_back_img"
+            android:src="@drawable/icon_back" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        >
+
+
+        <ListView
+            android:id="@+id/car_owner_type_lv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="80dp"
+            android:padding="10dp"
+           />
+
+
+        <Button
+            android:id="@+id/register_next2_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="下 一 步"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:background="@drawable/affirmbutton3"
+            android:layout_gravity="bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="20dp"
+            android:padding="10dp"
+            />
+    </RelativeLayout>
+
+
+</LinearLayout>

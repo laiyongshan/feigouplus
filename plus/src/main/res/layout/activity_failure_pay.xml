@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.example.youhe.youhecheguanjiaplus.widget.DrawHookForkView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_above="@+id/text"
+            android:layout_marginBottom="10dp"
+            android:layout_centerInParent="true">
+        </com.example.youhe.youhecheguanjiaplus.widget.DrawHookForkView>
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_above="@+id/text2"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#F70000"
+            android:textSize="25sp"
+            android:text="交易失败"
+            android:layout_marginBottom="10dp"
+            />
+
+
+        <TextView
+            android:id="@+id/textdoll"
+            android:layout_marginTop="10dp"
+            android:layout_above="@+id/denglijian"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/new_color_primary"
+            android:textSize="18sp"
+            android:padding="10dp"
+            />
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/repay_btn"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:text="重新支付"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:background="@drawable/affirmbutton3"
+        />
+
+
+
+
+</RelativeLayout>

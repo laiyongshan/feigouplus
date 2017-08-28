@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/linkpay_layout_root">
+
+    <FrameLayout
+        android:id="@+id/linkpay_layout_header"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/new_color_primary"
+        android:tag="layout_header">
+
+        <ImageView
+            android:id="@+id/linkpay_iv_back"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="4dp"
+            android:padding="4dp"
+            android:scaleType="centerInside"
+            android:tag="iv_back" />
+
+        <TextView
+            android:id="@+id/linkpay_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:lines="1"
+            android:maxEms="10"
+            android:tag="tv_title"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+
+    </FrameLayout>
+
+    <ProgressBar
+        android:id="@+id/linkpay_progress"
+        style="@style/android:Widget.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:max="100"
+        android:maxHeight="4dp"
+        android:minHeight="4dp"
+        android:progress="20"
+        android:progressDrawable="@drawable/drawable_webview_progress"
+        android:tag="progress"
+        android:visibility="gone" />
+
+
+
+
+</LinearLayout>

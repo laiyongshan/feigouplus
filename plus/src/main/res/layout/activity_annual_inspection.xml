@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="false"
+    android:background="@color/gray"
+    >
+
+    <RelativeLayout
+        android:id="@+id/title_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/topbar_size"
+        android:background="@color/new_color_primary"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="15dp"
+            android:id="@+id/back_iv"
+            android:src="@drawable/icon_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="车辆年检"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/title_size"
+            />
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:layout_below="@+id/title_layout"
+        android:layout_marginBottom="50dp"
+        android:layout_marginTop="5dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!--年检代办流程-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/new_color_primary"
+                        android:text="@string/commission_title"
+                        />
+
+                    <ImageView
+                        android:id="@+id/pack_up_iv1"
+                        android:layout_width="13dp"
+                        android:layout_height="13dp"
+                        android:src="@drawable/category_iv_oneitem_arrow_up"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:scaleType="fitCenter"
+                        />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/process_layout1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/commission1"
+                        android:paddingTop="8dp"
+                        android:drawableLeft="@drawable/shangmenshoujian"
+                        android:drawablePadding="10dp"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/commission2"
+                        android:paddingTop="8dp"
+                        android:drawableLeft="@drawable/zhufudingdan"
+                        android:drawablePadding="10dp"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/commission3"
+                        android:paddingTop="8dp"
+                        android:drawableLeft="@drawable/zhengjianniansheng"
+                        android:drawablePadding="10dp"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/commission4"
+                        android:paddingTop="8dp"
+                        android:drawableLeft="@drawable/quedingshoujian"
+                        android:drawablePadding="10dp"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/commission5"
+                        android:paddingTop="8dp"
+                        android:drawableLeft="@drawable/wancheng"
+                        android:drawablePadding="10dp"
+                        />
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:background="@color/gray"
+                android:padding="12dp"
+                />
+
+            <!--六年内粤牌车-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/new_color_primary"
+                        android:text="@string/commission_title2"
+
+                        />
+
+                    <ImageView
+                        android:id="@+id/pack_up_iv2"
+                        android:layout_width="13dp"
+                        android:layout_height="13dp"
+                        android:src="@drawable/category_iv_oneitem_arrow_up"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:scaleType="fitCenter"
+                        />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/process_layout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/commission6"
+                        android:paddingTop="8dp"
+                        android:drawableLeft="@drawable/dark_dot"
+                        android:drawablePadding="10dp"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/commission7"
+                        android:paddingTop="8dp"
+                        android:drawableLeft="@drawable/dark_dot"
+                        android:drawablePadding="10dp"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/gray"
+                />
+
+            <include layout="@layout/item_annual_table"/>
+
+            <include layout="@layout/item_annual_credentials"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray"
+                />
+
+            <include layout="@layout/item_annual_express_adrss"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/gray"
+                />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/gray"
+        android:layout_above="@+id/commit_layout"
+        />
+
+    <RelativeLayout
+        android:id="@+id/commit_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:background="@color/white"
+        >
+
+        <CheckBox
+            android:id="@+id/isread_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_alignParentLeft="true"
+            android:checked="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="同意"
+            android:id="@+id/tv1"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/isread_cb"
+            android:layout_toEndOf="@+id/isread_cb"
+            android:textColor="@color/black"
+            android:layout_marginLeft="1dp"
+            />
+
+        <TextView
+            android:id="@+id/annual_disclaimer_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="《用户服务协议》"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tv1"
+            android:layout_toEndOf="@+id/tv1"
+            android:textColor="@drawable/textselector"
+            android:layout_marginLeft="1dp"
+            />
+
+        <Button
+            android:id="@+id/commit_annual_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/new_color_primary"
+            android:text="提交订单"
+            android:textColor="@color/white"
+            android:layout_alignParentRight="true"
+            />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

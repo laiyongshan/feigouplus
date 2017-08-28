@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/new_color_primary"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/topbar_size"
+        android:layout_alignParentTop="true"
+        android:background="@color/lucency">
+
+        <ImageView
+            android:id="@+id/erweimashaomiao"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/qr_img_bg"
+            android:padding="10dp"
+            android:src="@drawable/img_common_scan" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/main_title"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:id="@+id/dingwei_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/qr_img_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/local_city"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@+id/fragment1_dingwei"
+                android:drawablePadding="5dp"
+                android:drawableRight="@drawable/img_view_tab_base_fragment_title_location"
+                android:gravity="center_vertical"
+                android:text="广州"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp" />
+            <!--<ImageView-->
+            <!--android:id="@+id/fragment1_dingwei"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/img_view_tab_base_fragment_title_location"-->
+            <!--android:layout_marginBottom="10dp"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--/>-->
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

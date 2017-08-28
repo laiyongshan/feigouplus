@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    android:layout_marginBottom="2dp"
+    android:id="@+id/mainfragment"
+    >
+
+    <include layout="@layout/topbar_mainfragment"></include>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:scrollbars="none"
+        android:layout_marginBottom="2dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="2dp"
+            android:background="@color/white"
+            >
+
+            <include layout="@layout/item_funcation_area"></include>
+
+            <!--<include layout="@layout/apply_credit_card_layout"/>-->
+
+    <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@color/white"-->
+            <!--android:paddingLeft="10dp"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:gravity="center_vertical"-->
+            <!--&gt;-->
+
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--&gt;-->
+            <!--<TextView-->
+            <!--android:id="@+id/message_tv_title"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="享受新违章通知"-->
+            <!--android:textSize="15sp"-->
+            <!--android:textColor="@color/colorPrimary"-->
+            <!--android:paddingTop="2dip"-->
+            <!--/>-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/messgage_tv"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="在线查询办理车辆违章服务"-->
+            <!--android:textSize="12sp"-->
+            <!--android:paddingBottom="2dip"-->
+            <!--/>-->
+
+            <!--</LinearLayout>-->
+
+            <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:scaleType="fitXY"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:src="@drawable/cara"-->
+            <!--/>-->
+            <!--</RelativeLayout>-->
+
+            <LinearLayout
+                android:id="@+id/addcar_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:visibility="visible"
+                >
+                <ImageButton
+                    android:id="@+id/addcar_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/addcar_bg"
+                    android:background="@color/lucency"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dip"
+                    android:paddingBottom="10dp"
+                    />
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center_horizontal"-->
+                    <!--android:text="点击添加车辆"-->
+                    <!--android:layout_centerHorizontal="true"-->
+                    <!--android:textSize="18sp"-->
+                    <!--android:layout_marginBottom="20dp"-->
+                    <!--/>-->
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/car_relativeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:background="@color/white"
+                android:visibility="gone"
+                android:gravity="center_vertical"
+                android:layout_marginTop="10dp"
+                >
+
+                    <ImageButton
+                        android:id="@+id/add_car_img_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/lucency"
+                        android:src="@drawable/add_index"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        />
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/car_viewpager"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_toRightOf="@+id/add_car_img_btn"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/kuang2_index"
+                        android:layout_marginBottom="10dp"
+                        />
+
+                <LinearLayout
+                    android:id="@+id/car_dot_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+            </RelativeLayout>
+
+
+
+           <include layout="@layout/item_type_gv"/>
+            <include layout="@layout/network_request_error_layout"/>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/gray"
+                />
+
+            <include layout="@layout/item_affiche"/>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/gray"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="你所关注的"
+                android:padding="10dp"
+                android:textColor="@color/new_color_primary"
+                android:textSize="16sp"
+                />
+
+            <include
+                layout="@layout/item_main_banner"
+                />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

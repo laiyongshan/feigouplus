@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#F0F0F0"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/lay"
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:background="@color/new_color_primary"
+        android:layout_height="@dimen/topbar_size">
+
+        <ImageButton
+            android:id="@+id/new_pay_back_ib"
+            android:background="@null"
+            android:clickable="true"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/icon_back"
+            />
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="交易完成"
+            android:textSize="@dimen/title_size"
+            android:textColor="#FFFFFF"
+            android:id="@+id/textView" />
+        <!--<Button-->
+            <!--android:id="@+id/dayin_bt"-->
+            <!--android:layout_width="40dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:background="@color/new_color_primary"-->
+            <!--android:text="重新打印"-->
+            <!--android:textColor="#FFFFFF"-->
+            <!--/>-->
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:background="@drawable/pinz_bg"
+        android:layout_below="@+id/lay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></RelativeLayout>
+
+        <RelativeLayout
+            android:layout_below="@+id/lay"
+            android:id="@+id/lauy22"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/yinliantu"
+                />
+
+            <TextView
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="交易凭证"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_below="@+id/lauy22"
+            android:layout_above="@+id/lai"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:orientation="vertical"
+            android:background="@drawable/pinz_a"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/text1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MERCHANT NAME"
+                    android:textSize="12sp"
+                    android:textColor="#000000"
+                    />
+
+                <TextView
+                    android:layout_below="@+id/text1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="受理商户名称"
+                    android:textSize="12sp"
+                    android:textColor="#000000"
+                    />
+                <TextView
+                    android:id="@+id/merchant_name_tv"
+                    android:layout_below="@+id/text1"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="@color/new_color_primary"
+                    />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/orderno_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ORDER NO"
+                    android:textSize="12sp"
+                    android:textColor="#000000"
+                    />
+
+                <TextView
+                    android:layout_below="@+id/orderno_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="流水号"
+                    android:textSize="12sp"
+                    android:textColor="#000000"
+                    />
+                <TextView
+                    android:id="@+id/max_flowing_no_tv"
+                    android:layout_below="@+id/orderno_text"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="@color/new_color_primary"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/mer_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MERCHANT NO"
+                    android:textSize="12sp"
+                    android:textColor="#000000"
+                    />
+
+                <TextView
+                    android:layout_below="@+id/mer_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="商户编号"
+                    android:textSize="12sp"
+                    android:textColor="#000000"
+                    />
+                <TextView
+                    android:id="@+id/merchant_number_tv"
+                    android:layout_below="@+id/mer_text"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="@color/new_color_primary"
+                    />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/card_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CARD NO"
+                    android:textSize="12sp"
+                    android:textColor="#000000"
+                    />
+
+                <TextView
+                    android:layout_below="@+id/card_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="卡号"
+                    android:textSize="12sp"
+                    android:textColor="#000000"
+                    />
+                <TextView
+                    android:id="@+id/card_no_tv"
+                    android:layout_below="@+id/card_text"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="@color/new_color_primary"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/date_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DATE/TIME"
+                    android:textSize="12sp"
+                    android:textColor="#000000"
+                    />
+
+                <TextView
+                    android:layout_below="@+id/date_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="日期/时间"
+                    android:textSize="12sp"
+                    android:textColor="#000000"
+                    />
+                <TextView
+                    android:id="@+id/pay_time_tv"
+                    android:layout_below="@+id/date_text"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lines="1"
+                    android:textSize="12sp"
+                    android:textColor="@color/new_color_primary"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/amount_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="AMOUNT"
+                    android:textSize="12sp"
+                    android:textColor="#000000"
+                    />
+
+                <TextView
+                    android:layout_below="@+id/amount_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="金额"
+                    android:textSize="12sp"
+                    android:textColor="#000000"
+                    />
+                <TextView
+                    android:id="@+id/pay_money_tv"
+                    android:layout_below="@+id/amount_text"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="@color/new_color_primary"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/merc_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MERCHANT TYPE"
+                    android:textSize="12sp"
+                    android:textColor="#000000"
+                    />
+
+                <TextView
+                    android:layout_below="@+id/merc_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="商户类型"
+                    android:textSize="12sp"
+                    android:textColor="#000000"
+                    />
+                <TextView
+                    android:layout_below="@+id/merc_text"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="违章付款代缴"
+                    android:textSize="12sp"
+                    android:textColor="@color/new_color_primary"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/cardhol_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CARDHOLDER SIGNATURE"
+                    android:textSize="12sp"
+                    android:textColor="#000000"
+                    />
+
+                <TextView
+                    android:layout_below="@+id/cardhol_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="持卡人签名"
+                    android:textSize="12sp"
+                    android:textColor="#000000"
+                    />
+                <ImageView
+                    android:layout_width="90dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/shouqi"
+                    />
+                <ImageView
+                    android:id="@+id/qq"
+                    android:layout_below="@+id/cardhol_text"
+                    android:layout_alignRight="@+id/cardhol_text"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    />
+
+
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+
+
+
+    <RelativeLayout
+        android:id="@+id/lai"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tette"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="持卡人存根"
+            android:textSize="15sp"
+            android:textColor="#000000"
+            />
+        <TextView
+            android:layout_below="@+id/tette"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CARDHOLDER COPY"
+            android:textSize="15sp"
+            android:textColor="#000000"
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>
