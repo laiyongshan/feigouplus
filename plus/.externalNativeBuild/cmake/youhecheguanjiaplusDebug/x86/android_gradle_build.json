@@ -1,0 +1,44 @@
+
+{
+	"buildFiles" : [ "F:/feigouplus/plus/CMakeLists.txt" ],
+	"cleanCommands" : 
+	[
+		"C:\\Users\\Administrator\\AppData\\Local\\Android\\Sdk\\cmake\\3.6.3155560\\bin\\cmake.exe --build F:\\feigouplus\\plus\\.externalNativeBuild\\cmake\\youhecheguanjiaplusDebug\\x86 --target clean"
+	],
+	"cppFileExtensions" : [ "cpp" ],
+	"libraries" : 
+	{
+		"native-lib-Debug-x86" : 
+		{
+			"abi" : "x86",
+			"artifactName" : "native-lib",
+			"buildCommand" : "C:\\Users\\Administrator\\AppData\\Local\\Android\\Sdk\\cmake\\3.6.3155560\\bin\\cmake.exe --build F:\\feigouplus\\plus\\.externalNativeBuild\\cmake\\youhecheguanjiaplusDebug\\x86 --target native-lib",
+			"buildType" : "debug",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  --target=i686-none-linux-android --gcc-toolchain=C:/Users/Administrator/AppData/Local/Android/sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/windows-x86_64 --sysroot=C:/Users/Administrator/AppData/Local/Android/sdk/ndk-bundle/sysroot  -Dnative_lib_EXPORTS -isystem C:\\Users\\Administrator\\AppData\\Local\\Android\\sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem C:\\Users\\Administrator\\AppData\\Local\\Android\\sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\x86\\include -isystem C:\\Users\\Administrator\\AppData\\Local\\Android\\sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem C:/Users/Administrator/AppData/Local/Android/sdk/ndk-bundle/sysroot/usr/include/i686-linux-android -D__ANDROID_API__=15 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -Wa,--noexecstack -Wformat -Werror=format-security  -fexceptions -O0 -fno-limit-debug-info  -fPIC    -c ",
+					"src" : "F:/feigouplus/plus/src/main/cpp/Md5.cpp",
+					"workingDirectory" : "F:/feigouplus/plus/.externalNativeBuild/cmake/youhecheguanjiaplusDebug/x86"
+				},
+				
+				{
+					"flags" : "  --target=i686-none-linux-android --gcc-toolchain=C:/Users/Administrator/AppData/Local/Android/sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/windows-x86_64 --sysroot=C:/Users/Administrator/AppData/Local/Android/sdk/ndk-bundle/sysroot  -Dnative_lib_EXPORTS -isystem C:\\Users\\Administrator\\AppData\\Local\\Android\\sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem C:\\Users\\Administrator\\AppData\\Local\\Android\\sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\x86\\include -isystem C:\\Users\\Administrator\\AppData\\Local\\Android\\sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem C:/Users/Administrator/AppData/Local/Android/sdk/ndk-bundle/sysroot/usr/include/i686-linux-android -D__ANDROID_API__=15 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -Wa,--noexecstack -Wformat -Werror=format-security  -fexceptions -O0 -fno-limit-debug-info  -fPIC    -c ",
+					"src" : "F:/feigouplus/plus/src/main/cpp/native-lib.cpp",
+					"workingDirectory" : "F:/feigouplus/plus/.externalNativeBuild/cmake/youhecheguanjiaplusDebug/x86"
+				}
+			],
+			"output" : "F:/feigouplus/plus/build/intermediates/cmake/youhecheguanjiaplus/debug/obj/x86/libnative-lib.so",
+			"toolchain" : "1733420917"
+		}
+	},
+	"toolchains" : 
+	{
+		"1733420917" : 
+		{
+			"cCompilerExecutable" : "C:/Users/Administrator/AppData/Local/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe",
+			"cppCompilerExecutable" : "C:/Users/Administrator/AppData/Local/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/clang++.exe"
+		}
+	}
+}

@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">车违通honor</string>
+    <string name="main_title">车违通honor</string>
+    <string name="plus_title">车主卡</string>
+    <string name="plus_invite">邀请码</string>
+    <string name="scan_tips">将二维码图片对准扫描框即可自动扫描</string>
+    <string name="tips">您尚未添加违章查询的车辆，\n系统无法判断您是否有违章需要办理</string>
+    <string name="exit">确定退出车违通honor吗？</string>
+    <string name="apptype">2</string>
+    <string name="xieyi">《车违通honor用户服务协议》</string>
+
+    <string name="packagename">com.example.youhe.cheweiitongplus</string>
+
+    <string name="QQ_APP_ID">1106363800</string>
+    <string name="QQ_APP_KEY">ckLRMQy6QW7CjgLT</string>
+
+    <string name="WEI_XIN_APP_ID">wx58c257fb242f1a42</string>
+    <string name="WEI_XIN_APP_KEY">19389e10557b36459927f0c5ac10ab9c</string>
+
+</resources>

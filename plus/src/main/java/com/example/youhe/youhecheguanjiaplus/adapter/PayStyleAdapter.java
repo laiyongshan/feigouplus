@@ -25,7 +25,7 @@ public class PayStyleAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private Activity activity;
     private int temp = -1;
-    private int selectID;
+    private int selectID=0;
     private OnMyCheckChangedListener mCheckChange;
 
     List<Integer> iconId;
@@ -96,9 +96,9 @@ public class PayStyleAdapter extends BaseAdapter {
 				} else {
 					holder.rdBtn.setChecked(false);
 				}
-			 	if(position==0){
-					holder.rdBtn.setChecked(true);
-				}
+//			 	if(position==selectID){
+//					holder.rdBtn.setChecked(true);
+//				}
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();

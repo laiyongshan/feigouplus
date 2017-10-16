@@ -1,0 +1,4 @@
+# ninja log v5
+6	280	0	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	2f1608b849ea045a
+1	336	0	CMakeFiles/native-lib.dir/src/main/cpp/Md5.cpp.o	1c6966111f627068
+336	796	0	../../../../build/intermediates/cmake/youhecheguanjiaplus/release/obj/mips/libnative-lib.so	69b4d3a31c52a93d

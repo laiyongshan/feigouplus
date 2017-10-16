@@ -162,6 +162,7 @@ public class MyExpandableAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(context, IllegalQueryActivty.class);
+                intent.putExtra(IllegalQueryActivty.EXTRA_QUERY_TYPE,IllegalQueryActivty.QUERY_TYPE_ACCURATE);
                 intent.putExtra("carid",childModelList.get(i).get(i1).getId());
                 intent.putExtra("carnumber",childModelList.get(i).get(i1).getProprefix()+childModelList.get(i).get(i1).getCarnum());
                 intent.putExtra("searchtype",1);

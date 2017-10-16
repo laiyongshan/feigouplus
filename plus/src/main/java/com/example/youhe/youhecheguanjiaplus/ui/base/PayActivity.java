@@ -45,6 +45,7 @@ import com.example.youhe.youhecheguanjiaplus.utils.VolleyUtil;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -55,6 +56,7 @@ import java.util.List;
  * 支付界面
  */
 public class PayActivity extends Activity implements View.OnClickListener, AdapterView.OnItemClickListener {
+
     private TextView pay_back_img, serviceFee, totalPrice, total_count_tv;
     public ListView pay_style_lv;
     private RelativeLayout relativeLayout;
@@ -70,28 +72,37 @@ public class PayActivity extends Activity implements View.OnClickListener, Adapt
 
     private String ordernumber;//订单号
 
-    private List<Paytype> paytypeList=new ArrayList<Paytype>();
+    private List<Paytype> paytypeList = new ArrayList<Paytype>();
 
     PayTypeReceiver payTypeReceiver;
     IntentFilter mFilter;
-    private final static String PAY_TYPE_ACTION="com_yeohe_payActivity_paytype_action";
+    private final static String PAY_TYPE_ACTION = "com_yeohe_payActivity_paytype_action";
 
-    private int is_use_balance=1;//是否使用余额 0：不使用 1：使用
+    private int is_use_balance = 1;//是否使用余额 0：不使用 1：使用
     private double balance_value;//用户可用余额多少
     private int paymoney;//应付费用
 
-    private LinearLayout pay_info1_layout,pay_info2_layout;
-    private int ordertype;//1：违章订单  2：补款订单  3：年检订单
+    private LinearLayout pay_info1_layout, pay_info2_layout;
+    private int ordertype;//1：违章订单  2：补款订单  3：年检订单 4 plus
+    public static int ORDERTYPE_PLUS = 4;
 
-    private TextView title_tv, bukuan_pice_tv,order_number_tv,shoppay_name_tv;//补款数额，订单编号
+    private TextView title_tv, bukuan_pice_tv, order_number_tv, shoppay_name_tv;//补款数额，订单编号
 
-    public static final  String EXTRA_ORDER_TYPE="order_type";  //1违章2年检3车主卡
-    public static final int ORDER_TYPE_ILLEGEL=1;
-    public static final  int ORDER_TYPE_INSPECTION=2;
-    public static final  int ORDER_TYPE_PLUS=3;
+    public static final String EXTRA_ORDER_TYPE = "order_type";  //1违章2年检3车主卡
+    public static final int ORDER_TYPE_ILLEGEL = 1;
+    public static final int ORDER_TYPE_INSPECTION = 2;
+    public static final int ORDER_TYPE_PLUS = 3;
 
-    private int order_type=ORDER_TYPE_ILLEGEL;//订单类型
+    private int order_type = ORDER_TYPE_ILLEGEL;//订单类型
 
+    public static final int METHOD_APP_ALIPAY = 5;
+    public static final int METHOD_APP_WEIXIN = 6;
+
+    public static final String EXTRA_RETURN_CLASS = "return_class";
+    public static final String EXTRA_CUSTOMER_BUNDLE = "customer_bundle";
+    public Bundle customerBundle = null;
+
+    private int payStylePosition = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,9 +110,11 @@ public class PayActivity extends Activity implements View.OnClickListener, Adapt
         setContentView(R.layout.activity_pay);
 
         ordernumber = getIntent().getStringExtra("ordernumber");//得到订单号
-        ordertype=getIntent().getIntExtra("ordertype",0);
+        ordertype = getIntent().getIntExtra("ordertype", 0);
 
-        order_type=getIntent().getIntExtra(EXTRA_ORDER_TYPE,ORDER_TYPE_ILLEGEL);
+        order_type = getIntent().getIntExtra(EXTRA_ORDER_TYPE, ORDER_TYPE_ILLEGEL);
+        if (getIntent().hasExtra(EXTRA_CUSTOMER_BUNDLE))
+            customerBundle = getIntent().getBundleExtra(EXTRA_CUSTOMER_BUNDLE);
 
         // 4.4及以上版本开启
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -111,21 +124,25 @@ public class PayActivity extends Activity implements View.OnClickListener, Adapt
 
         initViews();//初始化控件
 
-        payTypeReceiver=new PayTypeReceiver();
-        mFilter=new IntentFilter(PAY_TYPE_ACTION);
-        registerReceiver(payTypeReceiver,mFilter);
+        payTypeReceiver = new PayTypeReceiver();
+        mFilter = new IntentFilter(PAY_TYPE_ACTION);
+        registerReceiver(payTypeReceiver, mFilter);
     }
+
+    private boolean isCheck = false;
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        ippwDao = new IPPWDao(this,order_type);//弹出支付
-        if(ordertype==1) {
+        ippwDao = new IPPWDao(this, order_type);//弹出支付
+        ippwDao.setCustomerBundle(customerBundle);
+        if (ordertype == 1 && !isCheck) {
             ippwDao.checkPayment(this, ordernumber, getIntent().getStringExtra("zonfakuan"));//支付前校验
+            isCheck = true;
         }
 
-        getPaytype(PayActivity.this, ordernumber,order_type+"");//获取支付类型;
+        getPaytype(PayActivity.this, ordernumber, order_type + "");//获取支付类型;
     }
 
     private void initViews() {
@@ -133,41 +150,46 @@ public class PayActivity extends Activity implements View.OnClickListener, Adapt
 //        SignInDao signInDao = new SignInDao(PayActivity.this);
 //        signInDao.judgmentSignIn();//签到下载工作密钥
 
-        title_tv= (TextView) findViewById(R.id.title_tv);
+        title_tv = (TextView) findViewById(R.id.title_tv);
 
-        pay_info1_layout= (LinearLayout) findViewById(R.id.pay_info1_layout);
-        pay_info2_layout= (LinearLayout) findViewById(R.id.pay_info2_layout);
+        pay_info1_layout = (LinearLayout) findViewById(R.id.pay_info1_layout);
+        pay_info2_layout = (LinearLayout) findViewById(R.id.pay_info2_layout);
 
-        bukuan_pice_tv= (TextView) findViewById(R.id.bukuan_pice_tv);//补款数额
-        order_number_tv= (TextView) findViewById(R.id.order_number_tv);//补款订单编号
-        shoppay_name_tv=(TextView) findViewById(R.id.shoppay_name_tv);
+        bukuan_pice_tv = (TextView) findViewById(R.id.bukuan_pice_tv);//补款数额
+        order_number_tv = (TextView) findViewById(R.id.order_number_tv);//补款订单编号
+        shoppay_name_tv = (TextView) findViewById(R.id.shoppay_name_tv);
 
-        if(ordertype==1){
+        if (ordertype == 1) {
             title_tv.setText("支付订单");
             pay_info1_layout.setVisibility(View.VISIBLE);
             pay_info2_layout.setVisibility(View.GONE);
-        }else if(ordertype==2){
+        } else if (ordertype == 2) {
             title_tv.setText("补款");
             pay_info1_layout.setVisibility(View.GONE);
             pay_info2_layout.setVisibility(View.VISIBLE);
             shoppay_name_tv.setText("需补款数：");
-        }else if(ordertype==3){
+        } else if (ordertype == 3) {
             title_tv.setText("年检订单支付");
+            pay_info1_layout.setVisibility(View.GONE);
+            pay_info2_layout.setVisibility(View.VISIBLE);
+            shoppay_name_tv.setText("应付金额：");
+        } else if (ordertype == 4) {
+            title_tv.setText("PLUS订单支付");
             pay_info1_layout.setVisibility(View.GONE);
             pay_info2_layout.setVisibility(View.VISIBLE);
             shoppay_name_tv.setText("应付金额：");
         }
 
-        yu_e_layout= (RelativeLayout) findViewById(R.id.yu_e_layout);
-        yu_e_tv= (TextView) findViewById(R.id.yu_e_tv);//可用余额
-        yu_e_chBox= (CheckBox) findViewById(R.id.yu_e_chBox);//是否选择使用余额支付
+        yu_e_layout = (RelativeLayout) findViewById(R.id.yu_e_layout);
+        yu_e_tv = (TextView) findViewById(R.id.yu_e_tv);//可用余额
+        yu_e_chBox = (CheckBox) findViewById(R.id.yu_e_chBox);//是否选择使用余额支付
         yu_e_chBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    is_use_balance=1;
-                }else{
-                    is_use_balance=0;
+                if (isChecked) {
+                    is_use_balance = 1;
+                } else {
+                    is_use_balance = 0;
                 }
             }
         });
@@ -176,7 +198,7 @@ public class PayActivity extends Activity implements View.OnClickListener, Adapt
         serviceFee = (TextView) findViewById(R.id.service_fee);//总扣分
         totalPrice = (TextView) findViewById(R.id.tv_total_price);//总金额
         thePosPayDao = new ThePosPay(this);
-        thePosPayDao.totalSetText(totalPrice, serviceFee,bukuan_pice_tv,order_number_tv);
+        thePosPayDao.totalSetText(totalPrice, serviceFee, bukuan_pice_tv, order_number_tv);
 
         pay_back_img = (TextView) findViewById(R.id.pay_back_img);
         pay_back_img.setOnClickListener(this);
@@ -216,7 +238,7 @@ public class PayActivity extends Activity implements View.OnClickListener, Adapt
 
     public int getPayStyle() {
 
-        calculate_payment_amount(selectID,is_use_balance);
+        calculate_payment_amount(selectID, is_use_balance);
 
         return paytypeList.get(selectID).getMethod();
     }
@@ -251,7 +273,7 @@ public class PayActivity extends Activity implements View.OnClickListener, Adapt
 ////                        EventBus.getDefault().post(new FirstEvent("ok"));//通知订单查询刷新
 //                } else {
 //                    Log.i("WU", "服务费" + shouxufei);
-                    termsOfPayment();//选择付款方式
+                termsOfPayment();//选择付款方式
 //                }
                 break;
         }
@@ -265,15 +287,20 @@ public class PayActivity extends Activity implements View.OnClickListener, Adapt
     public void termsOfPayment() {
         IPPWDao.payType = getPayStyle();//得到支付类型
 
-        if(is_use_balance==1) {//使用余额
-            ThePosPay.is_balance_deductible=1;
-          if(ordertype==3){//年检订单检测
-                ippwDao.annualOrderCheck(PayActivity.this,IPPWDao.payType);
-            }else{//违章订单检测
+        if (is_use_balance == 1) {//使用余额
+            ThePosPay.is_balance_deductible = 1;
+            if (ordertype == 3) {//年检订单检测
+                ippwDao.annualOrderCheck(PayActivity.this, IPPWDao.payType);
+            } else if (ordertype == 4) {
+                ippwDao.plusOrderCheck(PayActivity.this, IPPWDao.payType);
+            } else {//违章订单检测
                 ippwDao.orderCheck(PayActivity.this, IPPWDao.payType);
             }
-        }else {//不使用余额
-            ThePosPay.is_balance_deductible=0;
+        } else {//不使用余额
+            ThePosPay.is_balance_deductible = 0;
+//            if (ordertype == 4)//plus订单检测
+//                ippwDao.plusOrderCheck(PayActivity.this, IPPWDao.payType);
+//            else
             ippwDao.judgeMachineType();
         }
     }
@@ -330,17 +357,20 @@ public class PayActivity extends Activity implements View.OnClickListener, Adapt
 
 
     //获取支付通道
-    public void getPaytype(final Context context, String ordercode,String order_type) {
-        UIHelper.showPd(PayActivity.this);
+    private boolean isShowPd = false;
+
+    public void getPaytype(final Context context, String ordercode, String order_type) {
+        if (!isShowPd)
+            UIHelper.showPd(PayActivity.this);
 
         paytypeList.clear();
 
         HashMap map = new HashMap();
         map.put("token", TokenSQLUtils.check() + "");
         map.put("ordercode", ordercode);
-        map.put("order_type",order_type);
-        if(ordertype==3){
-            map.put("is_annual_inspection",1);//年检订单必传
+        map.put("order_type", order_type);
+        if (ordertype == 3) {
+            map.put("is_annual_inspection", 1);//年检订单必传
         }
         VolleyUtil.getVolleyUtil(context).StringRequestPostVolley(URLs.GET_PAY_TYPE, EncryptUtil.encrypt(map), new VolleyInterface() {
             @Override
@@ -354,17 +384,17 @@ public class PayActivity extends Activity implements View.OnClickListener, Adapt
                         CommentSetting.mjOpenType = dataObj.optInt("mjOpenType");
                     }
 
-                    String client_wallet=dataObj.optString("client_wallet");
+                    String client_wallet = dataObj.optString("client_wallet");
                     yu_e_layout.setVisibility(View.VISIBLE);
-                    yu_e_tv.setText("总余额：￥"+client_wallet);
-                    balance_value=Double.valueOf(client_wallet);
+                    yu_e_tv.setText("总余额：￥" + client_wallet);
+                    balance_value = Double.valueOf(client_wallet);
 
-                    paymoney=dataObj.optInt("paymoney");//应付金额
+                    paymoney = dataObj.optInt("paymoney");//应付金额
 
-                    Paytype paytype=null;
-                    JSONArray paytypeArr=dataObj.getJSONArray("paytypes");
-                    for(int i=0;i<paytypeArr.length();i++){
-                        paytype=new Paytype();
+                    Paytype paytype = null;
+                    JSONArray paytypeArr = dataObj.getJSONArray("paytypes");
+                    for (int i = 0; i < paytypeArr.length(); i++) {
+                        paytype = new Paytype();
                         paytype.setMethod(paytypeArr.getJSONObject(i).optInt("method"));
                         paytype.setIs_balance_deductible(paytypeArr.getJSONObject(i).optInt("is_balance_deductible"));
                         paytypeList.add(paytype);
@@ -374,9 +404,11 @@ public class PayActivity extends Activity implements View.OnClickListener, Adapt
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                }finally{
-                    UIHelper.dismissPd();
-                    if(paytypeList.size()==0){
+                } finally {
+                    if (!isShowPd)
+                        UIHelper.dismissPd();
+                    isShowPd = true;
+                    if (paytypeList.size() == 0) {
                         pay_btn.setClickable(false);
                         pay_btn.setBackgroundResource(R.drawable.gotopay2);
                     }
@@ -396,104 +428,126 @@ public class PayActivity extends Activity implements View.OnClickListener, Adapt
 
     /**
      * 支付方式显示
-     * */
-    private void  show_paytype(List<Paytype> paytypeList){
-        List<Integer> iconIds=new ArrayList<Integer>();
-        List<String> texts=new ArrayList<String>();
-        selectID=0;
-        for(Paytype paytype:paytypeList){
-            if(paytype.getMethod()==1){
+     */
+    private void show_paytype(List<Paytype> paytypeList) {
+        List<Integer> iconIds = new ArrayList<Integer>();
+        List<String> texts = new ArrayList<String>();
+//        selectID = 0;
+        selectID = payStylePosition;
+        for (Paytype paytype : paytypeList) {
+            if (paytype.getMethod() == 1) {
                 iconIds.add(R.drawable.yinlian);
                 texts.add("银联支付");
-            }else if(paytype.getMethod()==2){
+            } else if (paytype.getMethod() == 2) {
                 iconIds.add(R.drawable.yinlian);
                 texts.add("银联支付");
-            }else if(paytype.getMethod()==3){
+            } else if (paytype.getMethod() == 3) {
                 iconIds.add(R.drawable.erweimazhifu);
                 texts.add("扫码支付");
-            }else if(paytype.getMethod()==4){
+            } else if (paytype.getMethod() == 4) {
                 iconIds.add(R.drawable.qianbao);
                 texts.add("余额支付");
+            } else if (paytype.getMethod() == METHOD_APP_ALIPAY) {
+                iconIds.add(R.drawable.icon_pay_treasure);
+                texts.add("支付宝支付(推荐)");
+            } else if (paytype.getMethod() == METHOD_APP_WEIXIN) {
+                iconIds.add(R.drawable.pay_icon);
+                texts.add("微信支付");
             }
         }
 
-        payStyleAdapter = new PayStyleAdapter(PayActivity.this, PayActivity.this, texts, iconIds,paytypeList);
-        payStyleAdapter.notifyDataSetChanged();
-        pay_style_lv = (ListView)findViewById(R.id.pay_style_lv);
+        payStyleAdapter = new PayStyleAdapter(PayActivity.this, PayActivity.this, texts, iconIds, paytypeList);
+//        payStyleAdapter.notifyDataSetChanged();
+        pay_style_lv = (ListView) findViewById(R.id.pay_style_lv);
         pay_style_lv.setAdapter(payStyleAdapter);
+
         ListViewHeightUtil.setListViewHeightBasedOnChildren(pay_style_lv);
         pay_style_lv.setOnItemClickListener(PayActivity.this);
 
         payStyleAdapter.setOncheckChanged(new PayStyleAdapter.OnMyCheckChangedListener() {
             @Override
             public void setSelectID(int selectID) {
+                payStylePosition = selectID;
+                PayActivity.this.selectID = selectID;
                 payStyleAdapter.setSelectID(selectID);//选中位置
                 payStyleAdapter.notifyDataSetChanged();//刷新适配器
             }
         });
 
-        selectPay(0);
-        calculate_payment_amount(0,is_use_balance);
+
+        selectPay(payStylePosition);
+        calculate_payment_amount(payStylePosition, is_use_balance);
+        Log.d("TAG", "payStylePosition" + payStylePosition);
+
+        if (payStylePosition < pay_style_lv.getCount()) {
+            payStyleAdapter.setSelectID(payStylePosition);
+            pay_style_lv.setSelection(payStylePosition);
+        }
     }
 
 
     int selectID;
-    class PayTypeReceiver extends BroadcastReceiver{
+
+    class PayTypeReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if(intent!=null){
-                selectID =intent.getIntExtra("selectID",-1);
-
-                selectPay(selectID);
+            if (intent != null) {
+                selectID = intent.getIntExtra("selectID", -1);
+                if (selectID < pay_style_lv.getCount() && selectID < paytypeList.size())
+                    selectPay(selectID);
             }
         }
     }
 
     /**
      * 支付方式选择
-     * */
-    private void selectPay(int selectID){
-        if(paytypeList.get(selectID).getIs_balance_deductible()==1){//支持余额抵扣
+     */
+    private void selectPay(int selectID) {
+        if (paytypeList.get(selectID).getIs_balance_deductible() == 1) {//支持余额抵扣
             yu_e_chBox.setChecked(true);
             yu_e_chBox.setEnabled(true);
             yu_e_layout.setVisibility(View.VISIBLE);
-        }else if(paytypeList.get(selectID).getIs_balance_deductible()==2){//不支持余额抵扣
-            if(paytypeList.get(selectID).getMethod()==4){//余额支付方式
+        } else if (paytypeList.get(selectID).getIs_balance_deductible() == 2) {//不支持余额抵扣
+            if (paytypeList.get(selectID).getMethod() == 4) {//余额支付方式
                 yu_e_chBox.setChecked(true);
                 yu_e_chBox.setEnabled(false);
                 yu_e_layout.setVisibility(View.VISIBLE);
-            }else{//非余额支付方式
+            } else {//非余额支付方式
                 yu_e_chBox.setChecked(false);
                 yu_e_chBox.setEnabled(false);
                 yu_e_layout.setVisibility(View.GONE);
-                is_use_balance=0;
+                is_use_balance = 0;
             }
         }
     }
 
     /**
-     *计算支付金额
-    */
-    private void calculate_payment_amount(int selectID,int is_use_balance){
+     * 计算支付金额
+     */
+    private void calculate_payment_amount(int selectID, int is_use_balance) {
 
-        if(paytypeList.get(selectID).getIs_balance_deductible()==1){//支持余额抵扣
-            if(is_use_balance==1) {
-                if(paytypeList.get(selectID).getMethod()==4){//余额支付方式
-                    ThePosPay.payPrice=paymoney;
-                }else{
-                    ThePosPay.payPrice = paymoney - balance_value;
+//        Log.i("TAG",balance_value+"<>");
+//        Log.i("TAG",ThePosPay.payPrice+"<>"+paymoney);
+        if (paytypeList.get(selectID).getIs_balance_deductible() == 1) {//支持余额抵扣
+            if (is_use_balance == 1) {
+                if (paytypeList.get(selectID).getMethod() == 4) {//余额支付方式
+                    ThePosPay.payPrice = paymoney;
+                } else {
+//                    DecimalFormat f=new DecimalFormat("0.00");
+                    DecimalFormat df = new DecimalFormat("######0.00"); //保留两位小数点
+                    ThePosPay.payPrice = Double.parseDouble(df.format(paymoney - balance_value));
                 }
-            }else{
+            } else {
                 ThePosPay.payPrice = paymoney;
             }
-        }else if(paytypeList.get(selectID).getIs_balance_deductible()==2){//不支持余额抵扣
-            if(paytypeList.get(selectID).getMethod()==4){//余额支付方式
-                ThePosPay.payPrice=paymoney;
-            }else{//非余额支付方式
-                ThePosPay.payPrice=paymoney;
+        } else if (paytypeList.get(selectID).getIs_balance_deductible() == 2) {//不支持余额抵扣
+            if (paytypeList.get(selectID).getMethod() == 4) {//余额支付方式
+                ThePosPay.payPrice = paymoney;
+            } else {//非余额支付方式
+                ThePosPay.payPrice = paymoney;
             }
         }
 
-        Log.i("TAG",ThePosPay.payPrice+"<>"+paymoney);
+        Log.i("TAG", ThePosPay.payPrice + "<>" + paymoney);
     }
 }

@@ -103,7 +103,7 @@ public class TradingReco2Activity extends Activity {
             uiDialog.show();
         }
         final String a=page<=1?"没有该账户交易记录":"没有更多交易记录";
-        volleyUtil.postRequest(this, URLs.PAY_LIST, hashMap, a, new OnVolleyInterface() {
+        volleyUtil.postRequest(this, URLs.PLUS_PLY_LOG, hashMap, a, new OnVolleyInterface() {
             @Override
             public void success(JSONObject dataObject, String resultStr) {
                 try {
@@ -197,7 +197,7 @@ public class TradingReco2Activity extends Activity {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("token", TokenSQLUtils.check());
 
-        volleyUtil.postRequest(this, URLs.PAY_WAY_LIST, hashMap, "获取交易类型失败", new OnVolleyInterface() {
+        volleyUtil.postRequest(this, URLs.PLUS_WAY_LIST, hashMap, "获取交易类型失败", new OnVolleyInterface() {
             @Override
             public void success(JSONObject dataObject, String resultStr) {
                 try {

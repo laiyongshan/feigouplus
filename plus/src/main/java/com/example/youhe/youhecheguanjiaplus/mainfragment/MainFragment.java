@@ -13,6 +13,8 @@ import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -449,14 +451,19 @@ public class MainFragment extends YeoheFragment implements View.OnClickListener,
 //                                    }
 //                                }).setNegativeButton("取消", null).show().setCanceledOnTouchOutside(false);
 //                    }else
-                    if (!carList.get(finalI).getIsCarCorrect().equals("-1")) {
-                        intent.putExtra("searchtype", 1);
-                        intent.putExtra("queryUrl", URLs.QUERY);
-                        intent.setClass(getActivity(), IllegalQueryActivty.class);
-                        startActivity(intent);
+                    if (!UserManager.checkUserStatus()) {
+                        UserManager.userActivation(getContext());
                     } else {
-                        intent.setClass(getActivity(), EditCarActivity.class);
-                        startActivity(intent);
+                        if (!carList.get(finalI).getIsCarCorrect().equals("-1")) {
+                            intent.putExtra("searchtype", 1);
+                            intent.putExtra("queryUrl", URLs.QUERY);
+                            intent.putExtra(IllegalQueryActivty.EXTRA_QUERY_TYPE,IllegalQueryActivty.QUERY_TYPE_FAST);
+                            intent.setClass(getActivity(), IllegalQueryActivty.class);
+                            startActivity(intent);
+                        } else {
+                            intent.setClass(getActivity(), EditCarActivity.class);
+                            startActivity(intent);
+                        }
                     }
                 }
             });
@@ -481,13 +488,18 @@ public class MainFragment extends YeoheFragment implements View.OnClickListener,
             car_icon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (car_icon.isEnabled()) {
-                        intent.putExtra("searchtype", 2);
-                        intent.setClass(getActivity(), IllegalQueryActivty.class);
-                        intent.putExtra("queryUrl", URLs.QUERY);
-                        startActivity(intent);
+                    if (!UserManager.checkUserStatus()) {
+                        UserManager.userActivation(getContext());
                     } else {
-                        Toast.makeText(getActivity(), "该车牌暂不支持本人本车查询", Toast.LENGTH_LONG).show();
+                        if (car_icon.isEnabled()) {
+                            intent.putExtra("searchtype", 2);
+                            intent.setClass(getActivity(), IllegalQueryActivty.class);
+                            intent.putExtra(IllegalQueryActivty.EXTRA_QUERY_TYPE,IllegalQueryActivty.QUERY_TYPE_FAST);
+                            intent.putExtra("queryUrl", URLs.QUERY);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(getActivity(), "该车牌暂不支持本人本车查询", Toast.LENGTH_LONG).show();
+                        }
                     }
                 }
             });
@@ -496,10 +508,14 @@ public class MainFragment extends YeoheFragment implements View.OnClickListener,
             carnum_tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    intent.setClass(getActivity(), EditCarActivity.class);
-                    startActivity(intent);
-                    getActivity().overridePendingTransition(R.anim.in_from_right,
-                            R.anim.out_from_left);
+                    if (!UserManager.checkUserStatus()) {
+                        UserManager.userActivation(getContext());
+                    } else {
+                        intent.setClass(getActivity(), EditCarActivity.class);
+                        startActivity(intent);
+                        getActivity().overridePendingTransition(R.anim.in_from_right,
+                                R.anim.out_from_left);
+                    }
                 }
             });
             if (remark == null || remark.equals("")) {
@@ -591,10 +607,10 @@ public class MainFragment extends YeoheFragment implements View.OnClickListener,
                         if (AppContext.isLogin) {
                             if (!UserManager.checkUserStatus()) {
                                 UserManager.userActivation(getContext());
-                                return;
+                            } else {
+                                intent = new Intent(getActivity(), OrderStyleActivity.class);
+                                startActivity(intent);
                             }
-                            intent = new Intent(getActivity(), OrderStyleActivity.class);
-                            startActivity(intent);
                         } else {
                             UIHelper.showLoginActivity(getActivity());
                             UIHelper.ToastMessage(getActivity(), "请先登录");
@@ -607,10 +623,10 @@ public class MainFragment extends YeoheFragment implements View.OnClickListener,
                         if (AppContext.isLogin) {
                             if (!UserManager.checkUserStatus()) {
                                 UserManager.userActivation(getContext());
-                                return;
+                            } else {
+                                intent = new Intent(getActivity(), AccountQueryActivity.class);
+                                startActivity(intent);
                             }
-                            intent = new Intent(getActivity(), AccountQueryActivity.class);
-                            startActivity(intent);
                         } else {
                             UIHelper.showLoginActivity(getActivity());
                             UIHelper.ToastMessage(getActivity(), "请先登录");
@@ -623,10 +639,10 @@ public class MainFragment extends YeoheFragment implements View.OnClickListener,
                         if (AppContext.isLogin) {
                             if (!UserManager.checkUserStatus()) {
                                 UserManager.userActivation(getContext());
-                                return;
+                            } else {
+                                intent = new Intent(getActivity(), AnnualInspectionActivity.class);
+                                startActivity(intent);
                             }
-                            intent = new Intent(getActivity(), AnnualInspectionActivity.class);
-                            startActivity(intent);
                         } else {
                             UIHelper.showLoginActivity(getActivity());
                             UIHelper.ToastMessage(getActivity(), "请先登录");
@@ -691,33 +707,18 @@ public class MainFragment extends YeoheFragment implements View.OnClickListener,
                         break;
                     case 1://高速路况
 //                        if (AppContext.isLogin) {
-//                            intent = new Intent(getActivity(), IllegalCodeActivity.class);
+//                            intent = new Intent(getActivity(), CommentWebActivity.class);
+//                            intent.putExtra("url", URLs.HIGHTWAY_STATUS);
+//                            intent.putExtra("title", "高速路况");
 //                            startActivity(intent);
-//                            getActivity().overridePendingTransition(R.anim.in_from_right,
-//                                    R.anim.out_from_left);
 //                        } else {
 //                            UIHelper.showLoginActivity(getActivity());
 //                            UIHelper.ToastMessage(getActivity(), "请先登录");
 //                        }
-//                        intent = new Intent(getActivity(), CommentWebActivity.class);
-//                        intent.putExtra("url", URLs.HIGHTWAY_STATUS);
-//                        intent.putExtra("title", "高速路况");
-//                        startActivity(intent);
-                        HashMap<String,String> hashMap=new HashMap<String, String>();
-                        VolleyUtil.getVolleyUtil(getContext()).StringRequestPostVolley(URLs.OIL_APIURL, hashMap, new VolleyInterface() {
-                            @Override
-                            public void ResponseResult(Object jsonObject) {
-                                Log.d("TAG","SSS"+jsonObject);
-                            }
-
-                            @Override
-                            public void ResponError(VolleyError volleyError) {
-
-                            }
-                        });
-
-
-
+                        intent = new Intent(getActivity(), CommentWebActivity.class);
+                        intent.putExtra("url", URLs.HIGHTWAY_STATUS);
+                        intent.putExtra("title", "高速路况");
+                        startActivity(intent);
                         break;
                     case 3://今日油价
                         intent = new Intent(getActivity(), OilPriceAPIActivity.class);
@@ -728,11 +729,11 @@ public class MainFragment extends YeoheFragment implements View.OnClickListener,
                         if (AppContext.isLogin) {
                             if (!UserManager.checkUserStatus()) {
                                 UserManager.userActivation(getContext());
-                                return;
+                            } else {
+                                intent = new Intent(getActivity(), LoanActivity.class);
+                                intent.putExtra("loanType", 1);
+                                startActivity(intent);
                             }
-                            intent = new Intent(getActivity(), LoanActivity.class);
-                            intent.putExtra("loanType", 1);
-                            startActivity(intent);
                         } else {
                             UIHelper.showLoginActivity(getActivity());
                             UIHelper.ToastMessage(getActivity(), "请先登录");
@@ -743,11 +744,11 @@ public class MainFragment extends YeoheFragment implements View.OnClickListener,
                         if (AppContext.isLogin) {
                             if (!UserManager.checkUserStatus()) {
                                 UserManager.userActivation(getContext());
-                                return;
+                            } else {
+                                intent = new Intent(getActivity(), LoanActivity.class);
+                                intent.putExtra("loanType", 2);
+                                startActivity(intent);
                             }
-                            intent = new Intent(getActivity(), LoanActivity.class);
-                            intent.putExtra("loanType", 2);
-                            startActivity(intent);
                         } else {
                             UIHelper.showLoginActivity(getActivity());
                             UIHelper.ToastMessage(getActivity(), "请先登录");
@@ -771,6 +772,17 @@ public class MainFragment extends YeoheFragment implements View.OnClickListener,
             }
         });
     }
+
+
+    private Handler mHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            Log.d("TAG", (String) msg.obj);
+
+//            Result result = new Result((String) msg.obj);
+//            Toast.makeText(DemoActivity.this, result.getResult(),
+//                    Toast.LENGTH_LONG).show();
+        }
+    };
 
     //控件的点击事件
     @Override
@@ -819,26 +831,35 @@ public class MainFragment extends YeoheFragment implements View.OnClickListener,
                 if (AppContext.isLogin) {
                     if (!UserManager.checkUserStatus()) {
                         UserManager.userActivation(getContext());
-                        return;
+                    } else {
+                        intent = new Intent(getActivity(), AddCarActivity.class);
+                        startActivityForResult(intent, ADDCAR_RESULTCODE);
+                        getActivity().overridePendingTransition(R.anim.in_from_right,
+                                R.anim.out_from_left);
                     }
-                    intent = new Intent(getActivity(), AddCarActivity.class);
-                    startActivityForResult(intent, ADDCAR_RESULTCODE);
-                    getActivity().overridePendingTransition(R.anim.in_from_right,
-                            R.anim.out_from_left);
                 } else {
                     UIHelper.showLoginActivity(getActivity());
                     UIHelper.ToastMessage(getActivity(), "请先登录");
                 }
                 break;
             case R.id.car_ll:
-                intent = new Intent(getActivity(), EditCarActivity.class);
-                intent.putExtra("page", car_viewpager.getCurrentItem() + "");
-                startActivityForResult(intent, EDITCAR_RESULTCODE);
+                if (!UserManager.checkUserStatus()) {
+                    UserManager.userActivation(getContext());
+                } else {
+                    intent = new Intent(getActivity(), EditCarActivity.class);
+                    intent.putExtra("page", car_viewpager.getCurrentItem() + "");
+                    startActivityForResult(intent, EDITCAR_RESULTCODE);
+                }
                 break;
             case R.id.violation_ll:
-                intent = new Intent(getActivity(), EditCarActivity.class);
-                intent.putExtra("page", car_viewpager.getCurrentItem() + "");
-                startActivityForResult(intent, VIOCATION_RESULTCODE);
+                if (!UserManager.checkUserStatus()) {
+                    UserManager.userActivation(getContext());
+                } else {
+                    intent = new Intent(getActivity(), EditCarActivity.class);
+                    intent.putExtra("page", car_viewpager.getCurrentItem() + "");
+                    startActivityForResult(intent, VIOCATION_RESULTCODE);
+                }
+
                 break;
             case R.id.add_car_img_btn://跳到添加车辆页面
                 if (carList.size() < 10) {
@@ -920,7 +941,7 @@ public class MainFragment extends YeoheFragment implements View.OnClickListener,
         car_dot_ll.addView(dot_img);
         dots = new ImageView[carViews.size()];
 
-        LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, DensityUtil.dip2px(15));
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, DensityUtil.dip2px(15));
         for (int i = 0; i < carViews.size(); i++) {
             dots[i] = (ImageView) car_dot_ll.getChildAt(i);
             dots[i].setEnabled(true);
@@ -956,9 +977,13 @@ public class MainFragment extends YeoheFragment implements View.OnClickListener,
                 carViews.get(carViews.size() - 1).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(getActivity(), AddCarActivity.class);
-                        startActivityForResult(intent, 1);
-                        getActivity().overridePendingTransition(R.anim.in_from_right, R.anim.out_from_left);
+                        if (!UserManager.checkUserStatus()) {
+                            UserManager.userActivation(getContext());
+                        } else {
+                            Intent intent = new Intent(getActivity(), AddCarActivity.class);
+                            startActivityForResult(intent, 1);
+                            getActivity().overridePendingTransition(R.anim.in_from_right, R.anim.out_from_left);
+                        }
                     }
                 });
             }
@@ -995,7 +1020,7 @@ public class MainFragment extends YeoheFragment implements View.OnClickListener,
     public String key = "carlist_";
 
     public void getCarList(HashMap<String, Object> map) {
-        if (map.containsKey("token")&& StringUtils.isEmpty(map.get("token").toString())){
+        if (map != null && map.containsKey("token") && StringUtils.isEmpty(map.get("token").toString())) {
             Toast.makeText(getActivity(), "请重新登录！", Toast.LENGTH_LONG).show();
             return;
         }
@@ -1062,7 +1087,7 @@ public class MainFragment extends YeoheFragment implements View.OnClickListener,
     List<Violation> violationList = new ArrayList<Violation>();
 
     public static void qurery(final HashMap<String, Object> map, final String carnumber) {
-        if (map.containsKey("token")&& StringUtils.isEmpty(map.get("token").toString())){
+        if (map != null && map.containsKey("token") && StringUtils.isEmpty(map.get("token").toString())) {
             return;
         }
         VolleyUtil.getVolleyUtil(AppContext.getContext()).StringRequestPostVolley(URLs.VIOLATION_QUERY, EncryptUtil.encrypt(map), new VolleyInterface() {
@@ -1166,7 +1191,7 @@ public class MainFragment extends YeoheFragment implements View.OnClickListener,
             String totalCount = intent.getStringExtra("totalCount");
             if (totalCount == null) totalCount = "0";
 
-            String cartypename=intent.getStringExtra("cartypename");
+            String cartypename = intent.getStringExtra("cartypename");
 
             final Intent edit_intent = new Intent();
             edit_intent.putExtra("carid", carid);
@@ -1180,7 +1205,7 @@ public class MainFragment extends YeoheFragment implements View.OnClickListener,
             edit_intent.putExtra("cartype", cartype);
             edit_intent.putExtra("carname", carname);
             edit_intent.putExtra("carbrand", carbrand);
-            edit_intent.putExtra("cartypename",cartypename);
+            edit_intent.putExtra("cartypename", cartypename);
 
 
             car_icon.setEnabled(false);
@@ -1200,13 +1225,18 @@ public class MainFragment extends YeoheFragment implements View.OnClickListener,
             car_icon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (car_icon.isEnabled()) {
-                        edit_intent.putExtra("searchtype", 2);
-                        edit_intent.putExtra("queryUrl", URLs.QUERY);
-                        edit_intent.setClass(getActivity(), IllegalQueryActivty.class);
-                        startActivity(edit_intent);
+                    if (!UserManager.checkUserStatus()) {
+                        UserManager.userActivation(getContext());
                     } else {
-                        Toast.makeText(getActivity(), "该车牌暂不支持本人本车查询", Toast.LENGTH_LONG).show();
+                        if (car_icon.isEnabled()) {
+                            edit_intent.putExtra("searchtype", 2);
+                            edit_intent.putExtra("queryUrl", URLs.QUERY);
+                            edit_intent.setClass(getActivity(), IllegalQueryActivty.class);
+                            edit_intent.putExtra(IllegalQueryActivty.EXTRA_QUERY_TYPE,IllegalQueryActivty.QUERY_TYPE_FAST);
+                            startActivity(edit_intent);
+                        } else {
+                            Toast.makeText(getActivity(), "该车牌暂不支持本人本车查询", Toast.LENGTH_LONG).show();
+                        }
                     }
                 }
             });
@@ -1224,17 +1254,22 @@ public class MainFragment extends YeoheFragment implements View.OnClickListener,
 //                                    }
 //                                }).setNegativeButton("取消", null).show().setCanceledOnTouchOutside(false);
 //                    }else
-                    if (ischeck != null && !ischeck.equals("-1")) {
-                        edit_intent.putExtra("searchtype", 1);
-                        edit_intent.putExtra("queryUrl", URLs.QUERY);
-                        edit_intent.setClass(getActivity(), IllegalQueryActivty.class);
-                        if (!(getActivity() instanceof Activity)) {
-                            edit_intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        }
-                        startActivity(edit_intent);
+                    if (!UserManager.checkUserStatus()) {
+                        UserManager.userActivation(getContext());
                     } else {
-                        edit_intent.setClass(getActivity(), EditCarActivity.class);
-                        startActivity(edit_intent);
+                        if (ischeck != null && !ischeck.equals("-1")) {
+                            edit_intent.putExtra("searchtype", 1);
+                            edit_intent.putExtra("queryUrl", URLs.QUERY);
+                            edit_intent.setClass(getActivity(), IllegalQueryActivty.class);
+                            edit_intent.putExtra(IllegalQueryActivty.EXTRA_QUERY_TYPE,IllegalQueryActivty.QUERY_TYPE_FAST);
+                            if (!(getActivity() instanceof Activity)) {
+                                edit_intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            }
+                            startActivity(edit_intent);
+                        } else {
+                            edit_intent.setClass(getActivity(), EditCarActivity.class);
+                            startActivity(edit_intent);
+                        }
                     }
                 }
             });
@@ -1258,8 +1293,12 @@ public class MainFragment extends YeoheFragment implements View.OnClickListener,
                         carnum_tv.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                edit_intent.setClass(getActivity(), EditCarActivity.class);
-                                startActivity(edit_intent);
+                                if (!UserManager.checkUserStatus()) {
+                                    UserManager.userActivation(getContext());
+                                } else {
+                                    edit_intent.setClass(getActivity(), EditCarActivity.class);
+                                    startActivity(edit_intent);
+                                }
                             }
                         });
                         remark_tv.setText(carList.get(i).getRemark());
@@ -1297,8 +1336,12 @@ public class MainFragment extends YeoheFragment implements View.OnClickListener,
                 carnum_tv.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        edit_intent.setClass(getActivity(), EditCarActivity.class);
-                        startActivity(edit_intent);
+                        if (!UserManager.checkUserStatus()) {
+                            UserManager.userActivation(getContext());
+                        } else {
+                            edit_intent.setClass(getActivity(), EditCarActivity.class);
+                            startActivity(edit_intent);
+                        }
                     }
                 });
                 if (remark == null || remark.equals("")) {
@@ -1352,7 +1395,7 @@ public class MainFragment extends YeoheFragment implements View.OnClickListener,
             carInfoAdapter = new CarInfoAdapter(carViews, getActivity(), carList);
             carInfoAdapter.notifyDataSetChanged();
             car_viewpager.setAdapter(carInfoAdapter);
-            if (page != 0) {
+            if (page > 0) {
                 car_viewpager.setCurrentItem(page);
                 setCurrentDot(page);
             }

@@ -65,7 +65,7 @@
                 />
 
 
-            <include layout="@layout/item_pay_info1"/><!--普通订单-->
+            <include layout="@layout/item_pay_info1" /><!--普通订单-->
             <include layout="@layout/item_pay_info2"/><!--补款订单or年检订单-->
 
 

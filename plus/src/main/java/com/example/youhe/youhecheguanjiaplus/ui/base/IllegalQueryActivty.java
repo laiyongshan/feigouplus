@@ -86,6 +86,13 @@ public class IllegalQueryActivty extends FragmentActivity implements View.OnClic
     public String queryUrl="";
     private String vehicleAccount="";//车管所账号
 
+    public static final int QUERY_TYPE_FAST=0;
+    public static final int QUERY_TYPE_ACCURATE=1;
+    public static final String EXTRA_QUERY_TYPE="query_type";
+
+
+    private int queryType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,6 +112,8 @@ public class IllegalQueryActivty extends FragmentActivity implements View.OnClic
         searchtype=getIntent().getIntExtra("searchtype",1);
         queryUrl=getIntent().getStringExtra("queryUrl");
         vehicleAccount=getIntent().getStringExtra("vehicleAccount");
+        queryType=getIntent().getIntExtra(EXTRA_QUERY_TYPE,0);
+
 
         violations=new ArrayList<Violation>();
         violations_normal=new ArrayList<Violation>();
@@ -227,7 +236,7 @@ public class IllegalQueryActivty extends FragmentActivity implements View.OnClic
 
 
         carnum_tv= (TextView) findViewById(R.id.carnum_tv);
-        carnum_tv.setText(carnumber);
+        carnum_tv.setText(""+carnumber+(queryType==QUERY_TYPE_FAST?"(快)":"(精)"));
 
 
         query_back_img= (TextView) findViewById(R.id.query_back_img);

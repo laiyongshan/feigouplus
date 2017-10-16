@@ -86,7 +86,7 @@ public class EditCarActivity extends Activity implements View.OnClickListener {
     private List<City> cities = new ArrayList<City>();
 
     private LinearLayout updata_car_owner_info_ll;//车主资料
-    private RelativeLayout car_type_layout, car_model_layout;
+    private RelativeLayout car_type_layout,car_model_layout;
     private TextView car_type_tv;
     private String car_type;
     private String car_code;//车型代码
@@ -132,10 +132,7 @@ public class EditCarActivity extends Activity implements View.OnClickListener {
         proprefix = getIntent().getStringExtra("proprefix");
         ischeck = getIntent().getStringExtra("ischeck");
         page = getIntent().getIntExtra("page", 0);
-        car_type = getIntent().getStringExtra("cartype")+"";
-
-//        car_model_name = getIntent().getStringExtra("carname")+"";
-//        carbrand = getIntent().getStringExtra("carbrand");
+        car_type = getIntent().getStringExtra("cartype").equals("小型汽车")?"02":getIntent().getStringExtra("cartype");
 
         initViews();
 
@@ -173,7 +170,6 @@ public class EditCarActivity extends Activity implements View.OnClickListener {
         VolleyUtil.getVolleyUtil(getApplicationContext()).StringRequestGetVolley(URLs.GET_OPEN_PROVINCE, new VolleyInterface(){
             @Override
             public void ResponseResult(Object jsonObject){
-                Log.i("TAG","获取开放的省份："+jsonObject.toString());
                 try {
                     JSONObject obj=new JSONObject(EncryptUtil.decryptJson(jsonObject.toString(),getApplicationContext()));
 
@@ -227,13 +223,6 @@ public class EditCarActivity extends Activity implements View.OnClickListener {
         pd.setMessage("请稍候...");
         pd.setCanceledOnTouchOutside(false);
 
-//        car_model_name_tv = (TextView) findViewById(R.id.car_model_name_tv);
-//        if (!carbrand.equals("")) {
-//            car_model_name_tv.setText(car_model_name + "");
-//        } else {
-//            car_model_name_tv.setText("点击选择");
-//        }
-//        car_model_name_tv.setTextColor(Color.BLACK);
         car_type_tv = (TextView) findViewById(R.id.car_type_tv);
         if (!car_type.equals("")) {
             car_type_tv.setText(car_type + "");
@@ -425,41 +414,10 @@ public class EditCarActivity extends Activity implements View.OnClickListener {
                         (CarEngine_et.getText().toString().length() < carengineLen) || (CarNumber_et.getText().toString().trim().length() < 6)) {
                     UIHelper.ToastMessage(EditCarActivity.this, "输入信息不完整");
                 }
-//                else if(isProvice(provincecode_tv.getText().toString().trim())){
-//                    new AlertDialog.Builder(EditCarActivity.this).setTitle("提示")
-//                            .setMessage("由于系统数据升级维护中，车牌前缀为\""+province+"\"的车辆请到主界面的其他订单页面添加并下单")
-//                            .setPositiveButton("确定",new DialogInterface.OnClickListener() {
-//                                @Override
-//                                public void onClick(DialogInterface dialogInterface, int i) {
-//                                }
-//                            }).show().setCanceledOnTouchOutside(false);
-//                }
                 else {
                     if (appContext.isNetworkConnected()) {
-//                        if((!proprefix.equals(provincecode_tv.getText().toString().trim())
-//                                ||(!carnumber.substring(1).equals(CarNumber_et.getText().toString().trim())))&&isUpdata==0){
-//                            AlertDialog.Builder alertDialog=new AlertDialog.Builder(EditCarActivity.this);
-//                            alertDialog.setTitle("提示");
-//                            alertDialog.setMessage("若修改车牌号码，请点击“车主资料”，修改和上传行驶证和驾驶证照片再保存");
-//                            alertDialog.setPositiveButton("确定",new DialogInterface.OnClickListener(){
-//                                @Override
-//                                public void onClick(DialogInterface dialogInterface, int i) {
-//                                    Intent editPhotoIntent=new Intent(EditCarActivity.this,UploadProActivity.class);
-//                                    editPhotoIntent.putExtra("carid",carid);
-//                                    startActivityForResult(editPhotoIntent,110);
-//                                }
-//                            });
-//                            alertDialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-//                                @Override
-//                                public void onClick(DialogInterface dialogInterface, int i) {
-//
-//                                }
-//                            });
-//                            alertDialog.show();
-//                        }else{
                         pd.show();
                         editcarCommit(getEditParams());//保存并提交新编辑的车辆信息
-//                        }
                     } else {
                         UIHelper.ToastMessage(EditCarActivity.this, "网络连接失败，请检查网络连接设置");
                     }
@@ -484,7 +442,6 @@ public class EditCarActivity extends Activity implements View.OnClickListener {
 
             case R.id.updata_car_owner_info_ll://修改车主资料
                 intent = new Intent(EditCarActivity.this, UploadProActivity.class);
-//                intent=new Intent(EditCarActivity.this,UploadDravingLisenceActivivty.class);
                 intent.putExtra("carid", carid);
                 startActivityForResult(intent, UPDATA_INFO);
                 break;
@@ -518,17 +475,6 @@ public class EditCarActivity extends Activity implements View.OnClickListener {
         @Override
         public void onReceive(Context context, Intent intent) {
             province = intent.getStringExtra("province");
-//            if(isProvice(province)){
-//                    new AlertDialog.Builder(EditCarActivity.this).setTitle("提示")
-//                            .setMessage("由于系统数据升级维护中，车牌前缀为\""+province+"\"的车辆请到主界面的\"其他订单\"页面添加并下单")
-//                            .setPositiveButton("确定",new DialogInterface.OnClickListener() {
-//                                @Override
-//                                public void onClick(DialogInterface dialogInterface, int i) {
-//
-//                                }
-//                            }).setNegativeButton("取消",null).show().setCanceledOnTouchOutside(false);
-//
-//            }else{
             if (!province.equals(provincecode_tv.getText().toString())) {
                 CarNumber_et.setText("");
             }
@@ -559,8 +505,6 @@ public class EditCarActivity extends Activity implements View.OnClickListener {
         map.put("cardrivenumber", CarEngine_et.getText().toString().trim());//发动机号
         map.put("title", remark_et.getText().toString().trim() + "");//备注
         map.put("carid", carid);
-//        map.put("carbrand", carbrand + "");
-//        map.put("carname", car_model_name + "");
         map.put("cartype", car_type + "");
         return map;
     }
@@ -599,7 +543,6 @@ public class EditCarActivity extends Activity implements View.OnClickListener {
                         carengine = CarEngine_et.getText().toString().trim();
                         carcode = CarCode_et.getText().toString().trim();
                         proprefix = provincecode_tv.getText().toString().trim();
-//                        carbrand = car_model_name_tv.getText().toString().trim();
                         car_type = car_type_tv.getText().toString().trim();
 
 
@@ -636,9 +579,6 @@ public class EditCarActivity extends Activity implements View.OnClickListener {
                 intent.putExtra("type", "1");
                 intent.putExtra("page", page);
                 intent.putExtra("cartype", car_type);
-//                intent.putExtra("carname", car_model_name);
-//                intent.putExtra("carbrand", carbrand);
-
                 intent.setAction(ADD_EDIT_DELETE_CAR_ACTION);
                 try {
                     JSONObject obj = new JSONObject(EncryptUtil.decryptJson(jsonObject.toString(), EditCarActivity.this));
@@ -660,16 +600,6 @@ public class EditCarActivity extends Activity implements View.OnClickListener {
                         violationSize = dataObj.getInt("num");
                         totalDgree = dataObj.getInt("degree");
                         totalCount = dataObj.getInt("count");
-
-//                        if(violationList!=null) {
-//                            for (int k = 0; k < violationList.size(); k++) {
-//                                if(violationList.get(k).getOrderstatus().equals("0")) {
-//                                    totalDgree += Integer.valueOf(violationList.get(k).getDegree());
-//                                    totalCount += Integer.valueOf(violationList.get(k).getCount());
-//                                    ++violationSize;
-//                                }
-//                            }
-//                        }
 
                         intent.putExtra("violationSize", violationSize);//未处理违章条数
                         intent.putExtra("totalDgree", totalDgree + "");//未处理违章分数
@@ -707,20 +637,6 @@ public class EditCarActivity extends Activity implements View.OnClickListener {
                 isUpdata = data.getIntExtra("isUpdata", 1);
             }
         }
-//        else if (requestCode == CAR_MODEL_REQUEST_CODE) {
-//            if (data != null) {
-//                if (data.hasExtra("carbrand"))
-//                    carbrand = data.getStringExtra("carbrand");//车品牌
-//                if (data.hasExtra("carname")) {
-//                    car_model_name = data.getStringExtra("carname");//系列名称
-//
-////                map.put("carbrand",carbrand);
-////                map.put("carname",car_model_name);
-//                    car_model_name_tv.setText(car_model_name+"");
-//                    car_model_name_tv.setTextColor(Color.BLACK);
-//                }
-//            }
-//        }
         else if (requestCode == CAR_TYPE_REQUEST_CODE) {
             if (data != null) {
                 if (data.hasExtra("cartype")) {

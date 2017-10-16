@@ -9,7 +9,6 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -60,6 +59,8 @@ public class SignInActivity extends YeoheActivity {
     private ProgressBar pb;
     private String order_type="";
     public static final String EXTRA_ORDER_TYPE="order_type";
+    public static final String  EXTRA_CUSTOMER_BUNDLE="customer_bundle";
+    public Bundle customerBundle=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,9 @@ public class SignInActivity extends YeoheActivity {
         setContentView(R.layout.activity_sign_in);
 
         Intent intent=getIntent();
+        if (intent.hasExtra(EXTRA_CUSTOMER_BUNDLE))
+            customerBundle=intent.getBundleExtra(EXTRA_CUSTOMER_BUNDLE);
+
         Bundle bundle=intent.getExtras();
         SerMap serMap= (SerMap) bundle.get("serMap");
 
@@ -227,7 +231,7 @@ public class SignInActivity extends YeoheActivity {
                         payMap.put("order_type",order_type);
                         payMap.put("is_balance_deductible", ThePosPay.is_balance_deductible);//是否使用余额
 //                        payMap.put("order_type")
-                        PayUtil.yinjiaPay(SignInActivity.this,payMap,strImg);//银嘉支付
+                        PayUtil.yinjiaPay(SignInActivity.this,payMap,strImg,customerBundle);//银嘉支付
                     }else {
                         Toast.makeText(SignInActivity.this,"上传签名图片失败，请重试",Toast.LENGTH_SHORT).show();
                     }

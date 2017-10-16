@@ -10,6 +10,14 @@
     <string name="xieyi">《飞狗Plus用户服务协议》</string>
 
     <string name="packagename">com.example.youhe.youhecheguanjiaplus</string>
+    <string name="QQ_APP_ID">1106314864</string>
+    <string name="QQ_APP_KEY">TV66i1frlGlaeiFu</string>
+
+    <!--<string name="WEI_XIN_APP_ID">wx5b85cea18c42b03e</string>-->
+    <string name="WEI_XIN_APP_ID">wx5b85cea18c42b03e</string>
+    <string name="WEI_XIN_APP_KEY">fbf9526544b190c595e1ac28ffe6eca2</string>
+
+    <!--<string name="scheme">flydogplus</string>-->
 
 
     <string name="platinum_creditCar_str">白金信用卡 20万额度秒批</string>
@@ -509,4 +517,8 @@
     <string name="xlistview_footer_hint_ready">松开载入更多</string>
     <string name="copy_alert">内容已复制到粘贴板</string>
     <string name="days">日</string>
+
+
+    <string name="camera_permission_required">本功能需要相机权限！</string>
+
 </resources>

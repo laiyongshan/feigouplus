@@ -68,7 +68,7 @@ public class ThePosPay {
                 ORDERNUMBER = ordernumber;//订单号
                 totalPrice.setText("￥" + TOTALPRICE);
 
-            }else if(ordertype==2||ordertype==3){//补款订单||年检订单
+            }else if(ordertype==2||ordertype==3||ordertype==4){//补款订单||年检订单||plus用户激活
 
                 zonfuwu= intent.getStringExtra("zonfuwu")+"";
                 ordernumber=""+intent.getStringExtra("ordernumber");

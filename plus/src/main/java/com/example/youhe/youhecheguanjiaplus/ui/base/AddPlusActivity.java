@@ -175,14 +175,32 @@ public class AddPlusActivity extends YeoheActivity implements View.OnClickListen
                             Toast.makeText(AddPlusActivity.this, "获取支付金额失败", Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        Intent intent=new Intent(AddPlusActivity.this,ScanQrPayActivity.class);
-                        intent.putExtra(ScanQrPayActivity.EXTRA_STRING_ORDER_CODE,ordercode);
-                        intent.putExtra(ScanQrPayActivity.EXTRA_STRING_PAY_MONEY,paymoney);
-                        intent.putExtra(ScanQrPayActivity.EXTRA_INT_ORDER_TYPE,order_type);
-                        intent.putExtra(ScanQrPayActivity.EXTRA_INT_MJ_OPEN_TYPE,mjOpenType);
+//                        Intent intent=new Intent(AddPlusActivity.this,ScanQrPayActivity.class);
+//                        intent.putExtra(ScanQrPayActivity.EXTRA_STRING_ORDER_CODE,ordercode);
+//                        intent.putExtra(ScanQrPayActivity.EXTRA_STRING_PAY_MONEY,paymoney);
+//                        intent.putExtra(ScanQrPayActivity.EXTRA_INT_ORDER_TYPE,order_type);
+//                        intent.putExtra(ScanQrPayActivity.EXTRA_INT_MJ_OPEN_TYPE,mjOpenType);
+//
+//                        intent.putExtra(ScanQrPayActivity.EXTRA_RETURN_CLASS,"com.example.youhe.youhecheguanjiaplus.ui.base.MainActivity");
+//                        startActivity(intent);
 
-                        intent.putExtra(ScanQrPayActivity.EXTRA_RETURN_CLASS,"com.example.youhe.youhecheguanjiaplus.ui.base.MainActivity");
+                        Intent intent = new Intent(AddPlusActivity.this, PayActivity.class);
+                        intent.putExtra("ordernumber",ordercode);
+                        intent.putExtra("ordertype",PayActivity.ORDERTYPE_PLUS);
+                        intent.putExtra("zonfakuan",paymoney);
+                        intent.putExtra("zonfuwu","车主卡订单");
+                        intent.putExtra(PayActivity.EXTRA_ORDER_TYPE,PayActivity.ORDER_TYPE_PLUS);
+
+//                    intent.putExtra(ScanQrPayActivity.EXTRA_STRING_ORDER_CODE, ordercode);
+//                    intent.putExtra(ScanQrPayActivity.EXTRA_STRING_PAY_MONEY, paymoney);
+//                    intent.putExtra(ScanQrPayActivity.EXTRA_INT_ORDER_TYPE, order_type);
+//                    intent.putExtra(ScanQrPayActivity.EXTRA_INT_MJ_OPEN_TYPE, mjOpenType);
+//
+                        Bundle bundle = new Bundle();
+                        bundle.putString(PayActivity.EXTRA_RETURN_CLASS, "com.example.youhe.youhecheguanjiaplus.ui.base.MainActivity");
+                        intent.putExtra(PayActivity.EXTRA_CUSTOMER_BUNDLE, bundle);
                         startActivity(intent);
+
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -209,7 +227,7 @@ public class AddPlusActivity extends YeoheActivity implements View.OnClickListen
         HashMap<String, String> hashMap = new HashMap<>();
         String token = TokenSQLUtils.check();
         hashMap.put("token", token);
-
+        Log.d("TAG",hashMap.toString());
         volleyUtil.postRequest(this, URLs.PLUS_ADD_RULE, hashMap, "获取添加规则失败", new OnVolleyInterface() {
             @Override
             public void success(JSONObject dataObject, String resultStr) {

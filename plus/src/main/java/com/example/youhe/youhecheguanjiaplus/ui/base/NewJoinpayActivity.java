@@ -74,6 +74,9 @@ public class NewJoinpayActivity extends YeoheActivity implements View.OnClickLis
 
     private DcBleDevice m_devive;
     private IDCSwiper m_dcswiperController = null;
+    public static final String EXTRA_CUSTOMER_BUNDLE = "customer_bundle";
+    private Bundle customerBundle=null;
+
     private DCSwiperControllerListener listener = new DCSwiperControllerListener() {
         @Override
         public void onDeviceScanning() {
@@ -289,6 +292,9 @@ public class NewJoinpayActivity extends YeoheActivity implements View.OnClickLis
             intent.putExtras(bundle);
             Log.d("TAG","aaaaaaaaaaaa"+order_type);
             intent.putExtra(SignInActivity.EXTRA_ORDER_TYPE,order_type);
+            if (customerBundle!=null)
+                intent.putExtra(SignInActivity.EXTRA_CUSTOMER_BUNDLE,customerBundle);
+
             startActivity(intent);
             NewJoinpayActivity.this.finish();
         }
@@ -359,6 +365,9 @@ public class NewJoinpayActivity extends YeoheActivity implements View.OnClickLis
         SystemBarUtil.useSystemBarTint(NewJoinpayActivity.this);
 
         Intent extraIntent=getIntent();
+
+        if (extraIntent.hasExtra(EXTRA_ORDER_TYPE))
+            customerBundle=extraIntent.getBundleExtra(EXTRA_ORDER_TYPE);
 
         price=extraIntent.getStringExtra("price");//支付金额
         theSerialNumber=extraIntent.getStringExtra("theSerialNumber");//机器序列号

@@ -53,6 +53,23 @@
                     android:hint="请输入添加的数量" />
             </LinearLayout>
 
+
+            <View style="@style/view_h_16_gray" />
+            <LinearLayout style="@style/style_add_plus_item_layout">
+
+                <TextView
+                    style="@style/style_add_plus_item_text"
+                    android:text="车主卡类型：" />
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:entries="@array/plus_type"
+                    android:gravity="center_vertical" />
+            </LinearLayout>
+
             <View style="@style/view_h_16_gray" />
 
             <LinearLayout style="@style/style_add_plus_item_layout">
@@ -126,22 +143,7 @@
 
             <View style="@style/view_h_16_gray" />
 
-            <LinearLayout style="@style/style_add_plus_item_layout">
 
-                <TextView
-                    style="@style/style_add_plus_item_text"
-                    android:text="车主卡类型：" />
-
-                <android.support.v7.widget.AppCompatSpinner
-                    android:id="@+id/spinner"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:entries="@array/plus_type"
-                    android:gravity="center_vertical" />
-            </LinearLayout>
-
-            <View style="@style/view_h_16_gray" />
 
             <LinearLayout
                 android:id="@+id/layout_scale"

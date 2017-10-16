@@ -18,6 +18,8 @@ public class ImgDownload {
 
 
     public final static Bitmap toRoundBitmap(Bitmap bitmap) {
+        if (bitmap==null)
+            return null;
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
         float roundPx;

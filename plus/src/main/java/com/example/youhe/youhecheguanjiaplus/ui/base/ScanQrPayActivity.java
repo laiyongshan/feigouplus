@@ -9,6 +9,7 @@ import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -67,7 +68,7 @@ public class ScanQrPayActivity extends YeoheActivity implements View.OnClickList
     private String token = TokenSQLUtils.check();//token值
     private boolean isReturnResult = false;
     public static final String EXTRA_IS_RETURN_RESULT = "isReturnResult";//支付完  setResult_ok   权限系数0   暂时不用
-    public static final String EXTRA_RETURN_CLASS = "";//支付完之后返回的页面   权限系数10
+    public static final String EXTRA_RETURN_CLASS = "return_class";//支付完之后返回的页面   权限系数10
     private String return_class = "";
 
     public static final String EXTRA_STRING_ORDER_CODE = "ordercode";//订单号
@@ -222,7 +223,8 @@ public class ScanQrPayActivity extends YeoheActivity implements View.OnClickList
             map.put("is_annual_inspection", ORDER_TYPE_INSPECTION);
             order_type = 2;
         }
-        map.put(EXTRA_INT_ORDER_TYPE, order_type);
+        map.put(EXTRA_INT_ORDER_TYPE, order_type+"");
+        Log.d("TAG",map.toString());
         return map;
     }
 
@@ -231,14 +233,18 @@ public class ScanQrPayActivity extends YeoheActivity implements View.OnClickList
         switch (v.getId()) {
             case R.id.weixin_pay_img://微信扫码支付
                 payType(1);
-                weixin_pay_img.setClickable(false);
-                ali_pay_img.setClickable(true);
+                if (mjOpenType==3) {
+                    weixin_pay_img.setClickable(false);
+                    ali_pay_img.setClickable(true);
+                }
                 break;
 
             case R.id.ali_pay_img://支付宝扫码支付
                 payType(2);
-                weixin_pay_img.setClickable(true);
-                ali_pay_img.setClickable(false);
+                if (mjOpenType==3) {
+                    weixin_pay_img.setClickable(true);
+                    ali_pay_img.setClickable(false);
+                }
                 break;
         }
     }

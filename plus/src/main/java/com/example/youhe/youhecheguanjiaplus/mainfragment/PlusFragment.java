@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.youhe.youhecheguanjiaplus.R;
 import com.example.youhe.youhecheguanjiaplus.adapter.PlusAdapter;
+import com.example.youhe.youhecheguanjiaplus.app.AppContext;
 import com.example.youhe.youhecheguanjiaplus.bean.PlusBean;
 import com.example.youhe.youhecheguanjiaplus.databinding.ItemPlusBinding;
 import com.example.youhe.youhecheguanjiaplus.databinding.PlusFragmentBinding;
@@ -33,6 +34,7 @@ import com.example.youhe.youhecheguanjiaplus.utils.PopWindowPlusFilter;
 import com.example.youhe.youhecheguanjiaplus.utils.PopWindowShare;
 import com.example.youhe.youhecheguanjiaplus.utils.QrCodeUtil;
 import com.example.youhe.youhecheguanjiaplus.utils.StringUtils;
+import com.example.youhe.youhecheguanjiaplus.utils.UIHelper;
 import com.example.youhe.youhecheguanjiaplus.utils.VolleyUtil;
 import com.example.youhe.youhecheguanjiaplus.widget.ToastUtil;
 import com.google.gson.Gson;
@@ -135,6 +137,7 @@ public class PlusFragment extends YeoheFragment implements View.OnClickListener 
         hashMap.put(NET_CARD_NUMBER, "");
         hashMap.put(NET_PRICE, "");
 //        page page_size  status  card_number price
+//        Log.d("TAGG",hashMap.toString());
         loadData(hashMap);
     }
 
@@ -232,7 +235,13 @@ public class PlusFragment extends YeoheFragment implements View.OnClickListener 
                 filter();
                 break;
             case R.id.add:
-                add();
+//                if (StringUtils.i)
+                if (!AppContext.isLogin){
+                    UIHelper.showLoginActivity(getActivity());
+                    UIHelper.ToastMessage(getActivity(), "请先登录");
+                }else {
+                    add();
+                }
                 break;
             case R.id.text_copy:
                 PlusBean plusBean = plusList.get(b.viewpager.getCurrentItem());
@@ -464,7 +473,10 @@ public class PlusFragment extends YeoheFragment implements View.OnClickListener 
 //        item.state.setText(bean.getStatus_name() + "  " + (bean.getClient_type() == 3 ? "普通" : "分销"));
         item.state.setText(bean.getStatus_name());
         item.price.setText("¥ " + bean.getPrice() + "");
-        item.date.setText("有效期至：" + bean.getExpire_time() + "");
+        if (StringUtils.isEmpty(bean.getExpire_time())) {
+            item.date.setText("");
+        } else
+            item.date.setText("有效期至：" + bean.getExpire_time() + "");
         if (!StringUtils.isEmpty(bean.getCard_number()) && bean.getCard_number().length() == 16) {
             a = bean.getCard_number();
             bb = a.substring(0, 4) + "  " + a.substring(4, 8) + "  " + a.substring(8, 12) + "  " + a.substring(12, 16);

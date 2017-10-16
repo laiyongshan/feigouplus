@@ -117,5 +117,4 @@ jstring
 Java_com_example_youhe_youhecheguanjiaplus_utils_ParamSign_decryptDES(JNIEnv *env, jobject instance, jstring msg_) {
     const char *msg = env->GetStringUTFChars(msg_, 0);
 
-
 }

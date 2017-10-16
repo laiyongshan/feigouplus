@@ -259,3 +259,39 @@
 -dontwarn com.umeng.**
 -keep class com.umeng.**{*;}
 
+
+-keep class com.nostra13.universalimageloader.**{*;}
+-dontwarn com.nostra13.universalimageloader.**
+-keep class com.nostra13.universalimageloader.**{*;}
+-dontwarn com.nostra13.universalimageloader.**
+
+
+#支付宝
+-keep class com.alipay.android.app.IAlixPay{*;}
+-keep class com.alipay.android.app.IAlixPay$Stub{*;}
+-keep class com.alipay.android.app.IRemoteServiceCallback{*;}
+-keep class com.alipay.android.app.IRemoteServiceCallback$Stub{*;}
+-keep class com.alipay.sdk.app.PayTask{ public *;}
+-keep class com.alipay.sdk.app.AuthTask{ public *;}
+-keep class com.alipay.sdk.app.H5PayCallback {
+    <fields>;
+    <methods>;
+}
+-keep class com.alipay.android.phone.mrpc.core.** { *; }
+-keep class com.alipay.apmobilesecuritysdk.** { *; }
+-keep class com.alipay.mobile.framework.service.annotation.** { *; }
+-keep class com.alipay.mobilesecuritysdk.face.** { *; }
+-keep class com.alipay.tscenter.biz.rpc.** { *; }
+-keep class org.json.alipay.** { *; }
+-keep class com.alipay.tscenter.** { *; }
+-keep class com.ta.utdid2.** { *;}
+-keep class com.ut.device.** { *;}
+#支付宝
+
+-keep class com.tencent.mm.**{*;}
+-dontwarn com.tencent.mm.**
+-keep class com.example.youhe.youhecheguanjiaplus.wxapi.**{*;}
+
+#百度云识别
+-keep class com.baidu.ocr.sdk.**{*;}
+-dontwarn com.baidu.ocr.**

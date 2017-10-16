@@ -8,6 +8,8 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.example.youhe.youhecheguanjiaplus.app.UserManager;
 import com.example.youhe.youhecheguanjiaplus.entity.base.Car;
 import com.example.youhe.youhecheguanjiaplus.mainfragment.MainFragment;
 import com.example.youhe.youhecheguanjiaplus.ui.base.EditCarActivity;
@@ -94,9 +96,13 @@ public class CarInfoAdapter extends PagerAdapter {
                     intent.putExtra("carbrand",carbrand);
 
                     if (ischeck.equals("-1")) {
-                        intent.setClass(activity, EditCarActivity.class);
-                        Toast.makeText(activity, "车辆信息有误，请重新编辑", Toast.LENGTH_LONG).show();
-                        activity.startActivityForResult(intent, MainFragment.EDITCAR_RESULTCODE);
+                        if (!UserManager.checkUserStatus()){
+                            UserManager.userActivation(activity);
+                        }else {
+                            intent.setClass(activity, EditCarActivity.class);
+                            Toast.makeText(activity, "车辆信息有误，请重新编辑", Toast.LENGTH_LONG).show();
+                            activity.startActivityForResult(intent, MainFragment.EDITCAR_RESULTCODE);
+                        }
                     } else {
 //                        intent = new Intent(activity, IllegalQueryActivty.class);
                     }

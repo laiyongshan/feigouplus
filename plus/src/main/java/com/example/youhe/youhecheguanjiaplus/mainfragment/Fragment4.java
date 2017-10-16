@@ -362,10 +362,10 @@ public class Fragment4 extends YeoheFragment implements View.OnClickListener {
                 if (AppContext.isLogin) {
                     if (!UserManager.checkUserStatus()) {
                         UserManager.userActivation(getContext());
-                        return;
+                    }else {
+                        Intent intent = new Intent(getActivity(), MyAssetsActivity.class);
+                        startActivity(intent);
                     }
-                    Intent intent = new Intent(getActivity(), MyAssetsActivity.class);
-                    startActivity(intent);
                 } else {
                     UIHelper.showLoginActivity(getActivity());
                     UIHelper.ToastMessage(getActivity(), "请先登录");

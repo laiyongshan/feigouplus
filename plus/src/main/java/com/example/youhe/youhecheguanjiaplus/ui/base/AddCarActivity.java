@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -23,8 +24,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.baidu.ocr.sdk.OCR;
+import com.baidu.ocr.sdk.OnResultListener;
+import com.baidu.ocr.sdk.exception.OCRError;
+import com.baidu.ocr.sdk.model.OcrRequestParams;
+import com.baidu.ocr.sdk.model.OcrResponseResult;
+import com.baidu.ocr.ui.camera.CameraActivity;
+import com.baidu.ocr.ui.util.BDFileUtils;
 import com.example.youhe.youhecheguanjiaplus.R;
 import com.example.youhe.youhecheguanjiaplus.app.AppContext;
+import com.example.youhe.youhecheguanjiaplus.bean.CarType;
 import com.example.youhe.youhecheguanjiaplus.db.biz.TokenSQLUtils;
 import com.example.youhe.youhecheguanjiaplus.dialog.DoubtDialog;
 import com.example.youhe.youhecheguanjiaplus.dialog.ProvinceDialog;
@@ -38,47 +47,52 @@ import com.example.youhe.youhecheguanjiaplus.utils.AllCapTransformationMethod;
 import com.example.youhe.youhecheguanjiaplus.utils.EncryptUtil;
 import com.example.youhe.youhecheguanjiaplus.utils.FileUtils;
 import com.example.youhe.youhecheguanjiaplus.utils.HttpUtil;
+import com.example.youhe.youhecheguanjiaplus.utils.StringUtils;
 import com.example.youhe.youhecheguanjiaplus.utils.SystemBarUtil;
 import com.example.youhe.youhecheguanjiaplus.utils.UIHelper;
 import com.example.youhe.youhecheguanjiaplus.utils.VolleyUtil;
+import com.example.youhe.youhecheguanjiaplus.widget.ToastUtil;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by Administrator on 2016/8/31 0031.
- *
  */
-public class AddCarActivity extends Activity implements View.OnClickListener{
+public class AddCarActivity extends Activity implements View.OnClickListener {
 
-    private TextView carEngine_tv,carCode_tv,driving_licence_tv;
+
+    private TextView carEngine_tv, carCode_tv, driving_licence_tv;
     private TextView province_code_tv;//省份简称
     private ImageView addcar_back_img;//返回按钮
     private Button save_check_btn;//保存并查询按钮
-    private EditText CarNumber_et, CarEngine_et, CarCode_et,add_remark_et;//车牌号码，发动机号，车身架号，备注输入框
-    private ImageView carCode_doubt_img,carEngine_doubt_img;
+    private EditText CarNumber_et, CarEngine_et, CarCode_et, add_remark_et;//车牌号码，发动机号，车身架号，备注输入框
+    private ImageView carCode_doubt_img, carEngine_doubt_img;
 
-    private RelativeLayout car_type_layout,car_model_layout;
+    private RelativeLayout car_type_layout, car_model_layout;
     private TextView car_type_tv;
     private String car_type;
     private String car_code;//车型代码
+    private ImageView image_qr;
 
     public ProvinceDialog dialog;//省份简称弹出框
     private ProvinceBrocast provinceBrocast;//接收选择的身份简称
 
     private String carnumber, carengine, carcode, phonenum;
-    public String province="";//省份简称
-    public String carid="";
-    private String status="";
+    public String province = "";//省份简称
+    public String carid = "";
+    private String status = "";
 
-    private int carcodeLen=0,carengineLen=0;//输入车身架号、发动机号长度限制
-    private LinearLayout carCode_ll,carEngine_ll;
-    private List<Province> provinces=new ArrayList<Province>();
-    private List<City> cities=new ArrayList<City>();
+    private int carcodeLen = 0, carengineLen = 0;//输入车身架号、发动机号长度限制
+    private LinearLayout carCode_ll, carEngine_ll;
+    private List<Province> provinces = new ArrayList<Province>();
+    private List<City> cities = new ArrayList<City>();
 
     AllCapTransformationMethod allCapTransformationMethod = new AllCapTransformationMethod();//字母大写
 
@@ -86,28 +100,29 @@ public class AddCarActivity extends Activity implements View.OnClickListener{
 
     private AppContext appContext;
 
-    private final static int CAR_MODEL_REQUEST_CODE=10001;
-    private final static int CAR_TYPE_REQUEST_CODE=10002;
+    private final static int CAR_MODEL_REQUEST_CODE = 10001;
+    private final static int CAR_TYPE_REQUEST_CODE = 10002;
+    private static final int REQUEST_CODE_CAMERA = 10003;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addcar);
 
         // 4.4及以上版本开启
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            SystemBarUtil.setTranslucentStatus(true,AddCarActivity.this);
+            SystemBarUtil.setTranslucentStatus(true, AddCarActivity.this);
         }
         SystemBarUtil.useSystemBarTint(AddCarActivity.this);
 
 
         initCitydata();//初始化全部城市的查询并下单的最低条件
 
-        appContext= (AppContext)AddCarActivity.this.getApplicationContext();
+        appContext = (AppContext) AddCarActivity.this.getApplicationContext();
 
-        IntentFilter filter=new IntentFilter(ProvinceDialog.ACTION_NAME);
-        provinceBrocast=new ProvinceBrocast();
-        registerReceiver(provinceBrocast,filter);
+        IntentFilter filter = new IntentFilter(ProvinceDialog.ACTION_NAME);
+        provinceBrocast = new ProvinceBrocast();
+        registerReceiver(provinceBrocast, filter);
 
         initViews();//初始化控件
     }
@@ -121,41 +136,43 @@ public class AddCarActivity extends Activity implements View.OnClickListener{
     /**
      * 初始化全部城市的查询并下单的最低条件
      */
-    String province_key="proprefix_json_";
-    public String proprefixJson="";
+    String province_key = "proprefix_json_";
+    public String proprefixJson = "";
+
     private void initCitydata() {
         UIHelper.showPd(AddCarActivity.this);
-        VolleyUtil.getVolleyUtil(getApplicationContext()).StringRequestGetVolley(URLs.GET_OPEN_PROVINCE, new VolleyInterface(){
+        getCarType();
+        VolleyUtil.getVolleyUtil(getApplicationContext()).StringRequestGetVolley(URLs.GET_OPEN_PROVINCE, new VolleyInterface() {
             @Override
-            public void ResponseResult(Object jsonObject){
-                Log.i("TAG","获取开放的省份："+jsonObject.toString());
+            public void ResponseResult(Object jsonObject) {
+                Log.i("TAG", "获取开放的省份：" + jsonObject.toString());
                 try {
-                    JSONObject obj=new JSONObject(EncryptUtil.decryptJson(jsonObject.toString(),getApplicationContext()));
+                    JSONObject obj = new JSONObject(EncryptUtil.decryptJson(jsonObject.toString(), getApplicationContext()));
 
-                    String status=obj.getString("status");
-                    if(status.equals("ok")){
-                        proprefixJson=obj.toString();
-                        HttpUtil.saveJson2FileCache(province_key, EncryptUtil.decryptJson(jsonObject.toString(),getApplicationContext()));//缓存数据
+                    String status = obj.getString("status");
+                    if (status.equals("ok")) {
+                        proprefixJson = obj.toString();
+                        HttpUtil.saveJson2FileCache(province_key, EncryptUtil.decryptJson(jsonObject.toString(), getApplicationContext()));//缓存数据
                     } else {
                         proprefixJson = HttpUtil.LoadDataFromLocal(province_key) + "";//使用缓存数据
                     }
 
 
-                } catch (JSONException e){
+                } catch (JSONException e) {
                     e.printStackTrace();
                     proprefixJson = HttpUtil.LoadDataFromLocal(province_key) + "";//使用缓存数据
-                }finally {
+                } finally {
                     ProprefixManager.jsonToProprefixList(proprefixJson);
                     provinces.clear();
                     cities.clear();
-                    if(ProprefixManager.proprefixList.size()>0) {
+                    if (ProprefixManager.proprefixList.size() > 0) {
                         provinces = ProprefixManager.proprefixList;
                         cities = City_ProvinceManager.cityList;
-                    }else{
+                    } else {
                         try {
-                            String json= FileUtils.readFromRaw(AddCarActivity.this);//使用缓存数据
-                            provinces= ProprefixManager.jsonToProprefixList(json);
-                            cities= City_ProvinceManager.jsonToCityList(json);
+                            String json = FileUtils.readFromRaw(AddCarActivity.this);//使用缓存数据
+                            provinces = ProprefixManager.jsonToProprefixList(json);
+                            cities = City_ProvinceManager.jsonToCityList(json);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -167,81 +184,122 @@ public class AddCarActivity extends Activity implements View.OnClickListener{
 
             @Override
             public void ResponError(VolleyError volleyError) {
-                Log.i("TAG",volleyError.toString());
+                Log.i("TAG", volleyError.toString());
+
                 proprefixJson = HttpUtil.LoadDataFromLocal(province_key) + "";//使用缓存数据
                 ProprefixManager.jsonToProprefixList(proprefixJson);
+                UIHelper.dismissPd();
             }
         });
     }
 
+    private void getCarType() {
+        HashMap map = new HashMap();
+        String token = TokenSQLUtils.check();
+        map.put("token", token);
+
+        VolleyUtil.getVolleyUtil(AddCarActivity.this).StringRequestPostVolley(URLs.GET_CAR_TYPE_LIST, EncryptUtil.encrypt(map), new VolleyInterface() {
+            @Override
+            public void ResponseResult(Object jsonObject) {
+                paseJson(EncryptUtil.decryptJson(jsonObject.toString(), AddCarActivity.this));
+            }
+
+            @Override
+            public void ResponError(VolleyError volleyError) {
+            }
+        });
+    }
+
+    private List<CarType> car_type_list;
+
+    private void paseJson(String json) {
+        CarType carType;
+        car_type_list = new ArrayList<>();
+        try {
+            JSONObject obj = new JSONObject(json);
+            JSONObject dataObj = obj.getJSONObject("data");
+            JSONArray arr = dataObj.getJSONArray("carTypeList");
+            for (int i = 0; i < arr.length(); i++) {
+                carType = new CarType();
+                carType.setTypecode(arr.getJSONObject(i).getString("typecode"));
+                carType.setTypename(arr.getJSONObject(i).getString("typename"));
+                car_type_list.add(carType);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     //初始化控件
-    private void initViews(){
+    private void initViews() {
         pd = new ProgressDialog(AddCarActivity.this);
         pd.setMessage("Loading...");
         pd.setCanceledOnTouchOutside(false);
 
 //        car_model_name_tv= (TextView) findViewById(R.id.car_model_name_tv);
-        car_type_tv= (TextView) findViewById(R.id.car_type_tv);
+        car_type_tv = (TextView) findViewById(R.id.car_type_tv);
 
-        car_type_layout= (RelativeLayout) findViewById(R.id.car_type_layout);
+        car_type_layout = (RelativeLayout) findViewById(R.id.car_type_layout);
         car_type_layout.setOnClickListener(this);
 
-        car_model_layout= (RelativeLayout) findViewById(R.id.car_model_layout);
+        car_model_layout = (RelativeLayout) findViewById(R.id.car_model_layout);
         car_model_layout.setOnClickListener(this);
 
-        car_type_layout= (RelativeLayout) findViewById(R.id.car_type_layout);
+        car_type_layout = (RelativeLayout) findViewById(R.id.car_type_layout);
         car_type_layout.setOnClickListener(this);
 
-        carEngine_tv= (TextView) findViewById(R.id.carEngine_tv);//发动机号
+        carEngine_tv = (TextView) findViewById(R.id.carEngine_tv);//发动机号
         carEngine_tv.setOnClickListener(this);
-        carCode_tv= (TextView) findViewById(R.id.carCode_tv);//车身架号
+        carCode_tv = (TextView) findViewById(R.id.carCode_tv);//车身架号
         carCode_tv.setOnClickListener(this);
-        province_code_tv= (TextView) findViewById(R.id.provincecode_tv);
-        if(provinces!=null) {
+        province_code_tv = (TextView) findViewById(R.id.provincecode_tv);
+        if (provinces != null) {
             province_code_tv.setText("粤");
         }
         province_code_tv.setOnClickListener(this);
-        addcar_back_img= (ImageView) findViewById(R.id.addcar_back_img);
+        addcar_back_img = (ImageView) findViewById(R.id.addcar_back_img);
         addcar_back_img.setOnClickListener(this);
 
-        carCode_doubt_img= (ImageView) findViewById(R.id.carCode_doubt_img);
+        carCode_doubt_img = (ImageView) findViewById(R.id.carCode_doubt_img);
         carCode_doubt_img.setOnClickListener(this);
-        carEngine_doubt_img= (ImageView) findViewById(R.id.carEngine_doubt_img);
+        carEngine_doubt_img = (ImageView) findViewById(R.id.carEngine_doubt_img);
         carEngine_doubt_img.setOnClickListener(this);
 
-        save_check_btn= (Button) findViewById(R.id.save_check_btn);
+        save_check_btn = (Button) findViewById(R.id.save_check_btn);
         save_check_btn.setOnClickListener(this);
 
-        CarEngine_et= (EditText) findViewById(R.id.CarEngine_et);//发动机号输入框
+        CarEngine_et = (EditText) findViewById(R.id.CarEngine_et);//发动机号输入框
         carengine = CarEngine_et.getText().toString();
         CarEngine_et.setTransformationMethod(allCapTransformationMethod);
         CarCode_et = (EditText) findViewById(R.id.CarCode_et);
-        carcode=CarCode_et.getText().toString().trim();
+        carcode = CarCode_et.getText().toString().trim();
         CarCode_et.setTransformationMethod(allCapTransformationMethod);
 
-        add_remark_et= (EditText) findViewById(R.id.remark_et);
+        add_remark_et = (EditText) findViewById(R.id.remark_et);
 
-        carCode_ll= (LinearLayout) findViewById(R.id.carCode_ll);
-        carEngine_ll= (LinearLayout) findViewById(R.id.carEngine_ll);
+        carCode_ll = (LinearLayout) findViewById(R.id.carCode_ll);
+        carEngine_ll = (LinearLayout) findViewById(R.id.carEngine_ll);
 
-        CarNumber_et= (EditText) findViewById(R.id.CarNumber_et);//车牌号码输入框
-        carnumber=CarNumber_et.getText().toString().trim();//车牌号
+        CarNumber_et = (EditText) findViewById(R.id.CarNumber_et);//车牌号码输入框
+        carnumber = CarNumber_et.getText().toString().trim();//车牌号
         CarNumber_et.setTransformationMethod(allCapTransformationMethod);
         CarNumber_et.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
+
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count){
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
+
             @Override
             public void afterTextChanged(Editable s) {
-                if(s==null||s.toString().trim().equals("")) {
+                if (s == null || s.toString().trim().equals("")) {
                     CarEngine_et.setText("");
                     CarCode_et.setText("");
-                }else {
+                } else {
                     String pfixe = province_code_tv.getText().toString();
                     if (s.length() == 1) {
                         for (City city : cities) {
@@ -256,62 +314,68 @@ public class AddCarActivity extends Activity implements View.OnClickListener{
                 }
             }
         });
+
+        image_qr = (ImageView) findViewById(R.id.image_qr);
+        image_qr.setVisibility(View.VISIBLE);
+        image_qr.setOnClickListener(this);
+
     }
 
     /**
      * 添加车辆的输入条件的变化
-     * */
-    private void viewChange(String carCodeLen,String carEngineLen){
-        if(carCodeLen.equals("0")){
-            carcodeLen=6;
+     */
+    private void viewChange(String carCodeLen, String carEngineLen) {
+        if (carCodeLen.equals("0")) {
+            carcodeLen = 6;
             carCode_ll.setVisibility(View.VISIBLE);
             CarCode_et.setHint("请输入车身架号后6位");
-        }else if(carCodeLen.equals("99")){
-            carcodeLen=17;
+        } else if (carCodeLen.equals("99")) {
+            carcodeLen = 17;
             carCode_ll.setVisibility(View.VISIBLE);
             CarCode_et.setHint("请输入完整车身架号");
-        }else if(carCodeLen.equals("6")){
-            carcodeLen=6;
+        } else if (carCodeLen.equals("6")) {
+            carcodeLen = 6;
             carCode_ll.setVisibility(View.VISIBLE);
             CarCode_et.setHint("请输入车身架号后6位");
-        }else if(carCodeLen.equals("4")){
-            carcodeLen=6;
+        } else if (carCodeLen.equals("4")) {
+            carcodeLen = 6;
             carCode_ll.setVisibility(View.VISIBLE);
             CarCode_et.setHint("请输入车身架号后6位");
-        }else{
-            carcodeLen=17;
+        } else {
+            carcodeLen = 17;
             carCode_ll.setVisibility(View.VISIBLE);
             CarCode_et.setHint("请输入完整车身架号");
         }
 
-        if(carEngineLen.equals("0")){
-            carengineLen=6;
+        if (carEngineLen.equals("0")) {
+            carengineLen = 6;
             carEngine_ll.setVisibility(View.VISIBLE);
             CarEngine_et.setHint("请输入发动机号后6位");
-        }else if(carEngineLen.equals("99")){
-            carengineLen=6;
+        } else if (carEngineLen.equals("99")) {
+            carengineLen = 6;
             carEngine_ll.setVisibility(View.VISIBLE);
             CarEngine_et.setHint("请输入完整发动机号");
-        }else if(carEngineLen.equals("6")){
-            carengineLen=6;
+        } else if (carEngineLen.equals("6")) {
+            carengineLen = 6;
             carEngine_ll.setVisibility(View.VISIBLE);
             CarEngine_et.setHint("请输入发动机号后6位");
-        }else if(carEngineLen.equals("4")){
-            carengineLen=6;
+        } else if (carEngineLen.equals("4")) {
+            carengineLen = 6;
             carEngine_ll.setVisibility(View.VISIBLE);
             CarEngine_et.setHint("请输入发动机号后6位");
-        }else{
-            carengineLen=6;//完整发动机号最低4位
+        } else {
+            carengineLen = 6;//完整发动机号最低4位
             carEngine_ll.setVisibility(View.VISIBLE);
             CarEngine_et.setHint("请输入完整发动机号");
         }
     }
 
-    DoubtDialog doubtDialog=null;
-    Intent intent=null;
+    DoubtDialog doubtDialog = null;
+    Intent intent = null;
+
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.carCode_doubt_img://发动机号疑问号
                 doubtDialog = new DoubtDialog(AddCarActivity.this, R.style.Dialog, R.drawable.carcode_img);
                 doubtDialog.showDialog();
@@ -323,8 +387,8 @@ public class AddCarActivity extends Activity implements View.OnClickListener{
                 doubtDialog.setCancelable(true);
                 break;
             case R.id.provincecode_tv://省份前缀
-                Log.d("test",provinces.toString());
-                dialog = new ProvinceDialog(AddCarActivity.this, R.style.Dialog,provinces,1);
+                Log.d("test", provinces.toString());
+                dialog = new ProvinceDialog(AddCarActivity.this, R.style.Dialog, provinces, 1);
                 dialog.showDialog();
                 dialog.setCancelable(true);
                 break;
@@ -333,40 +397,143 @@ public class AddCarActivity extends Activity implements View.OnClickListener{
                 overridePendingTransition(R.anim.bottom_int, R.anim.bottom_out);
                 break;
             case R.id.save_check_btn://保存并查询按钮
-                if ((CarCode_et.getText().toString().trim().length()<carcodeLen) ||
-                        (CarEngine_et.getText().toString().length()<carengineLen) ||(CarNumber_et.getText().toString().trim().length()<6)) {
-                    UIHelper.ToastMessage(AddCarActivity.this,"输入信息不完整");
+                if ((CarCode_et.getText().toString().trim().length() < carcodeLen) ||
+                        (CarEngine_et.getText().toString().length() < carengineLen) || (CarNumber_et.getText().toString().trim().length() < 6)) {
+                    UIHelper.ToastMessage(AddCarActivity.this, "输入信息不完整");
                 }
 //                else if(car_type==null||car_model_name==null){
 //                    UIHelper.ToastMessage(AddCarActivity.this,"请选择车型或车系");
 //                }
                 else {
-                    if(appContext.isNetworkConnected()) {
+                    if (appContext.isNetworkConnected()) {
                         pd.show();
                         addcar(addGetParams());//添加车辆
-                    }else{
-                        Toast.makeText(AddCarActivity.this,"网络连接失败，请检查网络设置",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(AddCarActivity.this, "网络连接失败，请检查网络设置", Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;
 
             case R.id.car_model_layout://车系选择
-                intent=new Intent(AddCarActivity.this,CarModelActivity.class);
-                startActivityForResult(intent,CAR_MODEL_REQUEST_CODE);
+                intent = new Intent(AddCarActivity.this, CarModelActivity.class);
+                startActivityForResult(intent, CAR_MODEL_REQUEST_CODE);
                 break;
 
             case R.id.car_type_layout://车型选择
-                intent=new Intent(AddCarActivity.this,CarTypeActivity.class);
-                startActivityForResult(intent,CAR_TYPE_REQUEST_CODE);
+                intent = new Intent(AddCarActivity.this, CarTypeActivity.class);
+                startActivityForResult(intent, CAR_TYPE_REQUEST_CODE);
+                break;
+            case R.id.image_qr:
+                QR();
                 break;
         }
     }
 
 
+    private void QR() {
+        Intent intent = new Intent(AddCarActivity.this, CameraActivity.class);
+        intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH, BDFileUtils.getSaveFile("QR", "temp.jpg").getAbsolutePath());
+        intent.putExtra(CameraActivity.KEY_CONTENT_TYPE, CameraActivity.CONTENT_TYPE_VEHICLE_LICENSE);
+        startActivityForResult(intent, REQUEST_CODE_CAMERA);
+    }
+
+    private void onQRActivity(Intent data) {
+        pd.show();
+        String contentType = data.getStringExtra(CameraActivity.KEY_CONTENT_TYPE);
+        final String filePath = BDFileUtils.getSaveFile("QR", "temp.jpg").getAbsolutePath();
+
+        File file = new File(filePath);
+        if (!file.exists()) {
+            pd.dismiss();
+            return;
+        }
+        if (CameraActivity.CONTENT_TYPE_VEHICLE_LICENSE.equals(contentType)) {
+            OcrRequestParams param = new OcrRequestParams();
+            param.setImageFile(new File(filePath));
+            param.putParam("detect_direction", true);
+            param.putParam("accuracy", "high");
+            OCR.getInstance().recognizeVehicleLicense(param, new OnResultListener<OcrResponseResult>() {
+                @Override
+                public void onResult(OcrResponseResult result) {
+                    // 调用成功，返回IDCardResult对象
+                    BDFileUtils.deleteFile(AddCarActivity.this, filePath, true);
+                    parseOCR(result);
+                    pd.dismiss();
+
+                }
+
+                @Override
+                public void onError(OCRError error) {
+                    // 调用失败，返回OCRError对象
+                    ToastUtil.getShortToastByString(AddCarActivity.this, "识别行驶证失败");
+                    BDFileUtils.deleteFile(AddCarActivity.this, filePath, true);
+                    pd.dismiss();
+                }
+            });
+        } else
+            pd.dismiss();
+    }
+
+    private void parseOCR(OcrResponseResult result) {
+        try {
+            JSONObject jsonObject = new JSONObject(result.getJsonRes());
+            JSONObject resJson = jsonObject.optJSONObject("words_result");
+            String carNumber = resJson.has("号牌号码") ? resJson.getJSONObject("号牌号码").getString("words") : "";
+            String chassisNumber = resJson.has("车辆识别代号") ? resJson.getJSONObject("车辆识别代号").getString("words") : "";
+            String engineNumber = resJson.has("发动机号码") ? resJson.getJSONObject("发动机号码").getString("words") : "";
+            String carType = resJson.has("车辆类型") ? resJson.getJSONObject("车辆类型").getString("words") : "";
+
+            if (!TextUtils.isEmpty(carNumber) && StringUtils.isChinese(carNumber.substring(0, 1))) {
+                String a = carNumber.substring(0, 1);
+                boolean b = false;
+                for (int i = 0; i < provinces.size(); i++) {
+                    if (provinces.get(i).getProvincePrefix().equals(a)) {
+                        b = true;
+                        break;
+                    }
+                }
+                if (!b) {
+                    ToastUtil.getShortToastByString(this, "不支持该城市车牌");
+                    return;
+                }
+                province_code_tv.setText(a);
+                CarNumber_et.setText(carNumber.substring(1, carNumber.length()));
+                checkCodeLen(a);
+                if (!TextUtils.isEmpty(chassisNumber) && chassisNumber.length() >= carcodeLen) {
+//                    CarCode_et.setText(chassisNumber.substring(chassisNumber.length()-carcodeLen,chassisNumber.length()));
+                    CarCode_et.setText(chassisNumber);
+                }
+                if (!TextUtils.isEmpty(engineNumber) && engineNumber.length() >= carengineLen) {
+//                    CarEngine_et.setText(engineNumber.substring(engineNumber.length()-carengineLen,engineNumber.length()));
+                    CarEngine_et.setText(engineNumber);
+                }
+                if (!TextUtils.isEmpty(carType) && car_type_list != null && car_type_list.size() > 0) {
+                    String c = carType.substring(0, 1);
+                    for (int i = 0; i < car_type_list.size(); i++) {
+                        if (car_type_list.get(i).getTypename().contains(c)) {
+                            car_type = car_type_list.get(i).getTypename();
+                            car_code = car_type_list.get(i).getTypecode();
+
+                            car_type_tv.setText(car_type);
+                            car_type_tv.setTextColor(Color.BLACK);
+                            map.put("cartype", car_code);
+                            break;
+                        }
+                    }
+                }
+
+            }
+
+        } catch (Exception e) {
+            ToastUtil.getShortToastByString(AddCarActivity.this, "识别行驶证失败");
+            e.printStackTrace();
+        }
+    }
+
     /*
     * 车牌前缀的广播接收者
     * */
-    class ProvinceBrocast extends BroadcastReceiver{
+    class ProvinceBrocast extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             province = intent.getStringExtra("province");
@@ -383,39 +550,45 @@ public class AddCarActivity extends Activity implements View.OnClickListener{
 //                    }
 //                }
 
-                if (!province.equals(province_code_tv.getText().toString())) {
-                    CarNumber_et.setText("");
-                }
-                province_code_tv.setText(province);
-                for (City city : cities) {
-                    if ((city.getCarNumberPrefix().substring(0, 1)).equals(province)) {
-                        String carCode = city.getCarCodeLen();
-                        String carEngine = city.getCarEngineLen();
-                        viewChange(carCode, carEngine);
-                        break;
-                    }
-                }
-                dialog.dismiss();
+            if (!province.equals(province_code_tv.getText().toString())) {
+                CarNumber_et.setText("");
+            }
+            province_code_tv.setText(province);
+            checkCodeLen(province);
+            dialog.dismiss();
+        }
+    }
+
+    private void checkCodeLen(String province) {
+        for (City city : cities) {
+            if ((city.getCarNumberPrefix().substring(0, 1)).equals(province)) {
+                String carCode = city.getCarCodeLen();
+                String carEngine = city.getCarEngineLen();
+                viewChange(carCode, carEngine);
+                break;
+            }
         }
     }
 
     /*
     * 查询车辆违章请求参数
     * */
-    HashMap<String,Object> queryMap;
+    HashMap<String, Object> queryMap;
+
     public HashMap<String, Object> queryGetParams(String carid) {
         queryMap = new HashMap<String, Object>();
         String token = TokenSQLUtils.check();
         queryMap.put("token", token);
         queryMap.put("carid", carid);
-        queryMap.put("searchtype","1");
+        queryMap.put("searchtype", "1");
         return queryMap;
     }
 
     /**
      * 保存车辆请求参数
      */
-    HashMap<String, Object> map=new HashMap<String, Object>();
+    HashMap<String, Object> map = new HashMap<String, Object>();
+
     public HashMap<String, Object> addGetParams() {
         String token = TokenSQLUtils.check();
         map.put("token", token);
@@ -423,7 +596,7 @@ public class AddCarActivity extends Activity implements View.OnClickListener{
         map.put("carnumber", CarNumber_et.getText().toString().trim().toUpperCase());
         map.put("carcode", CarCode_et.getText().toString().trim().toUpperCase());
         map.put("cardrivenumber", CarEngine_et.getText().toString().trim().toUpperCase());
-        map.put("title",add_remark_et.getText().toString().trim());
+        map.put("title", add_remark_et.getText().toString().trim());
 //        Log.d("TAG",map.toString());
 //        Log.d("TAG","ddddd"+map.get("cartype").toString());
         return map;
@@ -437,36 +610,36 @@ public class AddCarActivity extends Activity implements View.OnClickListener{
             @Override
             public void ResponseResult(Object jsonObject) {
 
-                Intent intent=new Intent();
-                intent.putExtra("carnumber",CarNumber_et.getText().toString().trim().toUpperCase());
-                intent.putExtra("carcode",CarCode_et.getText().toString().trim().toUpperCase());
-                intent.putExtra("carengine",CarEngine_et.getText().toString().trim().toUpperCase());
-                intent.putExtra("proprefix",province_code_tv.getText().toString());
-                intent.putExtra("carid",carid);
-                intent.putExtra("title",add_remark_et.getText().toString());
-                intent.putExtra("type","0");
+                Intent intent = new Intent();
+                intent.putExtra("carnumber", CarNumber_et.getText().toString().trim().toUpperCase());
+                intent.putExtra("carcode", CarCode_et.getText().toString().trim().toUpperCase());
+                intent.putExtra("carengine", CarEngine_et.getText().toString().trim().toUpperCase());
+                intent.putExtra("proprefix", province_code_tv.getText().toString());
+                intent.putExtra("carid", carid);
+                intent.putExtra("title", add_remark_et.getText().toString());
+                intent.putExtra("type", "0");
 //                intent.putExtra("cartype",car_type);
 //                intent.putExtra("cartypename",car_code);
-                intent.putExtra("cartype",car_code);
-                intent.putExtra("cartypename",car_type);
+                intent.putExtra("cartype", car_code);
+                intent.putExtra("cartypename", car_type);
 //                intent.putExtra("carbrand",carbrand);
 //                intent.putExtra("carname",car_model_name);
                 intent.setAction(EditCarActivity.ADD_EDIT_DELETE_CAR_ACTION);
                 try {
-                    JSONObject obj=new JSONObject(EncryptUtil.decryptJson(jsonObject.toString(),AddCarActivity.this));
-                    String status=obj.getString("status");
-                    int code=obj.getInt("code");
-                    UIHelper.showErrTips(code,AddCarActivity.this);
-                    if(status.equals("ok")){//查询成功，车辆认证
-                        intent.putExtra("ischeck","0");
+                    JSONObject obj = new JSONObject(EncryptUtil.decryptJson(jsonObject.toString(), AddCarActivity.this));
+                    String status = obj.getString("status");
+                    int code = obj.getInt("code");
+                    UIHelper.showErrTips(code, AddCarActivity.this);
+                    if (status.equals("ok")) {//查询成功，车辆认证
+                        intent.putExtra("ischeck", "0");
                         int violationSize;
                         int totalDgree;
                         int totalCount;
 
-                        JSONObject dataObj=obj.getJSONObject("data");
-                        violationSize=dataObj.getInt("num");
-                        totalDgree=dataObj.getInt("degree");
-                        totalCount=dataObj.getInt("count");
+                        JSONObject dataObj = obj.getJSONObject("data");
+                        violationSize = dataObj.getInt("num");
+                        totalDgree = dataObj.getInt("degree");
+                        totalCount = dataObj.getInt("count");
 
 //                        if(violationList!=null) {
 //                            for (int k = 0; k < violationList.size(); k++) {
@@ -480,9 +653,9 @@ public class AddCarActivity extends Activity implements View.OnClickListener{
 //                            }
 //                        }
 
-                        intent.putExtra("violationSize",violationSize);
-                        intent.putExtra("totalDgree",totalDgree+"");
-                        intent.putExtra("totalCount",totalCount+"");
+                        intent.putExtra("violationSize", violationSize);
+                        intent.putExtra("totalDgree", totalDgree + "");
+                        intent.putExtra("totalCount", totalCount + "");
 
                         AddCarActivity.this.sendBroadcast(intent);
                         pd.dismiss();
@@ -491,27 +664,28 @@ public class AddCarActivity extends Activity implements View.OnClickListener{
 //                        addInfoTips.setCanceledOnTouchOutside(false);
 //                        addInfoTips.show();
 
-                        Toast.makeText(AddCarActivity.this,"添加车辆成功",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddCarActivity.this, "添加车辆成功", Toast.LENGTH_SHORT).show();
 
-                    }else{//查询失败，车辆认证失败
-                        Toast.makeText(AddCarActivity.this,"车辆信息有误，请修改",Toast.LENGTH_SHORT).show();
-                        intent.putExtra("ischeck","-1");
+                    } else {//查询失败，车辆认证失败
+                        Toast.makeText(AddCarActivity.this, "车辆信息有误，请修改", Toast.LENGTH_SHORT).show();
+                        intent.putExtra("ischeck", "-1");
                         AddCarActivity.this.sendBroadcast(intent);
                         pd.dismiss();
                     }
                 } catch (JSONException e) {
                     pd.dismiss();
-                    intent.putExtra("ischeck","-1");
+                    intent.putExtra("ischeck", "-1");
                     AddCarActivity.this.sendBroadcast(intent);
                     e.printStackTrace();
-                }finally{
+                } finally {
                     finish();
                 }
             }
+
             @Override
             public void ResponError(VolleyError volleyError) {
                 finish();
-                intent.putExtra("ischeck","-1");
+                intent.putExtra("ischeck", "-1");
                 AddCarActivity.this.sendBroadcast(intent);
                 pd.dismiss();
                 Toast.makeText(AddCarActivity.this, "网络请求错误，请检查网络连接设置！", Toast.LENGTH_SHORT).show();
@@ -528,21 +702,22 @@ public class AddCarActivity extends Activity implements View.OnClickListener{
             @Override
             public void ResponseResult(Object jsonObject) {
                 try {
-                    JSONObject json = new JSONObject(EncryptUtil.decryptJson(jsonObject.toString(),AddCarActivity.this));
+                    JSONObject json = new JSONObject(EncryptUtil.decryptJson(jsonObject.toString(), AddCarActivity.this));
                     status = json.getString("status");
-                    int code=json.getInt("code");
-                    UIHelper.showErrTips(code,AddCarActivity.this);
+                    int code = json.getInt("code");
+                    UIHelper.showErrTips(code, AddCarActivity.this);
                     if (status.equals("ok")) {//添加车辆成功
 //                        Toast.makeText(AddCarActivity.this,"添加车辆成功",Toast.LENGTH_SHORT).show();
                         carid = json.getJSONObject("data").get("carid") + "";
                         qurery(queryGetParams(carid));//查询违章
-                    }else{
+                    } else {
                         pd.dismiss();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void ResponError(VolleyError volleyError) {
                 pd.dismiss();
@@ -553,10 +728,10 @@ public class AddCarActivity extends Activity implements View.OnClickListener{
 
     /**
      * 返回键返回
-     * */
+     */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode==KeyEvent.KEYCODE_BACK&&event.getRepeatCount()==0){
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             finish();
             AddCarActivity.this.overridePendingTransition(R.anim.bottom_int, R.anim.bottom_out);
             return false;
@@ -568,7 +743,7 @@ public class AddCarActivity extends Activity implements View.OnClickListener{
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        switch (requestCode){
+        switch (requestCode) {
 //            case CAR_MODEL_REQUEST_CODE://车系选择
 //                if(data!=null){
 //                    carbrand=data.getStringExtra("carbrand");//车品牌
@@ -583,19 +758,25 @@ public class AddCarActivity extends Activity implements View.OnClickListener{
 //                break;
 
             case CAR_TYPE_REQUEST_CODE://车型选择
-                if(data!=null) {
-                    car_type=data.getStringExtra("cartype");
-                    car_code=data.getStringExtra("typecode");
+                if (data != null) {
+                    car_type = data.getStringExtra("cartype");
+                    car_code = data.getStringExtra("typecode");
 
                     car_type_tv.setText(car_type);
                     car_type_tv.setTextColor(Color.BLACK);
 
 //                    map.put("cartype",car_type);
-                    map.put("cartype",car_code);
+                    map.put("cartype", car_code);
                 }
 
+                break;
+            case REQUEST_CODE_CAMERA://扫码
+                if (resultCode == RESULT_OK)
+                    onQRActivity(data);
                 break;
         }
 
     }
+
+
 }

@@ -52,12 +52,14 @@
                     android:textSize="16sp" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="1dp"
                     android:layout_weight="4"
                     android:background="@color/white"
-                    android:padding="6dp">
+                    android:layout_marginLeft="1dp"
+                    android:padding="6dp"
+                   android:orientation="horizontal" >
+
 
                     <TextView
                         android:id="@+id/provincecode_tv"
@@ -67,7 +69,6 @@
                         android:layout_marginRight="6dp"
                         android:drawablePadding="5dp"
                         android:drawableRight="@drawable/xiangxiax"
-                        android:gravity="left"
                         android:padding="2dp"
                         android:text=""
                         android:textColor="@color/black"
@@ -75,7 +76,8 @@
 
                     <EditText
                         android:id="@+id/CarNumber_et"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="match_parent"
                         android:background="@color/white"
                         android:hint="请输入车牌号"
@@ -84,6 +86,13 @@
                         android:textColor="#606060"
                         android:textColorHint="@color/hint_gray"
                         android:textSize="16sp" />
+                        <!--android:onClick="QR"-->
+                    <ImageView
+                        android:visibility="gone"
+                        android:id="@+id/image_qr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/icon_green_qr"/>
                 </LinearLayout>
             </LinearLayout>
 

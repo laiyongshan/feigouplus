@@ -1,15 +1,7 @@
 package com.example.youhe.youhecheguanjiaplus.utils;
 
-import android.graphics.Color;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.style.BackgroundColorSpan;
-import android.text.style.ForegroundColorSpan;
-import android.widget.TextView;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -183,6 +175,16 @@ public class StringUtils {
 		}
 
 		return "";
+	}
+	public static boolean isChinese(String str) {
+		String regEx = "[\u4e00-\u9fa5]";
+		Pattern pat = Pattern.compile(regEx);
+		Matcher matcher = pat.matcher(str);
+		boolean flg = false;
+		if (matcher.find())
+			flg = true;
+
+		return flg;
 	}
 
 }

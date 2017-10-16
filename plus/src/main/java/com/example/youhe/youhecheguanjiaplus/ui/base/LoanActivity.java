@@ -71,7 +71,6 @@ public class LoanActivity extends Activity {
                         }
                     }
                 });
-
         getInitInfo();
 
     }

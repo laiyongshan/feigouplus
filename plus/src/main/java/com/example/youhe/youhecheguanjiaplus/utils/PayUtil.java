@@ -36,7 +36,7 @@ public class PayUtil {
 
 
     //银嘉支付
-    public static void yinjiaPay(final Activity activity, HashMap map, final String strImg) {
+    public static void yinjiaPay(final Activity activity, HashMap map, final String strImg, final Bundle customerBundle) {
         UIHelper.showPd(activity);
         VolleyUtil.getVolleyUtil(activity).StringRequestPostVolley(URLs.UNIONPAY_CONSUME, EncryptUtil.encrypt(map), new VolleyInterface() {
             @Override
@@ -84,11 +84,15 @@ public class PayUtil {
                         }
                         Intent intent = new Intent(activity, FailurePayActivity.class);
                         intent.putExtra("show_msg", show_msg);
+                        if (customerBundle!=null)
+                            intent.putExtra(FailurePayActivity.EXTRA_BUNDLE,customerBundle);
                         activity.startActivity(intent);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Intent intent = new Intent(activity, FailurePayActivity.class);
+                    if (customerBundle!=null)
+                        intent.putExtra(FailurePayActivity.EXTRA_BUNDLE,customerBundle);
                     activity.startActivity(intent);
                 } finally {
                     activity.finish();
@@ -177,7 +181,7 @@ public class PayUtil {
                                     e.printStackTrace();
                                 }
 
-                                intent.putExtra("bundle", bundle);
+                                intent.putExtra(BalancePaySuccActivity.EXTRA_BUNDLE, bundle);
                             }
                             activity.startActivity(intent);
                             activity.finish();
@@ -191,7 +195,7 @@ public class PayUtil {
                             Intent intent = new Intent(activity, FailurePayActivity.class);
                             intent.putExtra("show_msg", show_msg);
                             if (bundle != null)
-                                intent.putExtra("bundle", bundle);
+                                intent.putExtra(BalancePaySuccActivity.EXTRA_BUNDLE, bundle);
                             activity.startActivity(intent);
                             activity.finish();
                         } else if (payStatus == -2) {//过期或未支付
@@ -227,7 +231,7 @@ public class PayUtil {
     /*
     * 余额支付
     * */
-    public static void balancePay(final Activity activity, HashMap map) {
+    public static void balancePay(final Activity activity, HashMap map, final Bundle customerBundle) {
 
         UIHelper.showPd(activity);
 
@@ -254,6 +258,9 @@ public class PayUtil {
                             intent.putExtra("paymoney", paymoney);
                             intent.putExtra("ordercode", ordercode);
                             intent.putExtra("paytime", paytime);
+                            if (customerBundle!=null){
+                                intent.putExtra(ScanQrPayActivity.EXTRA_CUSTOMER_BUNDLE,customerBundle);
+                            }
                             activity.startActivity(intent);
                             activity.finish();
                         }
@@ -266,6 +273,9 @@ public class PayUtil {
                         }
                         Intent intent = new Intent(activity, FailurePayActivity.class);
                         intent.putExtra("show_msg", show_msg);
+                        if (customerBundle!=null){
+                            intent.putExtra(ScanQrPayActivity.EXTRA_CUSTOMER_BUNDLE,customerBundle);
+                        }
                         activity.startActivity(intent);
                         activity.finish();
                     }
@@ -280,6 +290,7 @@ public class PayUtil {
             public void ResponError(VolleyError volleyError) {
                 Log.i("TAG", "余额支付结果:" + volleyError.toString());
                 Intent intent = new Intent(activity, FailurePayActivity.class);
+
                 UIHelper.dismissPd();
             }
         });

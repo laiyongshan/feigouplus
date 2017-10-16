@@ -10,7 +10,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -20,6 +22,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.baidu.ocr.sdk.OCR;
+import com.baidu.ocr.sdk.OnResultListener;
+import com.baidu.ocr.sdk.exception.OCRError;
+import com.baidu.ocr.sdk.model.IDCardParams;
+import com.baidu.ocr.sdk.model.IDCardResult;
+import com.baidu.ocr.ui.camera.CameraActivity;
+import com.baidu.ocr.ui.util.BDFileUtils;
 import com.example.youhe.youhecheguanjiaplus.R;
 import com.example.youhe.youhecheguanjiaplus.app.CommentSetting;
 import com.example.youhe.youhecheguanjiaplus.db.biz.TokenSQLUtils;
@@ -38,35 +47,38 @@ import com.example.youhe.youhecheguanjiaplus.utils.TripleDES;
 import com.example.youhe.youhecheguanjiaplus.utils.UIHelper;
 import com.example.youhe.youhecheguanjiaplus.utils.VolleyUtil;
 import com.example.youhe.youhecheguanjiaplus.widget.ClearEditText;
+import com.example.youhe.youhecheguanjiaplus.widget.ToastUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.HashMap;
 
 /**
  * Created by Administrator on 2017/3/28 0028.
  */
 
-public class RealNameActivity extends Activity implements View.OnClickListener{
+public class RealNameActivity extends Activity implements View.OnClickListener {
 
-    private ClearEditText real_name_et,idcard_num_et;
+    private static final int REQUEST_CODE_CAMERA = 0x001;
+    private ClearEditText real_name_et, idcard_num_et;
     private Button commit_real_name_btn;
     private ImageButton real_name_back_ib;
 
     private TextView is_verify_tv;
 
-    private ImageView idcard_zhengmian_iv,idcard_fanmian_iv,head_idcard_zhengmian_iv,head_idcard_fanmian_iv;
+    private ImageView idcard_zhengmian_iv, idcard_fanmian_iv, head_idcard_zhengmian_iv, head_idcard_fanmian_iv;
 
 
-    public static final int IDCARD_Z_PHOTO=1001;
-    public static final int IDCARD_F_PHOTO=1002;
-    public static final int IDCARD_H_Z_PHOTO=1003;
-    public static final int IDCARD_H_F_PHOTO=1004;
+    public static final int IDCARD_Z_PHOTO = 1001;
+    public static final int IDCARD_F_PHOTO = 1002;
+    public static final int IDCARD_H_Z_PHOTO = 1003;
+    public static final int IDCARD_H_F_PHOTO = 1004;
 
-    private String imgPath1,imgPath2,imgPath3,imgPath4;
+    private String imgPath1, imgPath2, imgPath3, imgPath4;
 
-    private int identitycard_front,identitycard_back,hand_identitycard_front,hand_identitycard_back;//上传图片返回的id
+    private int identitycard_front, identitycard_back, hand_identitycard_front, hand_identitycard_back;//上传图片返回的id
 
     private int mScreenWidth;
     private int mScreenHeigh;
@@ -83,24 +95,24 @@ public class RealNameActivity extends Activity implements View.OnClickListener{
 
         // 4.4及以上版本开启
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            SystemBarUtil.setTranslucentStatus(true,RealNameActivity.this);
+            SystemBarUtil.setTranslucentStatus(true, RealNameActivity.this);
         }
         SystemBarUtil.useSystemBarTint(RealNameActivity.this);
 
-        sharedPreferences=getSharedPreferences("is_real_name",Context.MODE_PRIVATE);
-        editor=sharedPreferences.edit();
+        sharedPreferences = getSharedPreferences("is_real_name", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
 
-        pd=new ProgressDialog(this);
+        pd = new ProgressDialog(this);
         pd.setMessage("Loading...");
         pd.setCanceledOnTouchOutside(false);
 
         WindowManager wm = (WindowManager) (RealNameActivity.this.getSystemService(Context.WINDOW_SERVICE));
         DisplayMetrics dm = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(dm);
-        mScreenWidth= dm.widthPixels;
-        mScreenHeigh= dm.heightPixels;
+        mScreenWidth = dm.widthPixels;
+        mScreenHeigh = dm.heightPixels;
 
-        bmpManager= new BitmapManager(BitmapFactory.decodeResource(RealNameActivity.this.getResources(),R.drawable.zhengmian),RealNameActivity.this);
+        bmpManager = new BitmapManager(BitmapFactory.decodeResource(RealNameActivity.this.getResources(), R.drawable.zhengmian), RealNameActivity.this);
 
         initView();//初始化控件
 
@@ -114,48 +126,129 @@ public class RealNameActivity extends Activity implements View.OnClickListener{
         pd.dismiss();
     }
 
-    private void initView(){
-        real_name_et= (ClearEditText) findViewById(R.id.real_name_et);
-        idcard_num_et= (ClearEditText) findViewById(R.id.idcard_num_et);
+    private void initView() {
+        real_name_et = (ClearEditText) findViewById(R.id.real_name_et);
+        idcard_num_et = (ClearEditText) findViewById(R.id.idcard_num_et);
 
-        commit_real_name_btn= (Button) findViewById(R.id.commit_real_name_btn);
+        commit_real_name_btn = (Button) findViewById(R.id.commit_real_name_btn);
         commit_real_name_btn.setOnClickListener(this);
 
-        real_name_back_ib= (ImageButton) findViewById(R.id.real_name_back_ib);
+        real_name_back_ib = (ImageButton) findViewById(R.id.real_name_back_ib);
         real_name_back_ib.setOnClickListener(this);
 
-        idcard_zhengmian_iv= (ImageView) findViewById(R.id.idcard_zhengmian_iv);
+        idcard_zhengmian_iv = (ImageView) findViewById(R.id.idcard_zhengmian_iv);
         idcard_zhengmian_iv.setOnClickListener(this);
 
-        idcard_fanmian_iv= (ImageView) findViewById(R.id.idcard_fanmian_iv);
+        idcard_fanmian_iv = (ImageView) findViewById(R.id.idcard_fanmian_iv);
         idcard_fanmian_iv.setOnClickListener(this);
 
-        head_idcard_zhengmian_iv= (ImageView) findViewById(R.id.head_idcard_zhengmian_iv);
+        head_idcard_zhengmian_iv = (ImageView) findViewById(R.id.head_idcard_zhengmian_iv);
         head_idcard_zhengmian_iv.setOnClickListener(this);
 
-        head_idcard_fanmian_iv= (ImageView) findViewById(R.id.head_idcard_fanmian_iv);
+        head_idcard_fanmian_iv = (ImageView) findViewById(R.id.head_idcard_fanmian_iv);
         head_idcard_fanmian_iv.setOnClickListener(this);
 
-        is_verify_tv= (TextView) findViewById(R.id.is_verify_tv);
+        is_verify_tv = (TextView) findViewById(R.id.is_verify_tv);
 
+    }
+
+    public void realNameQR(View v) {
+        Intent intent = new Intent(RealNameActivity.this, CameraActivity.class);
+        intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH, BDFileUtils.getSaveFile("QR", "temp.jpg").getAbsolutePath());
+        intent.putExtra(CameraActivity.KEY_CONTENT_TYPE, CameraActivity.CONTENT_TYPE_ID_CARD_FRONT);
+        startActivityForResult(intent, REQUEST_CODE_CAMERA);
+    }
+
+    private String filePath="";
+    private void onActivityQR(Intent data) {
+        String contentType = data.getStringExtra(CameraActivity.KEY_CONTENT_TYPE);
+         filePath = BDFileUtils.getSaveFile("QR", "temp.jpg").getAbsolutePath();
+        if (pd != null)
+            pd.show();
+        File file = new File(filePath);
+        if (!file.exists()) {
+            Toast.makeText(RealNameActivity.this, "获取图片失败", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (CameraActivity.CONTENT_TYPE_ID_CARD_FRONT.equals(contentType)) {
+            IDCardParams param = new IDCardParams();
+            param.setIdCardSide(IDCardParams.ID_CARD_SIDE_FRONT);
+            param.setImageFile(new File(filePath));
+            OCR.getInstance().recognizeIDCard(param, new OnResultListener<IDCardResult>() {
+                @Override
+                public void onResult(IDCardResult result) {
+                    Log.d("chujun", "ID" + result.getJsonRes());
+                    parseOR(result,filePath);
+
+                }
+                @Override
+                public void onError(OCRError error) {
+                    if (pd != null)
+                        pd.dismiss();
+                    ToastUtil.getShortToastByString(RealNameActivity.this, "识别身份证失败");
+                }
+            });
+        }
+//        BDFileUtils.deleteFile(RealNameActivity.this, filePath, true);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (!TextUtils.isEmpty(filePath))
+            BDFileUtils.deleteFile(RealNameActivity.this, filePath, true);
+    }
+
+    private void parseOR(IDCardResult result, String filePath) {
+        try{
+            JSONObject jsonObject=new JSONObject(result.getJsonRes());
+            JSONObject resJson=jsonObject.getJSONObject("words_result");
+            if (resJson.has("姓名")){
+                real_name_et.setText(resJson.getJSONObject("姓名").getString("words"));
+            }
+            if (resJson.has("公民身份号码")){
+                idcard_num_et.setText(resJson.getJSONObject("公民身份号码").getString("words"));
+            }
+            imgPath1=filePath;
+            Bitmap id_z_bitmap = BitmapScale.getBitmap(imgPath1);
+            if (id_z_bitmap != null) {
+                if (id_z_bitmap.getHeight() > id_z_bitmap.getWidth()) {
+                    id_z_bitmap = BitmapScale.rotaingImageView(90, id_z_bitmap);
+                }
+                idCard_zhengmian_bitmap = BitmapScale.fitBitmap(id_z_bitmap, mScreenWidth * 5 / 9);
+                Bitmap id_z_bitmap_2 = BitmapScale.fitBitmap(id_z_bitmap, 1000);
+
+                strIdcard_zm = BitmapScale.getImage(id_z_bitmap_2);
+
+                uploadphoto(strIdcard_zm, auth, 1);
+            }else {
+                if (pd != null)
+                    pd.dismiss();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            ToastUtil.getShortToastByString(RealNameActivity.this, "识别身份证失败");
+            if (pd != null)
+                pd.dismiss();
+        }
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.commit_real_name_btn://提交实名认证按钮
-                if(real_name_et.getText().toString().trim().equals("")){
-                    Toast.makeText(RealNameActivity.this,"真实姓名不能为空！",Toast.LENGTH_SHORT).show();
-                }else if(idcard_num_et.getText().toString().trim().length()<15){
-                    Toast.makeText(RealNameActivity.this,"请填写完整身份证号码！",Toast.LENGTH_SHORT).show();
-                }else if(identitycard_front==0||identitycard_back==0||hand_identitycard_front==0||hand_identitycard_back==0){
-                    Toast.makeText(RealNameActivity.this,"请上传身份证照片！",Toast.LENGTH_SHORT).show();
-                }else{
-                    final PswDialog pswDialog=new PswDialog(RealNameActivity.this,R.style.Dialog,2);
+                if (real_name_et.getText().toString().trim().equals("")) {
+                    Toast.makeText(RealNameActivity.this, "真实姓名不能为空！", Toast.LENGTH_SHORT).show();
+                } else if (idcard_num_et.getText().toString().trim().length() < 15) {
+                    Toast.makeText(RealNameActivity.this, "请填写完整身份证号码！", Toast.LENGTH_SHORT).show();
+                } else if (identitycard_front == 0 || identitycard_back == 0 || hand_identitycard_front == 0 || hand_identitycard_back == 0) {
+                    Toast.makeText(RealNameActivity.this, "请上传身份证照片！", Toast.LENGTH_SHORT).show();
+                } else {
+                    final PswDialog pswDialog = new PswDialog(RealNameActivity.this, R.style.Dialog, 2);
                     pswDialog.show();
 
                     //回调接口
-                    pswDialog.mSureListener=new PswDialog.OnSureListener(){
+                    pswDialog.mSureListener = new PswDialog.OnSureListener() {
                         @Override
                         public void onSure(String psw) {
 
@@ -175,22 +268,22 @@ public class RealNameActivity extends Activity implements View.OnClickListener{
 
             case R.id.idcard_zhengmian_iv:
                 Intent intent1 = new Intent(RealNameActivity.this, SelectPicActivity.class);
-                startActivityForResult(intent1,IDCARD_Z_PHOTO);
+                startActivityForResult(intent1, IDCARD_Z_PHOTO);
                 break;
 
             case R.id.idcard_fanmian_iv:
                 Intent intent2 = new Intent(RealNameActivity.this, SelectPicActivity.class);
-                startActivityForResult(intent2,IDCARD_F_PHOTO);
+                startActivityForResult(intent2, IDCARD_F_PHOTO);
                 break;
 
             case R.id.head_idcard_zhengmian_iv:
                 Intent intent3 = new Intent(RealNameActivity.this, SelectPicActivity.class);
-                startActivityForResult(intent3,IDCARD_H_Z_PHOTO);
+                startActivityForResult(intent3, IDCARD_H_Z_PHOTO);
                 break;
 
             case R.id.head_idcard_fanmian_iv:
                 Intent intent4 = new Intent(RealNameActivity.this, SelectPicActivity.class);
-                startActivityForResult(intent4,IDCARD_H_F_PHOTO);
+                startActivityForResult(intent4, IDCARD_H_F_PHOTO);
                 break;
 
         }
@@ -198,116 +291,120 @@ public class RealNameActivity extends Activity implements View.OnClickListener{
 
 
     private Bitmap idCard_zhengmian_bitmap = null;//行驶证正页
-    private Bitmap idCard_fanmian_bitmap=null;//行驶证负页
-    private Bitmap idCard_head_zhengmian_bitmap=null;//驾驶证正页
-    private Bitmap idCard_head_fanmian_bitmap=null;//驾驶证负页
+    private Bitmap idCard_fanmian_bitmap = null;//行驶证负页
+    private Bitmap idCard_head_zhengmian_bitmap = null;//驾驶证正页
+    private Bitmap idCard_head_fanmian_bitmap = null;//驾驶证负页
 
-    private String strIdcard_zm="";
-    private String strIdcard_fm="";
-    private String strIdcard_h_z="";
-    private String strIdcard_h_f="";
+    private String strIdcard_zm = "";
+    private String strIdcard_fm = "";
+    private String strIdcard_h_z = "";
+    private String strIdcard_h_f = "";
 
-    private String auth="auth";
+    private String auth = "auth";
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        switch (requestCode){
+        switch (requestCode) {
             case IDCARD_Z_PHOTO:
-                if(data!=null) {
+                if (data != null) {
                     imgPath1 = data.getStringExtra("photo_path");
                 }
 
-                if(imgPath1!=null){
+                if (imgPath1 != null) {
 
                     pd.show();
 
-                    Bitmap id_z_bitmap= BitmapScale.getBitmap(imgPath1);
-                    if(id_z_bitmap!=null) {
-                        if(id_z_bitmap.getHeight()>id_z_bitmap.getWidth()){
-                            id_z_bitmap=BitmapScale.rotaingImageView(90,id_z_bitmap);
+                    Bitmap id_z_bitmap = BitmapScale.getBitmap(imgPath1);
+                    if (id_z_bitmap != null) {
+                        if (id_z_bitmap.getHeight() > id_z_bitmap.getWidth()) {
+                            id_z_bitmap = BitmapScale.rotaingImageView(90, id_z_bitmap);
                         }
-                        idCard_zhengmian_bitmap=BitmapScale.fitBitmap(id_z_bitmap,mScreenWidth*5/9);
-                        Bitmap id_z_bitmap_2=BitmapScale.fitBitmap(id_z_bitmap,1000);
+                        idCard_zhengmian_bitmap = BitmapScale.fitBitmap(id_z_bitmap, mScreenWidth * 5 / 9);
+                        Bitmap id_z_bitmap_2 = BitmapScale.fitBitmap(id_z_bitmap, 1000);
 
-                        strIdcard_zm=BitmapScale.getImage(id_z_bitmap_2);
+                        strIdcard_zm = BitmapScale.getImage(id_z_bitmap_2);
 
-                        uploadphoto(strIdcard_zm,auth,1);
+                        uploadphoto(strIdcard_zm, auth, 1);
                     }
                 }
                 break;
 
             case IDCARD_F_PHOTO:
-                if(data!=null) {
+                if (data != null) {
                     imgPath2 = data.getStringExtra("photo_path");
                 }
 
-                if(imgPath2!=null){
+                if (imgPath2 != null) {
 
                     pd.show();
 
-                    Bitmap id_f_bitmap=BitmapScale.getBitmap(imgPath2);
-                    if(id_f_bitmap!=null) {
-                        if(id_f_bitmap.getHeight()>id_f_bitmap.getWidth()){
-                            id_f_bitmap=BitmapScale.rotaingImageView(90,id_f_bitmap);
+                    Bitmap id_f_bitmap = BitmapScale.getBitmap(imgPath2);
+                    if (id_f_bitmap != null) {
+                        if (id_f_bitmap.getHeight() > id_f_bitmap.getWidth()) {
+                            id_f_bitmap = BitmapScale.rotaingImageView(90, id_f_bitmap);
                         }
-                        idCard_fanmian_bitmap=BitmapScale.fitBitmap(id_f_bitmap,mScreenWidth*5/9);
-                        Bitmap id_f_bitmap_2=BitmapScale.fitBitmap(id_f_bitmap,1000);
+                        idCard_fanmian_bitmap = BitmapScale.fitBitmap(id_f_bitmap, mScreenWidth * 5 / 9);
+                        Bitmap id_f_bitmap_2 = BitmapScale.fitBitmap(id_f_bitmap, 1000);
 
-                        strIdcard_fm=BitmapScale.getImage(id_f_bitmap_2);
+                        strIdcard_fm = BitmapScale.getImage(id_f_bitmap_2);
 
-                        uploadphoto(strIdcard_fm,auth,2);
+                        uploadphoto(strIdcard_fm, auth, 2);
                     }
 
                 }
                 break;
 
             case IDCARD_H_Z_PHOTO:
-                if(data!=null) {
+                if (data != null) {
                     imgPath3 = data.getStringExtra("photo_path");
                 }
 
-                if(imgPath3!=null){
+                if (imgPath3 != null) {
 
                     pd.show();
 
-                    Bitmap id_h_z_bitmap=BitmapScale.getBitmap(imgPath3);
-                    if(id_h_z_bitmap!=null) {
-                        if(id_h_z_bitmap.getHeight()>id_h_z_bitmap.getWidth()){
-                            id_h_z_bitmap=BitmapScale.rotaingImageView(90,id_h_z_bitmap);
+                    Bitmap id_h_z_bitmap = BitmapScale.getBitmap(imgPath3);
+                    if (id_h_z_bitmap != null) {
+                        if (id_h_z_bitmap.getHeight() > id_h_z_bitmap.getWidth()) {
+                            id_h_z_bitmap = BitmapScale.rotaingImageView(90, id_h_z_bitmap);
                         }
-                        idCard_head_zhengmian_bitmap=BitmapScale.fitBitmap(id_h_z_bitmap,mScreenWidth*5/9);
-                        Bitmap id_h_z_bitmap_2=BitmapScale.fitBitmap(id_h_z_bitmap,1000);
+                        idCard_head_zhengmian_bitmap = BitmapScale.fitBitmap(id_h_z_bitmap, mScreenWidth * 5 / 9);
+                        Bitmap id_h_z_bitmap_2 = BitmapScale.fitBitmap(id_h_z_bitmap, 1000);
 
-                        strIdcard_h_z=BitmapScale.getImage(id_h_z_bitmap_2);
+                        strIdcard_h_z = BitmapScale.getImage(id_h_z_bitmap_2);
 
-                        uploadphoto(strIdcard_h_z,auth,3);
+                        uploadphoto(strIdcard_h_z, auth, 3);
                     }
                 }
                 break;
 
             case IDCARD_H_F_PHOTO:
-                if(data!=null) {
+                if (data != null) {
                     imgPath4 = data.getStringExtra("photo_path");
                 }
 
-                if(imgPath4!=null){
+                if (imgPath4 != null) {
 
                     pd.show();
 
-                    Bitmap id_h_f_bitmap=BitmapScale.getBitmap(imgPath4);
-                    if(id_h_f_bitmap!=null) {
-                        if(id_h_f_bitmap.getHeight()>id_h_f_bitmap.getWidth()){
-                            id_h_f_bitmap=BitmapScale.rotaingImageView(90,id_h_f_bitmap);
+                    Bitmap id_h_f_bitmap = BitmapScale.getBitmap(imgPath4);
+                    if (id_h_f_bitmap != null) {
+                        if (id_h_f_bitmap.getHeight() > id_h_f_bitmap.getWidth()) {
+                            id_h_f_bitmap = BitmapScale.rotaingImageView(90, id_h_f_bitmap);
                         }
-                        idCard_head_fanmian_bitmap=BitmapScale.fitBitmap(id_h_f_bitmap,mScreenWidth*5/9);
-                        Bitmap id_h_f_bitmap_2=BitmapScale.fitBitmap(id_h_f_bitmap,1000);
+                        idCard_head_fanmian_bitmap = BitmapScale.fitBitmap(id_h_f_bitmap, mScreenWidth * 5 / 9);
+                        Bitmap id_h_f_bitmap_2 = BitmapScale.fitBitmap(id_h_f_bitmap, 1000);
 
-                        strIdcard_h_f=BitmapScale.getImage(id_h_f_bitmap_2);
+                        strIdcard_h_f = BitmapScale.getImage(id_h_f_bitmap_2);
 
-                        uploadphoto(strIdcard_h_f,auth,4);
+                        uploadphoto(strIdcard_h_f, auth, 4);
                     }
                 }
+                break;
+            case REQUEST_CODE_CAMERA:
+                if (resultCode == RESULT_OK)
+                    onActivityQR(data);
                 break;
         }
 
@@ -316,41 +413,42 @@ public class RealNameActivity extends Activity implements View.OnClickListener{
 
 
     HashMap<String, Object> map;
-    private String getUploadPhotoParam(String imgtype){
+
+    private String getUploadPhotoParam(String imgtype) {
         map = new HashMap<String, Object>();
         String token = TokenSQLUtils.check();
-        if(token!=null) {
+        if (token != null) {
             map.put("token", token);
         }
 //        map.put("img",strImg);
-        map.put("imgtype",imgtype);
+        map.put("imgtype", imgtype);
 
-        map.put("timestamp",System.currentTimeMillis()/1000+"");
+        map.put("timestamp", System.currentTimeMillis() / 1000 + "");
 
-        String sign=ParamSign.getSign(map);
+        String sign = ParamSign.getSign(map);
 
-        map.put("sign",sign);
+        map.put("sign", sign);
 
-        return  ParamSign.getSign(map);
+        return ParamSign.getSign(map);
     }
 
-    private void uploadphoto(String strImg, String imgtype, final int imgth){
-        map= new HashMap<String, Object>();
-        map.put("data",getUploadPhotoParam(imgtype));
-        map=ParamSign.netWorkEncrypt(map);
-        map.put("img",strImg);
-        VolleyUtil.getVolleyUtil(RealNameActivity.this).StringRequestPostVolley(URLs.ADD_IMG_URL,map , new VolleyInterface() {
+    private void uploadphoto(String strImg, String imgtype, final int imgth) {
+        map = new HashMap<String, Object>();
+        map.put("data", getUploadPhotoParam(imgtype));
+        map = ParamSign.netWorkEncrypt(map);
+        map.put("img", strImg);
+        VolleyUtil.getVolleyUtil(RealNameActivity.this).StringRequestPostVolley(URLs.ADD_IMG_URL, map, new VolleyInterface() {
             @Override
             public void ResponseResult(Object jsonObject) {
                 try {
-                    JSONObject obj=new JSONObject(jsonObject.toString());
-                    String data=obj.getString("data");
+                    JSONObject obj = new JSONObject(jsonObject.toString());
+                    String data = obj.getString("data");
                     byte[] encrypt = TripleDES.decrypt(TripleDES.hexStringToBytes(data), CommentSetting.appkey.getBytes());//解密
-                    String json=new String(encrypt,"UTF-8");
+                    String json = new String(encrypt, "UTF-8");
 
-                    parseJson(json,imgth);//解析解密之后的数据
+                    parseJson(json, imgth);//解析解密之后的数据
 
-                } catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -359,48 +457,48 @@ public class RealNameActivity extends Activity implements View.OnClickListener{
 
             @Override
             public void ResponError(VolleyError volleyError) {
-                Toast.makeText(RealNameActivity.this,"上传图片返回的错误信息："+volleyError.toString(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(RealNameActivity.this, "上传图片返回的错误信息：" + volleyError.toString(), Toast.LENGTH_SHORT).show();
                 pd.dismiss();
             }
         });
     }
 
-    private void parseJson(String json,int imgth){
+    private void parseJson(String json, int imgth) {
 
         try {
             JSONObject newObj = new JSONObject(json);
-            String status=newObj.getString("status");
-            if(status.equals("ok")) {
+            String status = newObj.getString("status");
+            if (status.equals("ok")) {
                 JSONObject dataObj = newObj.getJSONObject("data");
                 int imgid = dataObj.getInt("imgid");
 
                 switch (imgth) {
 
                     case 1:
-                        identitycard_front=imgid;
+                        identitycard_front = imgid;
 
-                        idcard_zhengmian_iv.setImageBitmap(BitmapScale.toRoundCorner(idCard_zhengmian_bitmap,10));
+                        idcard_zhengmian_iv.setImageBitmap(BitmapScale.toRoundCorner(idCard_zhengmian_bitmap, 10));
 
                         break;
 
                     case 2:
-                        identitycard_back=imgid;
-                        idcard_fanmian_iv.setImageBitmap(BitmapScale.toRoundCorner(idCard_fanmian_bitmap,10));
+                        identitycard_back = imgid;
+                        idcard_fanmian_iv.setImageBitmap(BitmapScale.toRoundCorner(idCard_fanmian_bitmap, 10));
                         break;
 
                     case 3:
-                        hand_identitycard_front=imgid;
-                        head_idcard_zhengmian_iv.setImageBitmap(BitmapScale.toRoundCorner(idCard_head_zhengmian_bitmap,10));
+                        hand_identitycard_front = imgid;
+                        head_idcard_zhengmian_iv.setImageBitmap(BitmapScale.toRoundCorner(idCard_head_zhengmian_bitmap, 10));
                         break;
 
                     case 4:
-                        hand_identitycard_back=imgid;
-                        head_idcard_fanmian_iv.setImageBitmap(BitmapScale.toRoundCorner(idCard_head_fanmian_bitmap,10));
+                        hand_identitycard_back = imgid;
+                        head_idcard_fanmian_iv.setImageBitmap(BitmapScale.toRoundCorner(idCard_head_fanmian_bitmap, 10));
                         break;
 
                 }
-            }else {
-                Toast.makeText(RealNameActivity.this,"上传图片失败，请重试",Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(RealNameActivity.this, "上传图片失败，请重试", Toast.LENGTH_SHORT).show();
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -410,63 +508,63 @@ public class RealNameActivity extends Activity implements View.OnClickListener{
 
 
     HashMap<String, Object> params;
+
     //获取实名认证的参数
-    private String getClientAuthParams(String psw){
+    private String getClientAuthParams(String psw) {
         params = new HashMap<String, Object>();
         String token = TokenSQLUtils.check();
-        if(token!=null) {
+        if (token != null) {
             params.put("token", token);
         }
 
-        params.put("timestamp",System.currentTimeMillis()/1000+"");
+        params.put("timestamp", System.currentTimeMillis() / 1000 + "");
 
-        params.put("password",psw);
+        params.put("password", psw);
 
-        params.put("identitycard",idcard_num_et.getText().toString().trim());
-        params.put("clientname",real_name_et.getText().toString().trim());
-        params.put("identitycard_front",identitycard_front);
-        params.put("identitycard_back",identitycard_back);
-        params.put("hand_identitycard_front",hand_identitycard_front);
-        params.put("hand_identitycard_back",hand_identitycard_back);
+        params.put("identitycard", idcard_num_et.getText().toString().trim());
+        params.put("clientname", real_name_et.getText().toString().trim());
+        params.put("identitycard_front", identitycard_front);
+        params.put("identitycard_back", identitycard_back);
+        params.put("hand_identitycard_front", hand_identitycard_front);
+        params.put("hand_identitycard_back", hand_identitycard_back);
 
-        String sign=ParamSign.getSign(params);
+        String sign = ParamSign.getSign(params);
 
-        params.put("sign",sign);
+        params.put("sign", sign);
 
         return ParamSign.getSign(params);
     }
 
 
-
     //上传用户认证信息
-    public void clientAuth(String psw){
+    public void clientAuth(String psw) {
 
-        params= new HashMap<String, Object>();
-        params.put("data",getClientAuthParams(psw));
-        params=ParamSign.netWorkEncrypt(params);
+        params = new HashMap<String, Object>();
+        params.put("data", getClientAuthParams(psw));
+        params = ParamSign.netWorkEncrypt(params);
 
         VolleyUtil.getVolleyUtil(RealNameActivity.this).StringRequestPostVolley(URLs.CLIENT_AUTH, params, new VolleyInterface() {
             @Override
             public void ResponseResult(Object jsonObject) {
 
                 try {
-                    JSONObject obj=new JSONObject(jsonObject.toString());
-                    if(obj.has("data")) {
+                    JSONObject obj = new JSONObject(jsonObject.toString());
+                    if (obj.has("data")) {
                         String data = obj.getString("data");
                         byte[] encrypt = TripleDES.decrypt(TripleDES.hexStringToBytes(data), CommentSetting.appkey.getBytes());//解密
-                        String json=new String(encrypt,"UTF-8");
+                        String json = new String(encrypt, "UTF-8");
                         parseJson(json);//解析解密之后的数据
-                    }else if(obj.has("code")){
-                        int code=obj.getInt("code");
-                        UIHelper.showErrTips(code,RealNameActivity.this);
+                    } else if (obj.has("code")) {
+                        int code = obj.getInt("code");
+                        UIHelper.showErrTips(code, RealNameActivity.this);
                     }
 
 //                    Toast.makeText(RealNameActivity.this,"实名认证成功",Toast.LENGTH_LONG).show();
 //                    Toast.makeText(RealNameActivity.this,"实名认证失败，请重试",Toast.LENGTH_LONG).show();
 
-                } catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
-                }finally {
+                } finally {
                     pd.dismiss();
                 }
 
@@ -479,29 +577,29 @@ public class RealNameActivity extends Activity implements View.OnClickListener{
     }
 
     //解析上传用户认证信息返回的数据
-    private void parseJson(String json){
+    private void parseJson(String json) {
         try {
-            JSONObject obj=new JSONObject(json);
-            String status=obj.getString("status");
-            int code=obj.getInt("code");
-            UIHelper.showErrTips(code,RealNameActivity.this);
-            if(status.equals("ok")){
-                Toast.makeText(RealNameActivity.this,"实名认证成功",Toast.LENGTH_LONG).show();
-                editor.putBoolean("isrealname",true);
+            JSONObject obj = new JSONObject(json);
+            String status = obj.getString("status");
+            int code = obj.getInt("code");
+            UIHelper.showErrTips(code, RealNameActivity.this);
+            if (status.equals("ok")) {
+                Toast.makeText(RealNameActivity.this, "实名认证成功", Toast.LENGTH_LONG).show();
+                editor.putBoolean("isrealname", true);
                 editor.commit();
 
                 HashMap params1 = new HashMap();
-                params1.put("auth",1);
+                params1.put("auth", 1);
                 Task ts1 = new Task(TaskType.TS_REAL_NAME, params1);//登录成功后更新首页数据
                 MainService.newTask(ts1);
 
                 setResult(RESULT_OK);
                 finish();
-            }else{
-                Toast.makeText(RealNameActivity.this,"实名认证失败，请重试",Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(RealNameActivity.this, "实名认证失败，请重试", Toast.LENGTH_LONG).show();
 
                 HashMap params1 = new HashMap();
-                params1.put("auth",-1);
+                params1.put("auth", -1);
                 Task ts1 = new Task(TaskType.TS_REAL_NAME, params1);//登录成功后更新首页数据
                 MainService.newTask(ts1);
             }
@@ -511,30 +609,27 @@ public class RealNameActivity extends Activity implements View.OnClickListener{
     }
 
 
-
-
-
     //获取用户认证信息
-    public void getUserAuthInfo(){
+    public void getUserAuthInfo() {
 
-        user_map= new HashMap<String, Object>();
-        user_map.put("data",getUserInfoParams());
-        user_map=ParamSign.netWorkEncrypt(user_map);
+        user_map = new HashMap<String, Object>();
+        user_map.put("data", getUserInfoParams());
+        user_map = ParamSign.netWorkEncrypt(user_map);
 
         VolleyUtil.getVolleyUtil(RealNameActivity.this).StringRequestPostVolley(URLs.CHECK_CLIENT_AUTH, user_map, new VolleyInterface() {
             @Override
             public void ResponseResult(Object jsonObject) {
                 try {
-                    JSONObject obj=new JSONObject(jsonObject.toString());
-                    String data=obj.getString("data");
+                    JSONObject obj = new JSONObject(jsonObject.toString());
+                    String data = obj.getString("data");
                     byte[] encrypt = TripleDES.decrypt(TripleDES.hexStringToBytes(data), CommentSetting.appkey.getBytes());//解密
-                    String json=new String(encrypt,"UTF-8");
+                    String json = new String(encrypt, "UTF-8");
 
                     parseUserInfo(json);//解析解密之后的数据
 
-                } catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
-                }finally {
+                } finally {
                     pd.dismiss();
                 }
             }
@@ -548,53 +643,55 @@ public class RealNameActivity extends Activity implements View.OnClickListener{
 
 
     HashMap<String, Object> user_map;
-    public String getUserInfoParams(){
+
+    public String getUserInfoParams() {
         user_map = new HashMap<String, Object>();
         String token = TokenSQLUtils.check();
-        if(token!=null) {
+        if (token != null) {
             user_map.put("token", token);
         }
 
-        user_map.put("timestamp",System.currentTimeMillis()/1000+"");
+        user_map.put("timestamp", System.currentTimeMillis() / 1000 + "");
 
-        String sign=ParamSign.getSign(user_map);
+        String sign = ParamSign.getSign(user_map);
 
-        user_map.put("sign",sign);
+        user_map.put("sign", sign);
 
-        return  ParamSign.getSign(user_map);
+        return ParamSign.getSign(user_map);
     }
 
     private BitmapManager bmpManager;//图片加载管理工具类
+
     //解析用户信息json
-    public void parseUserInfo(String json){
+    public void parseUserInfo(String json) {
         try {
-            JSONObject obj=new JSONObject(json);
-            String status=obj.getString("status");
-            if(status.equals("ok")){
+            JSONObject obj = new JSONObject(json);
+            String status = obj.getString("status");
+            if (status.equals("ok")) {
 
 
-                JSONObject dataObj=obj.getJSONObject("data");
-                int statu=dataObj.getInt("status");
-                if(statu==1){
+                JSONObject dataObj = obj.getJSONObject("data");
+                int statu = dataObj.getInt("status");
+                if (statu == 1) {
                     is_verify_tv.setText("已验证");
                     is_verify_tv.setTextColor(Color.BLUE);
-                }else if(statu==-1){
+                } else if (statu == -1) {
                     is_verify_tv.setText("未验证");
                 }
 
-                idcard_num_et.setText(dataObj.getString("identitycard")+"");
-                real_name_et.setText(dataObj.getString("clientname")+"");
+                idcard_num_et.setText(dataObj.getString("identitycard") + "");
+                real_name_et.setText(dataObj.getString("clientname") + "");
 
-                String identitycard_front_url=dataObj.getString("identitycard_front_url")+"";
-                String identitycard_back_url=dataObj.getString("identitycard_back_url")+"";
-                String hand_identitycard_front_url=dataObj.getString("hand_identitycard_front_url")+"";
-                String hand_identitycard_back_url=dataObj.getString("hand_identitycard_back_url")+"";
+                String identitycard_front_url = dataObj.getString("identitycard_front_url") + "";
+                String identitycard_back_url = dataObj.getString("identitycard_back_url") + "";
+                String hand_identitycard_front_url = dataObj.getString("hand_identitycard_front_url") + "";
+                String hand_identitycard_back_url = dataObj.getString("hand_identitycard_back_url") + "";
 
-                loadBitmap(identitycard_front_url,idcard_zhengmian_iv,1);
-                loadBitmap(identitycard_back_url,idcard_fanmian_iv,2);
-                loadBitmap(hand_identitycard_front_url,head_idcard_zhengmian_iv,3);
-                loadBitmap(hand_identitycard_back_url,head_idcard_fanmian_iv,4);
-            }else{
+                loadBitmap(identitycard_front_url, idcard_zhengmian_iv, 1);
+                loadBitmap(identitycard_back_url, idcard_fanmian_iv, 2);
+                loadBitmap(hand_identitycard_front_url, head_idcard_zhengmian_iv, 3);
+                loadBitmap(hand_identitycard_back_url, head_idcard_fanmian_iv, 4);
+            } else {
 
             }
 
@@ -604,8 +701,8 @@ public class RealNameActivity extends Activity implements View.OnClickListener{
     }
 
 
-    public void loadBitmap(String url,ImageView img,int type){
-        if (url!=null&&url.endsWith("portrait.gif") || StringUtils.isEmpty(url)) {
+    public void loadBitmap(String url, ImageView img, int type) {
+        if (url != null && url.endsWith("portrait.gif") || StringUtils.isEmpty(url)) {
             switch (type) {
                 case 1:
                     img.setImageResource(R.drawable.shenfenzheng1);
@@ -624,7 +721,7 @@ public class RealNameActivity extends Activity implements View.OnClickListener{
             if (!url.contains("http")) {
 
             }
-            bmpManager.loadBitmap(url,img);
+            bmpManager.loadBitmap(url, img);
         }
     }
 

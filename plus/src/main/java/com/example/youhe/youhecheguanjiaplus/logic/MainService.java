@@ -291,9 +291,13 @@ public class MainService extends Service implements Runnable {
                 break;
 
         }
+        try {
 
-        allTask.remove(ts);
-        hand.sendMessage(message);
+            allTask.remove(ts);
+            hand.sendMessage(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public Handler hand = new Handler() {
@@ -415,8 +419,6 @@ public class MainService extends Service implements Runnable {
             }
         }
     };
-
-
 
 
     @Override

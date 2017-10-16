@@ -11,8 +11,17 @@ public class URLs {
     public final static String GET_SERVERVERSION_URL = "";//服务器端版本号获取地址
 
 //    public final static String HOST="http://qr.yeohe.com/testfeigoucar/index.php/API2";//测试接口
+
     public final static String HOST="http://qr.yeohe.com/carservice/index.php/API2";//测试接口
 //    public final static String HOST="https://plus.yeohe.com/index.php/API2";//正式接口
+
+//    public final static String HOST="http://qr.yeohe.com/carservice/index.php/API2";//测试接口
+//    public final static String HOST="https://plus.yeohe.com/index.php/API2";//正式接口
+
+//    public final static String HOST="http://qr.yeohe.com/carservice/index.php/API2";//测试接口
+//    public final static String HOST="http://qr.yeohe.com/testplusoem/index.php/API2";//云管家  测试接口
+//    public final static String HOST="https://plus.yeohe.com/index.php/API2";//正式接口
+
 //    public final static String HOST="http://che.yeohe.com/youhe/index.php/API2";//正式接口
 //    public final static String HOST="http://112.74.213.244/cwt/index.php/API2";//车违通接口
 //    public final static String HOST="http://112.74.203.223/cjkc/index.php/API2";//超级快车&车行网接口
@@ -289,18 +298,29 @@ public class URLs {
     public final static String PLUS_ADD = HOST+"/CardNumber/add_card_number.html";
     //PLUS 车主卡列表
     public final static String PLUS_LIST = HOST+"/CardNumber/card_number_list.html";
+    //PLUS 车主卡订单金额检测
+    public final static String PLUS_ORDER_CHECK = HOST+"/CardNumber/card_number_order_check.html";
     //PLUS 商户注册h5
     public final static String PLUS_CLIENTMERCHANT = HOST+"/ClientMerchant/register/token/";  //后面加token值
     //交易记录分类列表
-    public final static String PAY_WAY_LIST = HOST+"/Pay/pay_way_list.html";
+    public final static String PLUS_WAY_LIST = HOST+"/Pay/pay_way_list.html";
     //交易记录列表
-    public final static String PAY_LIST = HOST+"/Pay/pay_log.html";
+    public final static String PLUS_PLY_LOG = HOST+"/Pay/pay_log.html";
     //plus 激活
-    public final static String PAY_USER_ACTIVATION = HOST+"/Regist/user_activation.html";
+    public final static String PLUS_USER_ACTIVATION = HOST+"/Regist/user_activation.html";
+    //plus 刷新用户状态
+    public final static String PLUS_REFRESH_USER_STATUS = HOST+"/Regist/refresh_user_status.html";
     //plus 获取邀请码
     public final static String PAY_INVICODE = HOST+"/Client/inviCode.html";
     //plus 分销记录
     public final static String PAY_RECORD= HOST+"/CardNumber/card_number_rebate_record.html?token=";
+
+
+    //获取App支付结果(目前只支持支付宝)
+    public final static String APPPAY_STATUS= HOST+"/AppPay/get_app_pay_status.html";
+    //App支付(目前只支持支付宝)
+    public final static String APPPAY_INFO= HOST+"/AppPay/get_app_pay_info.html";
+
 
     public final static String HTTP = "http://";
     public final static String HTTPS = "https://";

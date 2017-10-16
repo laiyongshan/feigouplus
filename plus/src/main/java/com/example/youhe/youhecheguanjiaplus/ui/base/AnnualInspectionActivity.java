@@ -10,6 +10,7 @@ import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -25,6 +26,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.baidu.ocr.sdk.OCR;
+import com.baidu.ocr.sdk.OnResultListener;
+import com.baidu.ocr.sdk.exception.OCRError;
+import com.baidu.ocr.sdk.model.OcrRequestParams;
+import com.baidu.ocr.sdk.model.OcrResponseResult;
+import com.baidu.ocr.ui.camera.CameraActivity;
+import com.baidu.ocr.ui.util.BDFileUtils;
 import com.example.youhe.youhecheguanjiaplus.R;
 import com.example.youhe.youhecheguanjiaplus.bean.Annual;
 import com.example.youhe.youhecheguanjiaplus.db.biz.TokenSQLUtils;
@@ -36,14 +44,17 @@ import com.example.youhe.youhecheguanjiaplus.https.URLs;
 import com.example.youhe.youhecheguanjiaplus.logic.VolleyInterface;
 import com.example.youhe.youhecheguanjiaplus.utils.AllCapTransformationMethod;
 import com.example.youhe.youhecheguanjiaplus.utils.EncryptUtil;
+import com.example.youhe.youhecheguanjiaplus.utils.StringUtils;
 import com.example.youhe.youhecheguanjiaplus.utils.SystemBarUtil;
 import com.example.youhe.youhecheguanjiaplus.utils.UIHelper;
 import com.example.youhe.youhecheguanjiaplus.utils.VolleyUtil;
+import com.example.youhe.youhecheguanjiaplus.widget.ToastUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -53,11 +64,12 @@ import java.util.List;
  * Created by Administrator on 2017/5/31.
  */
 
-public class AnnualInspectionActivity extends Activity implements View.OnClickListener{
+public class AnnualInspectionActivity extends Activity implements View.OnClickListener {
 
+    private static final int REQUEST_CODE_CAMERA = 0x001;
     private ImageView back_iv;
-    private ImageView pack_up_iv1,pack_up_iv2,pack_up_iv3;
-    private LinearLayout process_layout1,process_layout2,process_layout3;
+    private ImageView pack_up_iv1, pack_up_iv2, pack_up_iv3;
+    private LinearLayout process_layout1, process_layout2, process_layout3;
     private CheckBox isread_cb;
     private Button commit_annual_btn;
     private EditText getgoods_address_et;
@@ -66,24 +78,24 @@ public class AnnualInspectionActivity extends Activity implements View.OnClickLi
 
     private TextView express_to_addrss_tv;//指定邮寄地址
 
-    private EditText car_number_et,carEngine_et,carowner_name_et,phone_num_et,CarCode_et,carowner_idcardnum_et;
+    private EditText car_number_et, carEngine_et, carowner_name_et, phone_num_et, CarCode_et, carowner_idcardnum_et;
 
-    private ImageView carEngine_doubt_img,carCode_doubt_img;
+    private ImageView carEngine_doubt_img, carCode_doubt_img;
 
     private TextView prefix_tv;//车辆前缀
     private PrefixDialog prefixDialog;
     private ProvinceBrocast provinceBrocast;//接收选择的身份简称
-    public String prefix="";//省份前缀
-    public String price="";//价格
-    private List<Province> provinces=new ArrayList<Province>();
+    public String prefix = "";//省份前缀
+    public String price = "";//价格
+    private List<Province> provinces = new ArrayList<Province>();
     private List<Annual> annualList = new ArrayList<Annual>();
 
-    private boolean flag1=false,flag2=false,flag3=false;
+    private boolean flag1 = false, flag2 = false, flag3 = false;
 
     AllCapTransformationMethod allCapTransformationMethod = new AllCapTransformationMethod();//字母大写
 
     private TextView datapicker_tv;
-    private int mYear,mMonth,mDay;
+    private int mYear, mMonth, mDay;
     final int DATE_DIALOG = 1;
 
     private Context context;
@@ -93,15 +105,15 @@ public class AnnualInspectionActivity extends Activity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         // 4.4及以上版本开启
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            SystemBarUtil.setTranslucentStatus(true,AnnualInspectionActivity.this);
+            SystemBarUtil.setTranslucentStatus(true, AnnualInspectionActivity.this);
         }
         SystemBarUtil.useSystemBarTint(AnnualInspectionActivity.this);
 
         setContentView(R.layout.activity_annual_inspection);
 
-        IntentFilter filter=new IntentFilter(PrefixDialog.PREFIX_ACTION_NAME);
-        provinceBrocast=new ProvinceBrocast();
-        registerReceiver(provinceBrocast,filter);
+        IntentFilter filter = new IntentFilter(PrefixDialog.PREFIX_ACTION_NAME);
+        provinceBrocast = new ProvinceBrocast();
+        registerReceiver(provinceBrocast, filter);
 
 //        initPrefixdata();//初始化省份数据
         getSupportedProvinces();//获取年检支持的省份城市及价格
@@ -113,7 +125,7 @@ public class AnnualInspectionActivity extends Activity implements View.OnClickLi
         mMonth = ca.get(Calendar.MONTH);
         mDay = ca.get(Calendar.DAY_OF_MONTH);
 
-        context=AnnualInspectionActivity.this;
+        context = AnnualInspectionActivity.this;
     }
 
     @Override
@@ -123,33 +135,33 @@ public class AnnualInspectionActivity extends Activity implements View.OnClickLi
     }
 
     //初始化控件
-    private void initViews(){
-        back_iv= (ImageView) findViewById(R.id.back_iv);
+    private void initViews() {
+        back_iv = (ImageView) findViewById(R.id.back_iv);
         back_iv.setOnClickListener(this);
 
-        pack_up_iv1= (ImageView) findViewById(R.id.pack_up_iv1);
+        pack_up_iv1 = (ImageView) findViewById(R.id.pack_up_iv1);
         pack_up_iv1.setOnClickListener(this);
-        pack_up_iv2= (ImageView) findViewById(R.id.pack_up_iv2);
+        pack_up_iv2 = (ImageView) findViewById(R.id.pack_up_iv2);
         pack_up_iv2.setOnClickListener(this);
-        pack_up_iv3= (ImageView) findViewById(R.id.pack_up_iv3);
+        pack_up_iv3 = (ImageView) findViewById(R.id.pack_up_iv3);
         pack_up_iv3.setOnClickListener(this);
 
-        process_layout1= (LinearLayout) findViewById(R.id.process_layout1);
-        process_layout2= (LinearLayout) findViewById(R.id.process_layout2);
-        process_layout3= (LinearLayout) findViewById(R.id.process_layout3);
+        process_layout1 = (LinearLayout) findViewById(R.id.process_layout1);
+        process_layout2 = (LinearLayout) findViewById(R.id.process_layout2);
+        process_layout3 = (LinearLayout) findViewById(R.id.process_layout3);
 
-        car_number_et= (EditText) findViewById(R.id.car_number_et);
+        car_number_et = (EditText) findViewById(R.id.car_number_et);
         car_number_et.setTransformationMethod(allCapTransformationMethod);
 
         car_number_et.setTransformationMethod(allCapTransformationMethod);
 
-        prefix_tv= (TextView)findViewById(R.id.prefix_tv);
+        prefix_tv = (TextView) findViewById(R.id.prefix_tv);
         prefix_tv.setOnClickListener(this);
 
-        commit_annual_btn= (Button) findViewById(R.id.commit_annual_btn);
+        commit_annual_btn = (Button) findViewById(R.id.commit_annual_btn);
         commit_annual_btn.setOnClickListener(this);
 
-        isread_cb= (CheckBox) findViewById(R.id.isread_cb);
+        isread_cb = (CheckBox) findViewById(R.id.isread_cb);
         isread_cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -163,90 +175,205 @@ public class AnnualInspectionActivity extends Activity implements View.OnClickLi
             }
         });
 
-        getgoods_address_et= (EditText) findViewById(R.id.getgoods_address_et);
-        price_tv= (TextView) findViewById(R.id.price_tv);
+        getgoods_address_et = (EditText) findViewById(R.id.getgoods_address_et);
+        price_tv = (TextView) findViewById(R.id.price_tv);
 
-        CarCode_et= (EditText) findViewById(R.id.CarCode_et);
+        CarCode_et = (EditText) findViewById(R.id.CarCode_et);
         CarCode_et.setTransformationMethod(allCapTransformationMethod);
-        carEngine_et= (EditText) findViewById(R.id.carEngine_et);
+        carEngine_et = (EditText) findViewById(R.id.carEngine_et);
         carEngine_et.setTransformationMethod(allCapTransformationMethod);
-        carowner_name_et= (EditText) findViewById(R.id.carowner_name_et);
-        phone_num_et= (EditText) findViewById(R.id.phone_num_et);
-        carowner_idcardnum_et= (EditText) findViewById(R.id.carowner_idcardnum_et);
+        carowner_name_et = (EditText) findViewById(R.id.carowner_name_et);
+        phone_num_et = (EditText) findViewById(R.id.phone_num_et);
+        carowner_idcardnum_et = (EditText) findViewById(R.id.carowner_idcardnum_et);
 
-        annual_disclaimer_tv= (TextView) findViewById(R.id.annual_disclaimer_tv);
+        annual_disclaimer_tv = (TextView) findViewById(R.id.annual_disclaimer_tv);
         annual_disclaimer_tv.setOnClickListener(this);
 
-        datapicker_tv= (TextView) findViewById(R.id.datapicker_tv);//年审日期选择
+        datapicker_tv = (TextView) findViewById(R.id.datapicker_tv);//年审日期选择
         datapicker_tv.setOnClickListener(this);
 
-        carEngine_doubt_img= (ImageView) findViewById(R.id.carEngine_doubt_img);
+        carEngine_doubt_img = (ImageView) findViewById(R.id.carEngine_doubt_img);
         carEngine_doubt_img.setOnClickListener(this);
-        carCode_doubt_img= (ImageView) findViewById(R.id.carCode_doubt_img);
+        carCode_doubt_img = (ImageView) findViewById(R.id.carCode_doubt_img);
         carCode_doubt_img.setOnClickListener(this);
 
-        express_to_addrss_tv= (TextView) findViewById(R.id.express_to_addrss_tv);
+        express_to_addrss_tv = (TextView) findViewById(R.id.express_to_addrss_tv);
 
     }
 
-    DoubtDialog doubtDialog=null;
+    /**
+     * 行驶证识别
+     *
+     * @param view
+     */
+    public void annualOR(View view) {
+        Intent intent = new Intent(AnnualInspectionActivity.this, CameraActivity.class);
+        intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH, BDFileUtils.getSaveFile("QR", "temp.jpg").getAbsolutePath());
+        intent.putExtra(CameraActivity.KEY_CONTENT_TYPE, CameraActivity.CONTENT_TYPE_VEHICLE_LICENSE);
+        startActivityForResult(intent, REQUEST_CODE_CAMERA);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_CAMERA && resultCode == RESULT_OK) {
+            onQRActivity(data);
+        }
+    }
+
+    private void onQRActivity(Intent data) {
+        UIHelper.showPd(AnnualInspectionActivity.this);
+        String contentType = data.getStringExtra(CameraActivity.KEY_CONTENT_TYPE);
+        final String filePath = BDFileUtils.getSaveFile("QR", "temp.jpg").getAbsolutePath();
+
+        File file = new File(filePath);
+        if (!file.exists()) {
+            UIHelper.dismissPd();
+            return;
+        }
+        if (CameraActivity.CONTENT_TYPE_VEHICLE_LICENSE.equals(contentType)) {
+            OcrRequestParams param = new OcrRequestParams();
+            param.setImageFile(new File(filePath));
+            param.putParam("detect_direction", true);
+            param.putParam("accuracy", "high");
+            OCR.getInstance().recognizeVehicleLicense(param, new OnResultListener<OcrResponseResult>() {
+                @Override
+                public void onResult(OcrResponseResult result) {
+                    // 调用成功，返回IDCardResult对象
+                    Log.d("chujun", result.getJsonRes());
+                    BDFileUtils.deleteFile(AnnualInspectionActivity.this, filePath, true);
+                    parseOCR(result);
+                    UIHelper.dismissPd();
+
+                }
+
+                @Override
+                public void onError(OCRError error) {
+                    // 调用失败，返回OCRError对象
+                    ToastUtil.getShortToastByString(AnnualInspectionActivity.this, "识别行驶证失败");
+                    BDFileUtils.deleteFile(AnnualInspectionActivity.this, filePath, true);
+                    UIHelper.dismissPd();
+                }
+            });
+        } else
+            UIHelper.dismissPd();
+    }
+
+    private void parseOCR(OcrResponseResult result) {
+        try {
+            JSONObject jsonObject = new JSONObject(result.getJsonRes());
+            JSONObject resJson = jsonObject.optJSONObject("words_result");
+            String carNumber = resJson.has("号牌号码") ? resJson.getJSONObject("号牌号码").getString("words") : "";
+            String chassisNumber = resJson.has("车辆识别代号") ? resJson.getJSONObject("车辆识别代号").getString("words") : "";
+            String engineNumber = resJson.has("发动机号码") ? resJson.getJSONObject("发动机号码").getString("words") : "";
+
+            String datapicker = resJson.has("注册登记日期") ? resJson.getJSONObject("注册登记日期").getString("words") : "";
+            String carowner_name = resJson.has("所有人") ? resJson.getJSONObject("所有人").getString("words") : "";
+
+            if (!TextUtils.isEmpty(carNumber) && StringUtils.isChinese(carNumber.substring(0, 1)) && carNumber.length() > 2) {
+                String a = carNumber.substring(0, 1);
+                boolean b = false;
+                for (int i = 0; i < provinces.size(); i++) {
+                    if (provinces.get(i).getProvincePrefix().equals(a) && provinces.get(i).getAnnualList() != null && provinces.get(i).getAnnualList().size() > 0) {
+                        annualList = provinces.get(i).getAnnualList();
+                        String x = carNumber.substring(1, 2);
+                        for (int j = 0; j < annualList.size(); j++) {
+                            if (x.equals(annualList.get(j).getLetter())) {
+                                b = true;
+                                prefix = a + x;
+                                prefix_tv.setText(prefix + "");
+                                car_number_et.setText(carNumber.substring(2,carNumber.length()));
+                                price = annualList.get(j).getPrice();
+                                price_tv.setText("￥" + price);
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+                if (!b) {
+                    ToastUtil.getShortToastByString(this, "不支持该城市车牌");
+                    return;
+                }
+
+                if (!TextUtils.isEmpty(chassisNumber))
+                    CarCode_et.setText(chassisNumber);
+                if (!TextUtils.isEmpty(engineNumber))
+                    carEngine_et.setText(engineNumber);
+                if (!TextUtils.isEmpty(datapicker) && datapicker.length() == 8) {
+                    datapicker_tv.setText(datapicker.substring(0, 4) + "-" + datapicker.substring(4, 6) + "-" + datapicker.substring(6, 8));
+                }
+                if (!TextUtils.isEmpty(carowner_name))
+                    carowner_name_et.setText(carowner_name);
+            } else {
+                ToastUtil.getShortToastByString(AnnualInspectionActivity.this, "识别行驶证失败");
+            }
+
+        } catch (Exception e) {
+            ToastUtil.getShortToastByString(AnnualInspectionActivity.this, "识别行驶证失败");
+            e.printStackTrace();
+        }
+    }
+
+    DoubtDialog doubtDialog = null;
+
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.back_iv:
                 finish();
                 overridePendingTransition(R.anim.slide_up_in, R.anim.slide_down_out);
                 break;
 
             case R.id.pack_up_iv1:
-                flag1=!flag1;
-                if(flag1){
+                flag1 = !flag1;
+                if (flag1) {
                     process_layout1.setVisibility(View.GONE);
-                    flag1=true;
+                    flag1 = true;
                     pack_up_iv1.setImageResource(R.drawable.category_iv_oneitem_arrow_down);
-                }else{
+                } else {
                     process_layout1.setVisibility(View.VISIBLE);
-                    flag1=false;
+                    flag1 = false;
                     pack_up_iv1.setImageResource(R.drawable.category_iv_oneitem_arrow_up);
                 }
                 break;
 
             case R.id.pack_up_iv2:
-                flag2=!flag2;
-                if(flag2){
+                flag2 = !flag2;
+                if (flag2) {
                     process_layout2.setVisibility(View.GONE);
                     pack_up_iv2.setImageResource(R.drawable.category_iv_oneitem_arrow_down);
-                    flag2=true;
-                }else{
+                    flag2 = true;
+                } else {
                     process_layout2.setVisibility(View.VISIBLE);
-                    flag2=false;
+                    flag2 = false;
                     pack_up_iv2.setImageResource(R.drawable.category_iv_oneitem_arrow_up);
                 }
                 break;
 
             case R.id.pack_up_iv3:
-                flag3=!flag3;
-                if(flag3){
+                flag3 = !flag3;
+                if (flag3) {
                     process_layout3.setVisibility(View.GONE);
-                    flag3=true;
+                    flag3 = true;
                     pack_up_iv3.setImageResource(R.drawable.category_iv_oneitem_arrow_down);
-                }else{
+                } else {
                     process_layout3.setVisibility(View.VISIBLE);
-                    flag3=false;
+                    flag3 = false;
                     pack_up_iv3.setImageResource(R.drawable.category_iv_oneitem_arrow_up);
                 }
                 break;
 
             case R.id.prefix_tv://车辆前缀
-                prefixDialog = new PrefixDialog(AnnualInspectionActivity.this, R.style.Dialog,provinces);
+                prefixDialog = new PrefixDialog(AnnualInspectionActivity.this, R.style.Dialog, provinces);
                 prefixDialog.showDialog();
                 prefixDialog.setCancelable(true);
                 break;
 
             case R.id.annual_disclaimer_tv://用户协议
-                Intent intent=new Intent(AnnualInspectionActivity.this,CommentWebActivity.class);
+                Intent intent = new Intent(AnnualInspectionActivity.this, CommentWebActivity.class);
                 intent.putExtra("url", URLs.ANNUALINSPECTIONT_DISCLAIMER);
-                intent.putExtra("title","用户服务协议");
+                intent.putExtra("title", "用户服务协议");
                 startActivity(intent);
                 break;
 
@@ -261,25 +388,25 @@ public class AnnualInspectionActivity extends Activity implements View.OnClickLi
                     imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
                 }
 
-                if(prefix_tv.getText().toString().trim().equals("")){
-                    Toast.makeText(context,getResources().getString(R.string.annual_hint1),Toast.LENGTH_SHORT).show();
-                }else if(car_number_et.getText().toString().trim().equals("")){
-                    Toast.makeText(context,getResources().getString(R.string.annual_hint2),Toast.LENGTH_SHORT).show();
-                }else if(CarCode_et.getText().toString().trim().equals("")){
-                    Toast.makeText(context,getResources().getString(R.string.annual_hint3),Toast.LENGTH_SHORT).show();
-                }else if(carEngine_et.getText().toString().trim().equals("")){
-                    Toast.makeText(context,getResources().getString(R.string.annual_hint4),Toast.LENGTH_SHORT).show();
-                }else if(datapicker_tv.getText().toString().trim().equals("")){
-                    Toast.makeText(context,getResources().getString(R.string.annual_hint5),Toast.LENGTH_SHORT).show();
-                }else if(carowner_name_et.getText().toString().trim().equals("")){
-                    Toast.makeText(context,getResources().getString(R.string.annual_hint6),Toast.LENGTH_SHORT).show();
-                }else if(phone_num_et.getText().toString().trim().equals("")){
-                    Toast.makeText(context,getResources().getString(R.string.annual_hint7),Toast.LENGTH_SHORT).show();
-                }else if(getgoods_address_et.getText().toString().trim().equals("")){
-                    Toast.makeText(context,getResources().getString(R.string.annual_hint8),Toast.LENGTH_SHORT).show();
-                }else if(carowner_idcardnum_et.getText().toString().trim().length()<4){
-                    Toast.makeText(context,getResources().getString(R.string.annual_hint9),Toast.LENGTH_SHORT).show();
-                }else{
+                if (prefix_tv.getText().toString().trim().equals("")) {
+                    Toast.makeText(context, getResources().getString(R.string.annual_hint1), Toast.LENGTH_SHORT).show();
+                } else if (car_number_et.getText().toString().trim().equals("")) {
+                    Toast.makeText(context, getResources().getString(R.string.annual_hint2), Toast.LENGTH_SHORT).show();
+                } else if (CarCode_et.getText().toString().trim().equals("")) {
+                    Toast.makeText(context, getResources().getString(R.string.annual_hint3), Toast.LENGTH_SHORT).show();
+                } else if (carEngine_et.getText().toString().trim().equals("")) {
+                    Toast.makeText(context, getResources().getString(R.string.annual_hint4), Toast.LENGTH_SHORT).show();
+                } else if (datapicker_tv.getText().toString().trim().equals("")) {
+                    Toast.makeText(context, getResources().getString(R.string.annual_hint5), Toast.LENGTH_SHORT).show();
+                } else if (carowner_name_et.getText().toString().trim().equals("")) {
+                    Toast.makeText(context, getResources().getString(R.string.annual_hint6), Toast.LENGTH_SHORT).show();
+                } else if (phone_num_et.getText().toString().trim().equals("")) {
+                    Toast.makeText(context, getResources().getString(R.string.annual_hint7), Toast.LENGTH_SHORT).show();
+                } else if (getgoods_address_et.getText().toString().trim().equals("")) {
+                    Toast.makeText(context, getResources().getString(R.string.annual_hint8), Toast.LENGTH_SHORT).show();
+                } else if (carowner_idcardnum_et.getText().toString().trim().length() < 4) {
+                    Toast.makeText(context, getResources().getString(R.string.annual_hint9), Toast.LENGTH_SHORT).show();
+                } else {
                     addAnnualOrder();//提交年检订单
                 }
                 break;
@@ -305,11 +432,11 @@ public class AnnualInspectionActivity extends Activity implements View.OnClickLi
     class ProvinceBrocast extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if(intent!=null) {
+            if (intent != null) {
                 prefix = intent.getStringExtra("prefix");
-                prefix_tv.setText(prefix+"");
-                price =intent.getStringExtra("price");
-                price_tv.setText("￥"+price);
+                prefix_tv.setText(prefix + "");
+                price = intent.getStringExtra("price");
+                price_tv.setText("￥" + price);
             }
             prefixDialog.dismiss();
         }
@@ -359,46 +486,47 @@ public class AnnualInspectionActivity extends Activity implements View.OnClickLi
 
     /**
      * 获取年检支持的省份城市及价格
-     * */
+     */
     String address;//指定邮寄地址
-    private  void getSupportedProvinces(){
+
+    private void getSupportedProvinces() {
         UIHelper.showPd(AnnualInspectionActivity.this);
-        HashMap map=new HashMap();
+        HashMap map = new HashMap();
         map.put("token", TokenSQLUtils.check());
         VolleyUtil.getVolleyUtil(AnnualInspectionActivity.this).StringRequestPostVolley(URLs.GET_SUPPORTED_PROVINCES, EncryptUtil.encrypt(map), new VolleyInterface() {
             @Override
             public void ResponseResult(Object jsonObject) {
-                Log.i("TAG",jsonObject.toString());
+                Log.i("TAG", jsonObject.toString());
                 try {
-                    JSONObject obj=new JSONObject(EncryptUtil.decryptJson(jsonObject.toString(),AnnualInspectionActivity.this));
-                    if(obj.has("data")){
+                    JSONObject obj = new JSONObject(EncryptUtil.decryptJson(jsonObject.toString(), AnnualInspectionActivity.this));
+                    if (obj.has("data")) {
                         JSONObject dataObj = obj.optJSONObject("data");
 
-                        address=dataObj.optString("address");
-                        express_to_addrss_tv.setText(address+"");
+                        address = dataObj.optString("address");
+                        express_to_addrss_tv.setText(address + "");
 
-                        JSONArray proArr=dataObj.optJSONArray("provinces");
+                        JSONArray proArr = dataObj.optJSONArray("provinces");
                         JSONObject o;
                         Province province;
 
-                        for(int i=0;i<proArr.length();i++){
-                            o=proArr.getJSONObject(i);
+                        for (int i = 0; i < proArr.length(); i++) {
+                            o = proArr.getJSONObject(i);
                             String prifex = o.optString("province");//车牌前缀
                             province = new Province();
                             province.setProvincePrefix(prifex);
 
-                            JSONArray detailsArr=o.optJSONArray("details");
+                            JSONArray detailsArr = o.optJSONArray("details");
                             Annual annual;
-                            annualList=new ArrayList<Annual>();
-                            for(int j=0;j<detailsArr.length();j++){
-                                annual=new Annual();
+                            annualList = new ArrayList<Annual>();
+                            for (int j = 0; j < detailsArr.length(); j++) {
+                                annual = new Annual();
                                 annual.setLetter(detailsArr.optJSONObject(j).optString("zimu"));
                                 annual.setPrice(detailsArr.optJSONObject(j).optString("price"));
                                 annualList.add(annual);
-                                if(j==0){
-                                    prefix_tv.setText(prifex+detailsArr.optJSONObject(j).optString("zimu"));
-                                    price=detailsArr.optJSONObject(j).optString("price");
-                                    price_tv.setText("￥"+price);
+                                if (j == 0) {
+                                    prefix_tv.setText(prifex + detailsArr.optJSONObject(j).optString("zimu"));
+                                    price = detailsArr.optJSONObject(j).optString("price");
+                                    price_tv.setText("￥" + price);
                                 }
                             }
                             province.setAnnualList(annualList);
@@ -407,7 +535,7 @@ public class AnnualInspectionActivity extends Activity implements View.OnClickLi
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }finally {
+                } finally {
                     UIHelper.dismissPd();
                 }
             }
@@ -421,45 +549,45 @@ public class AnnualInspectionActivity extends Activity implements View.OnClickLi
 
     /**
      * 添加年检订单
-     * */
-    private void addAnnualOrder(){
+     */
+    private void addAnnualOrder() {
         UIHelper.showPd(AnnualInspectionActivity.this);
-        HashMap addMap=new HashMap();
+        HashMap addMap = new HashMap();
         addMap.put("token", TokenSQLUtils.check());
-        addMap.put("proprefix",prefix_tv.getText().toString().trim());//粤A
-        addMap.put("carnumber",car_number_et.getText().toString().trim().toUpperCase());//车牌号码
-        addMap.put("cardrivenumber",carEngine_et.getText().toString().trim().toUpperCase());//发动机号
-        addMap.put("carcode",CarCode_et.getText().toString().trim().toUpperCase());//车架号后六位
-        addMap.put("name",carowner_name_et.getText().toString().trim());//客户姓名
-        addMap.put("mobile",phone_num_et.getText().toString().trim());//客户电话
-        addMap.put("checkyear_day",datapicker_tv.getText().toString().trim());//年审日
-        addMap.put("server_address",getgoods_address_et.getText().toString().trim());//收件地址
-        addMap.put("id_card",carowner_idcardnum_et.getText().toString().trim()+"");//车主身份证号码后4位
+        addMap.put("proprefix", prefix_tv.getText().toString().trim());//粤A
+        addMap.put("carnumber", car_number_et.getText().toString().trim().toUpperCase());//车牌号码
+        addMap.put("cardrivenumber", carEngine_et.getText().toString().trim().toUpperCase());//发动机号
+        addMap.put("carcode", CarCode_et.getText().toString().trim().toUpperCase());//车架号后六位
+        addMap.put("name", carowner_name_et.getText().toString().trim());//客户姓名
+        addMap.put("mobile", phone_num_et.getText().toString().trim());//客户电话
+        addMap.put("checkyear_day", datapicker_tv.getText().toString().trim());//年审日
+        addMap.put("server_address", getgoods_address_et.getText().toString().trim());//收件地址
+        addMap.put("id_card", carowner_idcardnum_et.getText().toString().trim() + "");//车主身份证号码后4位
 
 //        addMap.put("orderMoney",price);//订单金额
-        addMap.put("orderMoney",price);//订单金额
+        addMap.put("orderMoney", price);//订单金额
         VolleyUtil.getVolleyUtil(AnnualInspectionActivity.this).StringRequestPostVolley(URLs.ADD_ANNUAL_ORDER, EncryptUtil.encrypt(addMap), new VolleyInterface() {
             @Override
             public void ResponseResult(Object jsonObject) {
                 try {
-                    JSONObject obj=new JSONObject(EncryptUtil.decryptJson(jsonObject.toString(),context));
-                    String status=obj.optString("status");
-                    if(status.equals("ok")){
-                        if(obj.has("data")){
-                            JSONObject dataObj=obj.optJSONObject("data");
-                            String ordercode=dataObj.optString("ordercode");//订单号
-                            String server_address=dataObj.optString("server_address");//收件地址
-                            CommitSucessDialog commitSucessDialog=new CommitSucessDialog(AnnualInspectionActivity.this, R.style.Dialog,ordercode,3,price);
+                    JSONObject obj = new JSONObject(EncryptUtil.decryptJson(jsonObject.toString(), context));
+                    String status = obj.optString("status");
+                    if (status.equals("ok")) {
+                        if (obj.has("data")) {
+                            JSONObject dataObj = obj.optJSONObject("data");
+                            String ordercode = dataObj.optString("ordercode");//订单号
+                            String server_address = dataObj.optString("server_address");//收件地址
+                            CommitSucessDialog commitSucessDialog = new CommitSucessDialog(AnnualInspectionActivity.this, R.style.Dialog, ordercode, 3, price);
                             commitSucessDialog.showDialog();
                         }
-                        Toast.makeText(context,"提交年检订单成功",Toast.LENGTH_SHORT).show();
-                    }else if(status.equals("fail")){
-                        String show_msg=obj.optString("show_msg");
-                        Toast.makeText(context,"提交年检订单失败，"+show_msg,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "提交年检订单成功", Toast.LENGTH_SHORT).show();
+                    } else if (status.equals("fail")) {
+                        String show_msg = obj.optString("show_msg");
+                        Toast.makeText(context, "提交年检订单失败，" + show_msg, Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }finally{
+                } finally {
                     UIHelper.dismissPd();
                 }
             }
@@ -470,7 +598,6 @@ public class AnnualInspectionActivity extends Activity implements View.OnClickLi
             }
         });
     }
-
 
 
 }

@@ -159,7 +159,7 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.example.youhe.youhecheguanjiaplus.fileprovider"
+            android:authorities="${applicationId}.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -205,13 +205,16 @@
             <!--为浏览器 提供访问的路径-->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="path"
-                    android:scheme="flydogplus" />
+                    android:scheme="${SCHEME}" />
             </intent-filter>
         </activity>
+        <!--android:scheme="flydogplus" />-->
 
         <!--新的支付页面-->
         <activity
@@ -539,12 +542,15 @@
         <!--余额支付成功页面-->
         <activity
             android:name="com.example.youhe.youhecheguanjiaplus.ui.base.BalancePaySuccActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="toPaySucc"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="toPaySucc" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.AliPayDealActivity"
+            android:screenOrientation="portrait"></activity>
 
         <!--年检订单详情-->
         <activity
@@ -586,15 +592,16 @@
         <!--贷款-->
         <activity
             android:name="com.linkpay.loansdk.activity.LinkPayLoanActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
-        <activity android:name="com.example.youhe.youhecheguanjiaplus.ui.base.LoanActivity"
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.ui.base.LoanActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/transcutestyle"
-            />
+            android:theme="@style/transcutestyle" />
         <!--交易记录-->
-        <activity android:name=".ui.base.TradingReco2Activity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.base.TradingReco2Activity"
+            android:screenOrientation="portrait" />
 
         <!--信鸽配置 start  jian 2017-5-2-->
         <activity
@@ -717,7 +724,7 @@
         <!--友盟 分享配置 start-->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="596321a6e88bad176f00139e">
+            android:value="${UMENG_APPKEY}">
 
         </meta-data>
         <meta-data
@@ -732,27 +739,57 @@
             android:launchMode="singleTask"
             android:noHistory="true">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="tencent1106314864"/>
+                <data android:scheme="tencent1106314864" />
             </intent-filter>
         </activity>
         <activity
             android:name="com.umeng.qq.tencent.AssistActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
-        <!--<activity-->
-        <!--android:name=".wxapi.WXEntryActivity"-->
-        <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
-        <!--android:exported="true"-->
-        <!--android:screenOrientation="portrait"-->
-        <!--android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
+        <activity
+            android:name="com.example.youhe.youhecheguanjiaplus.wxapi.WXPayEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <!--android:theme="@style/AppExitDialogStyle">-->
+            <!--android:theme="@android:style/Theme.Dialog">-->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="wx5b85cea18c42b03e" />
+            </intent-filter>
+        </activity>
+        <!--android:theme="@android:style/Theme.Translucent.NoTitleBar">-->
         <!--友盟 分享配置 end-->
+
+        <!--支付宝配置-->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+
+        </activity>
+        <activity
+            android:name="com.alipay.sdk.app.H5AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+
+        </activity>
+        <activity
+            android:name="com.baidu.ocr.ui.camera.CameraActivity"
+            android:screenOrientation="landscape" />
 
     </application>
 

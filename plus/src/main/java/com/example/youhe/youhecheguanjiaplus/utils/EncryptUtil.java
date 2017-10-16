@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.youhe.youhecheguanjiaplus.R;
+import com.example.youhe.youhecheguanjiaplus.app.AppContext;
 import com.example.youhe.youhecheguanjiaplus.app.CommentSetting;
 
 import org.json.JSONObject;
@@ -39,7 +41,9 @@ public class EncryptUtil {
 
         parms.put("timestamp",System.currentTimeMillis()/1000+"");
         parms.put("device_type","Android");
+        parms.put("app_type", AppContext.getContext().getString(R.string.apptype));//车违通
 
+//        Log.d("TAGG",parms.toString());
         String sign= ParamSign.getSign(parms);
 
         parms.put("sign",sign);

@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
@@ -16,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alipay.sdk.app.PayTask;
 import com.android.volley.VolleyError;
 import com.example.youhe.youhecheguanjiaplus.R;
 import com.example.youhe.youhecheguanjiaplus.app.CommentSetting;
@@ -24,19 +26,27 @@ import com.example.youhe.youhecheguanjiaplus.db.biz.TokenSQLUtils;
 import com.example.youhe.youhecheguanjiaplus.dialog.PswDialog;
 import com.example.youhe.youhecheguanjiaplus.https.URLs;
 import com.example.youhe.youhecheguanjiaplus.logic.VolleyInterface;
+import com.example.youhe.youhecheguanjiaplus.ui.base.AliPayDealActivity;
 import com.example.youhe.youhecheguanjiaplus.ui.base.NewJoinpayActivity;
 import com.example.youhe.youhecheguanjiaplus.ui.base.P92PayActivity;
+import com.example.youhe.youhecheguanjiaplus.ui.base.PayActivity;
 import com.example.youhe.youhecheguanjiaplus.ui.base.ScanQrPayActivity;
 import com.example.youhe.youhecheguanjiaplus.utils.EncryptUtil;
 import com.example.youhe.youhecheguanjiaplus.utils.Misidentification;
+import com.example.youhe.youhecheguanjiaplus.utils.OnVolleyInterface;
 import com.example.youhe.youhecheguanjiaplus.utils.ParamSign;
 import com.example.youhe.youhecheguanjiaplus.utils.PayUtil;
+import com.example.youhe.youhecheguanjiaplus.utils.StringUtils;
 import com.example.youhe.youhecheguanjiaplus.utils.UIHelper;
 import com.example.youhe.youhecheguanjiaplus.utils.VolleyUtil;
 import com.example.youhe.youhecheguanjiaplus.widget.ToastUtil;
+import com.example.youhe.youhecheguanjiaplus.wxapi.WXPayEntryActivity;
 import com.joinpay.sdk.Joinpay;
 import com.joinpay.sdk.bean.ConsumeResultData;
 import com.joinpay.sdk.cons.MyAction;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -46,6 +56,7 @@ import org.xutils.x;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -60,12 +71,14 @@ public class IPPWDao {
     private TextView resubmit;//当订单过期显示提醒
 
     public static int payType;
-    public int order_type=1;//1违章2年检3车主卡
+    public int order_type = 1;//1违章2年检3车主卡4plus用户激活
+    public Bundle customerBundle = null;
 
-    public IPPWDao(Activity activity,int order_type) {
+
+    public IPPWDao(Activity activity, int order_type) {
 
         this.mActivity = activity;
-        this.order_type=order_type;
+        this.order_type = order_type;
 
         x.view().inject(mActivity);
 
@@ -88,6 +101,10 @@ public class IPPWDao {
 //        getPaytype(mActivity,ThePosPay.getOrenumber());//获取支付通道
     }
 
+    public void setCustomerBundle(Bundle bundle) {
+        this.customerBundle = bundle;
+    }
+
 
     /***
      * 判断机器型号
@@ -103,7 +120,7 @@ public class IPPWDao {
             intent.putExtra("ordercode", ThePosPay.getOrenumber());//订单号
             intent.putExtra("paymoney", ThePosPay.getPrice());//未格式化的总金额
             intent.putExtra("showmoney", ThePosPay.getTotalPrice());//式化的总金额
-            intent.putExtra(P92PayActivity.EXTRA_ORDER_TYPE,order_type);
+            intent.putExtra(P92PayActivity.EXTRA_ORDER_TYPE, order_type);
             Log.i("WU", "ThePosPay.getType()====" + ThePosPay.getType());
             if (ThePosPay.getType().equals("5")) {
                 intent.putExtra("feng", "违章办理");//总分
@@ -113,6 +130,7 @@ public class IPPWDao {
             mActivity.startActivity(intent);
 
         } else {
+
             gets();//请求终端号 并调起支付
         }
     }
@@ -165,7 +183,7 @@ public class IPPWDao {
         View loginView = mActivity.getLayoutInflater().inflate(R.layout.pay_for_results_lay, null);
         TextView textViewS = (TextView) loginView.findViewById(R.id.textdoll);
         TextView textView = (TextView) loginView.findViewById(R.id.text);
-        Log.i("WU", ThePosPay.payPrice+"");
+        Log.i("WU", ThePosPay.payPrice + "");
         textViewS.setText("￥" + ThePosPay.payPrice);//显示总金额
         RelativeLayout view = (RelativeLayout) loginView.findViewById(R.id.denglijian);
         view.setOnClickListener(new View.OnClickListener() {
@@ -195,7 +213,7 @@ public class IPPWDao {
         View loginView = mActivity.getLayoutInflater().inflate(R.layout.pay_for_failure_lay, null);
         TextView textViewS = (TextView) loginView.findViewById(R.id.textdoll);
         TextView textView = (TextView) loginView.findViewById(R.id.text);
-        Log.i("WU", ThePosPay.payPrice+"");
+        Log.i("WU", ThePosPay.payPrice + "");
         textViewS.setText("￥" + ThePosPay.payPrice);//显示总金额
         RelativeLayout view = (RelativeLayout) loginView.findViewById(R.id.denglijian);
         view.setOnClickListener(new View.OnClickListener() {
@@ -245,8 +263,8 @@ public class IPPWDao {
         phonePams.put("refno", "" + payResults.refno);
         phonePams.put("field55", "" + payResults.field55);
 
-        if(ThePosPay.ordertype==3) {//年检订单传
-            phonePams.put("is_annual_inspection",1);//年检订单必传
+        if (ThePosPay.ordertype == 3) {//年检订单传
+            phonePams.put("is_annual_inspection", 1);//年检订单必传
         }
 
         Log.i("WU", "respCode==>" + payResults.respCode + "===message===>" + payResults.message
@@ -264,7 +282,7 @@ public class IPPWDao {
             public void ResponseResult(Object jsonObject) {
                 Log.i("WU", jsonObject.toString());
                 try {
-                    JSONObject jsonObject1 = new JSONObject(EncryptUtil.decryptJson(jsonObject.toString(),mActivity));
+                    JSONObject jsonObject1 = new JSONObject(EncryptUtil.decryptJson(jsonObject.toString(), mActivity));
 
                     String status = jsonObject1.getString("status");
                     if (status.equals("ok")) {
@@ -310,8 +328,8 @@ public class IPPWDao {
         phonePams.put("refno", "" + payResults.refno);
         phonePams.put("field55", "" + payResults.field55);
 
-        if(ThePosPay.ordertype==3) {//年检订单传
-            phonePams.put("is_annual_inspection",1);//年检订单必传
+        if (ThePosPay.ordertype == 3) {//年检订单传
+            phonePams.put("is_annual_inspection", 1);//年检订单必传
         }
 
 
@@ -330,7 +348,7 @@ public class IPPWDao {
             public void ResponseResult(Object jsonObject) {
                 Log.i("WU", jsonObject.toString());
                 try {
-                    JSONObject jsonObject1 = new JSONObject(EncryptUtil.decryptJson(jsonObject.toString(),mActivity));
+                    JSONObject jsonObject1 = new JSONObject(EncryptUtil.decryptJson(jsonObject.toString(), mActivity));
 
                     String status = jsonObject1.getString("status");
                     if (status.equals("ok")) {
@@ -369,7 +387,7 @@ public class IPPWDao {
         volleyUtil.StringRequestPostVolley(URLs.GETTERMINALNUMBER, EncryptUtil.encrypt(phonePams), new VolleyInterface() {
             @Override
             public void ResponseResult(Object jsonObject) {
-                Log.i("TAG","得到序列号和总金额判断并调起支付>>>>>>>>"+jsonObject.toString());
+                Log.i("TAG", "得到序列号和总金额判断并调起支付>>>>>>>>" + jsonObject.toString());
                 jsons(jsonObject.toString());
             }
 
@@ -391,81 +409,94 @@ public class IPPWDao {
             if (status.equals("ok")) {
 
                 String aa = jsonObject.getString("data");//序列号
-                JSONObject jsonObject1=new JSONObject(aa);
-                String theSerialNumber=jsonObject1.getString("poscode");
+                JSONObject jsonObject1 = new JSONObject(aa);
+                String theSerialNumber = jsonObject1.getString("poscode");
 
                 String zonfuwu = "";
-                String info="";
-                if(ThePosPay.ordertype==1) {
-                    if (ThePosPay.getType().equals("5")){
+                String info = "";
+                if (ThePosPay.ordertype == 1) {
+                    if (ThePosPay.getType().equals("5")) {
                         zonfuwu = "违章办理";
                     } else {
                         zonfuwu = ThePosPay.getZonfuwu() + "分";
                     }
-                    info="违章充值";
-                    Log.i("WU", "汇聚总金额" +  df.format(ThePosPay.payPrice)+"");
-                }else if(ThePosPay.ordertype==2){//补款订单
-                    zonfuwu="订单补款";
-                    info=mActivity.getResources().getString(R.string.app_name);
-                }else if(ThePosPay.ordertype==3){//年检订单
-                    zonfuwu="车辆年检";
-                    info=mActivity.getResources().getString(R.string.app_name);
+                    info = "违章充值";
+                    Log.i("WU", "汇聚总金额" + df.format(ThePosPay.payPrice) + "");
+                } else if (ThePosPay.ordertype == 2) {//补款订单
+                    zonfuwu = "订单补款";
+                    info = mActivity.getResources().getString(R.string.app_name);
+                } else if (ThePosPay.ordertype == 3) {//年检订单
+                    zonfuwu = "车辆年检";
+                    info = mActivity.getResources().getString(R.string.app_name);
                 }
-
-                if (payType==1) {//汇聚支付
-                    Joinpay.startPay(mActivity, ThePosPay.payPrice+"", "13266663863", theSerialNumber, zonfuwu,info );
-                } else if(payType==3){//茂捷二维码支付
+//                Log.d("TAG","payType"+payType);
+                if (payType == 1) {//汇聚支付
+                    Joinpay.startPay(mActivity, ThePosPay.payPrice + "", "13266663863", theSerialNumber, zonfuwu, info);
+                } else if (payType == 3) {//茂捷二维码支付
                     Intent payintent = new Intent(mActivity, ScanQrPayActivity.class);
-                    payintent.putExtra("ordercode",ThePosPay.getOrenumber());//订单号
-                    payintent.putExtra("paymoney", df.format(ThePosPay.payPrice)+"");//支付金额
-                    payintent.putExtra("totalDegree",zonfuwu);
+                    payintent.putExtra("ordercode", ThePosPay.getOrenumber());//订单号
+                    payintent.putExtra("paymoney", df.format(ThePosPay.payPrice) + "");//支付金额
+                    payintent.putExtra("totalDegree", zonfuwu);
                     payintent.putExtra("mjOpenType", CommentSetting.mjOpenType);
-                    payintent.putExtra("orderstyle",ThePosPay.ordertype);//订单类型
-                    payintent.putExtra("order_type",order_type);//订单类型
-                    payintent.putExtra("info",info);
-                    mActivity.startActivity(payintent);
-                    mActivity.finish();
-                }else if(payType==2){//银嘉支付
-                    Intent payintent = new Intent(mActivity, NewJoinpayActivity.class);
-                    payintent.putExtra("price", df.format(ThePosPay.payPrice)+"");//支付金额
-                    payintent.putExtra("theSerialNumber", theSerialNumber);//机器序列号
-                    payintent.putExtra("totalDegree",zonfuwu);//总分
-                    payintent.putExtra("ordercode",ThePosPay.getOrenumber());//订单号
-                    payintent.putExtra("orderstyle",ThePosPay.ordertype);//订单类型
-                    Log.d("TAG","IPWAO"+order_type);
-                    payintent.putExtra(NewJoinpayActivity.EXTRA_ORDER_TYPE,order_type+"");
-                    payintent.putExtra("info",info);
-                    mActivity.startActivity(payintent);
-                    mActivity.finish();
-                }else if(payType==4){//余额支付
+                    payintent.putExtra("orderstyle", ThePosPay.ordertype);//订单类型
+                    payintent.putExtra("order_type", order_type);//订单类型
+                    payintent.putExtra("info", info);
 
-                    final PswDialog pswDialog = new PswDialog(mActivity, R.style.Dialog,1);
+                    if (customerBundle != null) {
+                        if (customerBundle.containsKey(ScanQrPayActivity.EXTRA_RETURN_CLASS))
+                            payintent.putExtra(ScanQrPayActivity.EXTRA_RETURN_CLASS, customerBundle.getString(ScanQrPayActivity.EXTRA_RETURN_CLASS));
+                        payintent.putExtra(ScanQrPayActivity.EXTRA_CUSTOMER_BUNDLE, customerBundle);
+                    }
+                    mActivity.startActivity(payintent);
+                    mActivity.finish();
+                } else if (payType == 2) {//银嘉支付
+                    Intent payintent = new Intent(mActivity, NewJoinpayActivity.class);
+                    payintent.putExtra("price", df.format(ThePosPay.payPrice) + "");//支付金额
+                    payintent.putExtra("theSerialNumber", theSerialNumber);//机器序列号
+                    payintent.putExtra("totalDegree", zonfuwu);//总分
+                    payintent.putExtra("ordercode", ThePosPay.getOrenumber());//订单号
+                    payintent.putExtra("orderstyle", ThePosPay.ordertype);//订单类型
+                    Log.d("TAG", "IPWAO" + order_type);
+                    payintent.putExtra(NewJoinpayActivity.EXTRA_ORDER_TYPE, order_type + "");
+                    payintent.putExtra("info", info);
+                    if (customerBundle != null)
+                        payintent.putExtra(NewJoinpayActivity.EXTRA_CUSTOMER_BUNDLE, customerBundle);
+                    mActivity.startActivity(payintent);
+                    mActivity.finish();
+                } else if (payType == 4) {//余额支付
+
+                    final PswDialog pswDialog = new PswDialog(mActivity, R.style.Dialog, 1);
                     pswDialog.show();
                     //回调接口
                     pswDialog.mSureListener = new PswDialog.OnSureListener() {
                         @Override
                         public void onSure(String psw) {
 
-                            HashMap map=new HashMap();
-                            map.put("token",TokenSQLUtils.check());
-                            map.put("ordercode",ThePosPay.getOrenumber());//订单编号
-                            map.put("paymoney", df.format(ThePosPay.payPrice)+"");//支付金额
-                            map.put("is_balance_deductible",1);//是否使用余额抵扣
-                            if(ThePosPay.ordertype==3) {//年检订单传
+                            HashMap map = new HashMap();
+                            map.put("token", TokenSQLUtils.check());
+                            map.put("ordercode", ThePosPay.getOrenumber());//订单编号
+                            map.put("paymoney", df.format(ThePosPay.payPrice) + "");//支付金额
+                            map.put("is_balance_deductible", 1);//是否使用余额抵扣
+                            if (ThePosPay.ordertype == 3) {//年检订单传
                                 map.put("is_annual_inspection", 1);
                             }
                             map.put("password", ParamSign.getUserPassword(psw));
                             map.put("order_type", order_type);
 
-                            PayUtil.balancePay(mActivity,map);
+                            PayUtil.balancePay(mActivity, map, customerBundle);
 
                             pswDialog.dismiss();
                         }
                     };
 
 
-                }else{
-                    Toast.makeText(mActivity,"支付通道系统维护中，维护完成后通知，敬请谅解",Toast.LENGTH_LONG).show();
+                } else if (payType == PayActivity.METHOD_APP_ALIPAY) {//支付宝支付
+                    AppPay(2);//1：微信支付  2：支付宝支付3:全部
+                } else if (payType == PayActivity.METHOD_APP_WEIXIN) {//微信支付
+                    //  weixinPay("1");//1：微信支付  2：支付宝支付3:全部
+                    AppPay(1);
+                } else {
+                    Toast.makeText(mActivity, "支付通道系统维护中，维护完成后通知，敬请谅解", Toast.LENGTH_LONG).show();
                 }
             } else {
                 Misidentification.misidentification1(mActivity, status, jsonObject);
@@ -477,9 +508,112 @@ public class IPPWDao {
     }
 
     /**
+     * 支付宝支付
+     */
+    private void AppPay(final int pay_type) {
+        HashMap<String, String> hash = new HashMap<>();
+        hash.put("token", TokenSQLUtils.check());
+        hash.put("ordercode", ThePosPay.getOrenumber());
+        hash.put("pay_type", pay_type + "");//1：微信支付  2：支付宝支付3:全部
+        hash.put("pay_money", df.format(ThePosPay.payPrice) + "");//支付金额
+        if (ThePosPay.is_balance_deductible == 1)
+            hash.put("is_balance_deductible", "1");//使用余额抵扣时必填1
+        hash.put("order_type", order_type + "");//订单类型  1违章2年检3车主卡
+
+        VolleyUtil volleyUtil = VolleyUtil.getVolleyUtil(mActivity);//上网请求
+        volleyUtil.postRequest(mActivity, URLs.APPPAY_INFO, hash, "获取订单信息失败", new OnVolleyInterface() {
+            @Override
+            public void success(JSONObject dataObject, String resultStr) {
+                try {
+                    Log.d("TAG", dataObject.toString());
+                    if (pay_type == 2) {//支付宝
+                        String ali_pay_info = dataObject.optString("ali_pay_info");
+                        if (StringUtils.isEmpty(ali_pay_info))
+                            ToastUtil.getShortToastByString(mActivity, "获取订单信息失败");
+                        else
+                            aliPay(ali_pay_info);
+                    } else if (pay_type == 1) {//微信
+                        String wx_pay_info = dataObject.optString("wx_pay_info");
+                        if (StringUtils.isEmpty(wx_pay_info))
+                            ToastUtil.getShortToastByString(mActivity, "获取订单信息失败");
+                        else
+                            weixinPay(wx_pay_info);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    ToastUtil.getShortToastByString(mActivity, "获取订单信息失败");
+                }
+            }
+
+            @Override
+            public void failed(JSONObject resultObject, String code, String msg) {
+//                Log.d("TAG","DDD"+code+","+msg);
+                if (StringUtils.isEmpty(msg) || msg.equals("false")) {
+                    ToastUtil.getShortToastByString(mActivity, "获取订单信息失败");
+                } else
+                    ToastUtil.getShortToastByString(mActivity, msg);
+            }
+        });
+    }
+
+    /**
+     * 微信支付
+     */
+    private void weixinPay(String payInfo) {
+
+        Log.d("TAG", "payInfo" + payInfo);
+        try {
+            JSONObject jsonObject = new JSONObject(payInfo);
+            final IWXAPI msgApi = WXAPIFactory.createWXAPI(mActivity, null);
+// 将该app注册到微信
+            msgApi.registerApp(jsonObject.getString("appid"));
+
+            PayReq request = new PayReq();
+
+            request.appId = jsonObject.getString("appid");
+            request.partnerId = jsonObject.getString("partnerid");
+            request.prepayId = jsonObject.getString("prepayid");
+            request.packageValue = "Sign=WXPay";
+            request.nonceStr = jsonObject.getString("noncestr");
+            request.timeStamp = jsonObject.getString("timestamp");
+            request.sign = jsonObject.getString("sign");
+            WXPayEntryActivity.customerBundle = customerBundle;
+            WXPayEntryActivity.orderCode = ThePosPay.getOrenumber();
+
+            msgApi.sendReq(request);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            ToastUtil.getShortToastByString(mActivity,"获取订单信息失败");
+        }
+    }
+
+    private void aliPay(final String payInfo) {
+        Runnable payRunnable = new Runnable() {
+            @Override
+            public void run() {
+                PayTask alipay = new PayTask(mActivity);
+                Map<String, String> result = alipay.payV2(payInfo, true);
+
+                Message msg = new Message();
+                msg.what = HANDLER_ALIPAY;
+                msg.obj = result;
+                handler.sendMessage(msg);
+            }
+        };
+        Thread payThread = new Thread(payRunnable);
+        payThread.start();
+    }
+
+
+    private final int HANDLER_ALIPAY = 4;
+
+
+
+    /**
      * 去支付前 校验
      */
-    public void checkPayment(final Activity activity,String orderCode,String ordermoney) {
+    public void checkPayment(final Activity activity, String orderCode, String ordermoney) {
 
         resubmit = (TextView) activity.findViewById(R.id.resubmit);//当订单无效时提醒客户
         handler.sendEmptyMessage(1);
@@ -495,7 +629,7 @@ public class IPPWDao {
         phonePamss.put("ordercode", orderCode);
         phonePamss.put("ordermoney", ordermoney);
         if (ThePosPay.is_make_up_money())//是否补款
-            phonePamss.put("is_make_up_money","1");
+            phonePamss.put("is_make_up_money", "1");
 
         Log.i("WU", "ThePosPay.getTotalPrice()===>>" + ThePosPay.getPrice());
         Log.i("WU", "token===>>" + token);
@@ -541,18 +675,18 @@ public class IPPWDao {
     }
 
 
-
-
     /**
      * 余额抵扣时订单检测
-     * */
-    public void orderCheck(final Activity activity,int paytype){
+     */
+    public void orderCheck(final Activity activity, int paytype) {
+//        Log.d("TAG", "DDDDD" + ThePosPay.payPrice);
         UIHelper.showPd(activity);
-        HashMap map=new HashMap();
-        map.put("token",TokenSQLUtils.check());
-        map.put("ordercode",ThePosPay.getOrenumber());
-        map.put("ordermoney", ThePosPay.payPrice);
-        if(paytype!=4) {//非余额支付
+        HashMap map = new HashMap();
+        map.put("token", TokenSQLUtils.check());
+        map.put("ordercode", ThePosPay.getOrenumber());
+//        map.put("ordermoney", ThePosPay.payPrice);
+        map.put("ordermoney", df.format(ThePosPay.payPrice) + "");
+        if (paytype != 4) {//非余额支付
             map.put("is_balance_deductible", 1);
         }
 
@@ -565,11 +699,11 @@ public class IPPWDao {
                     if (status.equals("ok")) {
                         judgeMachineType();
                     } else {
-                        Toast.makeText(activity,"订单校验失败，请退出重试",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity, "订单校验失败，请退出重试", Toast.LENGTH_SHORT).show();
                     }
-                }catch(JSONException e){
+                } catch (JSONException e) {
                     e.printStackTrace();
-                }finally{
+                } finally {
                     UIHelper.dismissPd();
                 }
             }
@@ -584,35 +718,35 @@ public class IPPWDao {
     /*
     * 检测年检订单
     * */
-    public void annualOrderCheck(final Activity activity,int paytype){
+    public void annualOrderCheck(final Activity activity, int paytype) {
         UIHelper.showPd(activity);
-        HashMap map=new HashMap();
-        map.put("token",TokenSQLUtils.check());
-        map.put("ordercode",ThePosPay.getOrenumber());
+        HashMap map = new HashMap();
+        map.put("token", TokenSQLUtils.check());
+        map.put("ordercode", ThePosPay.getOrenumber());
         map.put("ordermoney", ThePosPay.payPrice);
-        if(paytype!=4) {//非余额支付
+        if (paytype != 4) {//非余额支付
             map.put("is_balance_deductible", 1);
         }
 
         VolleyUtil.getVolleyUtil(activity).StringRequestPostVolley(URLs.ANNUAL_ORDER_CHECK, EncryptUtil.encrypt(map), new VolleyInterface() {
             @Override
             public void ResponseResult(Object jsonObject) {
-                Log.i("TAG",jsonObject.toString());
+                Log.i("TAG", jsonObject.toString());
                 try {
                     JSONObject obj = new JSONObject(EncryptUtil.decryptJson(jsonObject.toString(), activity));
                     String status = obj.getString("status");
                     if (status.equals("ok")) {
                         judgeMachineType();
                     } else {
-                        if(obj.has("show_msg")){
-                            Toast.makeText(activity, ""+obj.optString("show_msg"), Toast.LENGTH_SHORT).show();
-                        }else {
+                        if (obj.has("show_msg")) {
+                            Toast.makeText(activity, "" + obj.optString("show_msg"), Toast.LENGTH_SHORT).show();
+                        } else {
                             Toast.makeText(activity, "订单校验失败，请退出重试", Toast.LENGTH_SHORT).show();
                         }
                     }
-                }catch(JSONException e){
+                } catch (Exception e) {
                     e.printStackTrace();
-                }finally{
+                } finally {
                     UIHelper.dismissPd();
                 }
             }
@@ -625,18 +759,39 @@ public class IPPWDao {
     }
 
 
-
-
     private ProgressDialog uiDialog;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
-                    uiDialog.show();
+                    if (uiDialog != null && !mActivity.isFinishing() && !uiDialog.isShowing())
+                        uiDialog.show();
                     break;
                 case 2:
-                    uiDialog.hide();
+                    if (uiDialog != null && uiDialog.isShowing())
+                        uiDialog.hide();
+                    break;
+                case HANDLER_ALIPAY:
+                    try {
+                        Map<String, String> m = (Map<String, String>) msg.obj;
+//                        Log.d("TAG","SSs"+m.toString());
+                        String status = m.get("resultStatus");
+                        if (status.equals("9000")) {
+//                            checkAlipayInfo();
+                            Intent intent = new Intent(mActivity, AliPayDealActivity.class);
+                            intent.putExtra("ordercode", ThePosPay.getOrenumber());
+                            if (customerBundle != null)
+                                intent.putExtra(AliPayDealActivity.EXTRA_CUSTOMER_BUNDLE, customerBundle);
+                            mActivity.startActivity(intent);
+                            mActivity.finish();
+                        } else {
+                            String a = m.get("memo");
+                            ToastUtil.getShortToastByString(mActivity, a);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     break;
             }
 
@@ -644,12 +799,42 @@ public class IPPWDao {
         }
     };
 
+
     /**
      * 通知刷新
-     *
      */
     @Subscribe
     public void onEventMainThread(FirstEvent event) {
 
+    }
+
+
+    public void plusOrderCheck(final PayActivity payActivity, int payType) {
+        UIHelper.showPd(payActivity);
+        HashMap<String, String> hash = new HashMap<>();
+        hash.put("token", TokenSQLUtils.check());
+        hash.put("ordercode", ThePosPay.getOrenumber());
+        hash.put("ordermoney", ThePosPay.payPrice + "");
+
+        if (payType != 4) {//非余额支付
+            hash.put("is_balance_deductible", 1 + "");
+        }
+
+        VolleyUtil.getVolleyUtil(payActivity).postRequest(payActivity, URLs.PLUS_ORDER_CHECK, hash, "订单检测失败", new OnVolleyInterface() {
+            @Override
+            public void success(JSONObject dataObject, String resultStr) {
+                UIHelper.dismissPd();
+                judgeMachineType();
+            }
+
+            @Override
+            public void failed(JSONObject resultObject, String code, String msg) {
+                if (StringUtils.isEmpty(msg))
+                    Toast.makeText(payActivity, "订单校验失败，请退出重试", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(payActivity, msg, Toast.LENGTH_SHORT).show();
+                UIHelper.dismissPd();
+            }
+        });
     }
 }

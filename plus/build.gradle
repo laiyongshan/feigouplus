@@ -10,19 +10,25 @@ android {
 
     //签名 by jian 2017-5-2
     signingConfigs {
+        youhecheguanjiaplus{
+            keyAlias 'yeoheplus'
+            keyPassword 'yeoheplus1026'
+            storeFile file('../jks/plus.jks')
+            storePassword 'yeoheplus1026'
+        }
+        cheweitong{
+            keyAlias 'pluscheweitong'
+            keyPassword 'pluscheweitong1026'
+            storeFile file('../jks/pluscheweitong.jks')
+            storePassword 'pluscheweitong1026'
+        }
+        yunguanjia{
+            keyAlias 'yunguanjiaplus'
+            keyPassword 'yunguanjiaplus1026'
+            storeFile file('../jks/yunguanjiaplus.jks')
+            storePassword 'yunguanjiaplus1026'
+        }
 
-        release {
-            keyAlias 'yeoheplus'
-            keyPassword 'yeoheplus1026'
-            storeFile file('../jks/plus.jks')
-            storePassword 'yeoheplus1026'
-        }
-        debug {
-            keyAlias 'yeoheplus'
-            keyPassword 'yeoheplus1026'
-            storeFile file('../jks/plus.jks')
-            storePassword 'yeoheplus1026'
-        }
 
     }
     dexOptions {
@@ -47,9 +53,8 @@ android {
         minSdkVersion 15
         targetSdkVersion 25
 
-        versionCode 50
-//        versionName "V2.3.4"
-        versionName "V2.4.0"
+        versionCode 54
+        versionName "V2.4.1"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -65,8 +70,8 @@ android {
         debug {//by jian 2017-5-2
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.debug
-            manifestPlaceholders = [XG_ACCESS_ID: "2100263539", XG_ACCESS_KEY:"A595K7TGL6QG",baidu_api_key:"hA4LzuaKvZONIBxaizYosH7K88qmH2GO"]
+//            signingConfig signingConfigs.debug
+//            manifestPlaceholders = [XG_ACCESS_ID: "2100263539", XG_ACCESS_KEY:"A595K7TGL6QG",baidu_api_key:"hA4LzuaKvZONIBxaizYosH7K88qmH2GO"]
 //            多app打包     Terminal输入命名行：gradlew assembleDebug
 //            applicationVariants.all { variant ->
 //                if (variant.buildType.name.equals('debug')) {
@@ -83,8 +88,8 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
-            manifestPlaceholders = [XG_ACCESS_ID: "2100263539", XG_ACCESS_KEY:"A595K7TGL6QG",baidu_api_key:"hA4LzuaKvZONIBxaizYosH7K88qmH2GO"]
+//            signingConfig signingConfigs.release
+//            manifestPlaceholders = [XG_ACCESS_ID: "2100263539", XG_ACCESS_KEY:"A595K7TGL6QG",baidu_api_key:"hA4LzuaKvZONIBxaizYosH7K88qmH2GO"]
 
             //            多app打包     Terminal输入命名行：gradlew assembleRelease  //by jian 2017-5-2
 //            applicationVariants.all { variant ->
@@ -107,27 +112,53 @@ android {
     }
 //
 //    sourceSets {
-//        //jian 2017-5-2
 ////        main {
 ////            jniLibs.srcDir 'libs'
 ////        }
-//
-//        // Move the tests to tests/java, tests/res, etc...
-//        instrumentTest.setRoot('tests')
-//
-//        // Move the build types to build-types/<type>
-//        // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
-//        // This moves them out of them default location under src/<type>/... which would
-//        // conflict with src/ being used by the main source set.
-//        // Adding new build types or product flavors should be accompanied
-//        // by a similar customization.
 //        debug.setRoot('build-types/debug')
 //        release.setRoot('build-types/release')
 //    }
+
+    productFlavors{
+        youhecheguanjiaplus{
+            applicationId "com.example.youhe.youhecheguanjiaplus"
+            versionCode 60
+            versionName "V2.6.0"
+            signingConfig signingConfigs.youhecheguanjiaplus
+            manifestPlaceholders = [XG_ACCESS_ID: "2100263539", XG_ACCESS_KEY:"A595K7TGL6QG",
+                                    baidu_api_key:"hA4LzuaKvZONIBxaizYosH7K88qmH2GO",UMENG_APPKEY:"596321a6e88bad176f00139e",SCHEME:"flydogplus"]
+        }
+        //车违通
+        cheweitong{
+            applicationId "com.example.youhe.cheweiitongplus"
+            versionCode 60
+            versionName "V2.6.0"
+            signingConfig signingConfigs.cheweitong
+            manifestPlaceholders = [XG_ACCESS_ID: "2100265458", XG_ACCESS_KEY:"A37TW437RIGU",
+                                    baidu_api_key:"adLkZfp2stGUpkGZuAQw5SAQVHyeS6bo",UMENG_APPKEY:"599a9ce11c5dd0729200137a",SCHEME:"cwthonor"]
+        }
+        //云管家
+        yunguanjia{
+            applicationId "com.example.youhe.yunguanjiaplus"
+            versionCode 60
+            versionName "V2.6.0"
+            signingConfig signingConfigs.yunguanjia
+            manifestPlaceholders = [XG_ACCESS_ID: "2100266911", XG_ACCESS_KEY:"A55F4NR2CZ2J",
+                                    baidu_api_key:"Gh2VW6FWgvSzzK3lzGuI4MqdGWkPFQKE",UMENG_APPKEY:"59b649ffa3251168c600153a",SCHEME:"tsl"]
+        }
+    }
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs','src/main/jniLibs']
         }
+        youhecheguanjiaplus.res.srcDirs = ['src/main/res']
+
+        cheweitong.res.srcDirs = ['src/cheweitong/res']
+        cheweitong.assets.srcDirs = ['src/cheweitong/assets']
+
+        yunguanjia.res.srcDirs = ['src/yunguanjia/res']
+        yunguanjia.assets.srcDirs = ['src/yunguanjia/assets']
+
     }
     repositories {
         flatDir {
@@ -163,21 +194,6 @@ android {
         }
     }
 
-
-    //    多app打包 //jian 2017-5-2
-//    productFlavors {
-////        友禾车管家
-//        cheguanjia {
-//            applicationId "com.example.youhe.youhecheguanjiaplus"
-//            signingConfig signingConfigs.youhecheguanjia
-//            manifestPlaceholders = [XG_ACCESS_ID: "2100257624", XG_ACCESS_KEY:"A187LPM8WY5K",baidu_api_key:"eGIhG16hG38FUSfoGdiF1DrX6kGMi7RF"]//信鸽配置
-//        }
-//        cheguanjiaplus {
-//            applicationId "com.example.youhe.youhecheguanjiaplus"
-//            signingConfig signingConfigs.cheguanjiaplus
-//            manifestPlaceholders = [XG_ACCESS_ID: "2100257624", XG_ACCESS_KEY:"A187LPM8WY5K",baidu_api_key:"eGIhG16hG38FUSfoGdiF1DrX6kGMi7RF"]//信鸽配置
-//        }
-//    }
 //    sourceSets { //jian 2017-5-2
 //        main {//友禾车管家
 //            manifest.srcFile 'src/main/AndroidManifest.xml'
@@ -242,6 +258,7 @@ dependencies {
     compile files('libs/Xg_sdk_v3.1_20170417_0946.jar')
     //jian 2017-5-2
     compile files('libs/mid-core-sdk-3.7.2.jar')
+    compile files('libs/alipaySdk-20170725.jar')
 
     //jian 2017-5-2
 
@@ -252,7 +269,8 @@ dependencies {
     // 多dex配置
 
     //    compile "com.android.support:multidex:1.0.1"
-
+    compile files('libs/ocr-sdk.jar')//17-10-9 百度识别
+    compile files('libs/license.jar')//17-10-9 百度识别 UI
     // 远程依赖集成方式（推荐）
     compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
     compile 'com.android.support:appcompat-v7:24.2.1'
@@ -271,6 +289,9 @@ dependencies {
 
 
     compile 'com.android.support:multidex:1.0.1'
+    //微信支付
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+
 }
 //App 虚拟内存分区 dex文件
 afterEvaluate {

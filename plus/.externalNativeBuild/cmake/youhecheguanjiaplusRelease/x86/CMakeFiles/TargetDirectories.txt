@@ -1,0 +1,3 @@
+F:/feigouplus/plus/.externalNativeBuild/cmake/youhecheguanjiaplusRelease/x86/CMakeFiles/native-lib.dir
+F:/feigouplus/plus/.externalNativeBuild/cmake/youhecheguanjiaplusRelease/x86/CMakeFiles/edit_cache.dir
+F:/feigouplus/plus/.externalNativeBuild/cmake/youhecheguanjiaplusRelease/x86/CMakeFiles/rebuild_cache.dir

@@ -19,11 +19,13 @@ public class CommentSetting {
 
     public static String CrashReport_APP_ID="ad3af168e2";//腾讯bugly app id
 
-    public static String WEI_XIN_APP_ID="wx5b85cea18c42b03e";//微信开发者Appid
-    public static String WEI_XIN_APP_KEY="fbf9526544b190c595e1ac28ffe6eca2";//微信开发者AppKEY
+    public static String WEI_XIN_APP_ID=AppContext.getContext().getString(R.string.WEI_XIN_APP_ID);//微信开发者Appid
+    public static String WEI_XIN_APP_KEY=AppContext.getContext().getString(R.string.WEI_XIN_APP_KEY);//微信开发者AppKEY
 
-    public static String QQ_APP_ID="1106314864";//QQAppid
-    public static String QQ_APP_KEY="TV66i1frlGlaeiFu";//QQAppKEY
+//    public static String QQ_APP_ID="1106314864";//QQAppid
+//    public static String QQ_APP_KEY="TV66i1frlGlaeiFu";//QQAppKEY
+    public static String QQ_APP_ID=AppContext.getContext().getString(R.string.QQ_APP_ID);//QQAppid
+    public static String QQ_APP_KEY=AppContext.getContext().getString(R.string.QQ_APP_KEY);//QQAppKEY
 
 
 

@@ -294,7 +294,7 @@ public class AccountQueryActivity extends Activity implements View.OnClickListen
                 String show_msg=obj.optString("show_msg");
                 Toast.makeText(AccountQueryActivity.this,show_msg,Toast.LENGTH_SHORT).show();
             }
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }finally {
              if(accountList.isEmpty()){

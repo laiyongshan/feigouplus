@@ -29,6 +29,8 @@ public class BalancePaySuccActivity extends Activity implements View.OnClickList
     private String paytime;
     private Bundle dataBundle = null;
 
+    public static final String EXTRA_BUNDLE="customer_bundle";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +46,8 @@ public class BalancePaySuccActivity extends Activity implements View.OnClickList
         paymoney = intent.getStringExtra("paymoney");
         ordercode = intent.getStringExtra("ordercode");
         paytime = intent.getStringExtra("paytime");
-        if (intent.hasExtra("bundle"))
-            dataBundle = intent.getBundleExtra("bundle");
+        if (intent.hasExtra(EXTRA_BUNDLE))
+            dataBundle = intent.getBundleExtra(EXTRA_BUNDLE);
         initViews();//初始化控件
     }
 

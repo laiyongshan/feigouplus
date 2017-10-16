@@ -1,0 +1,44 @@
+
+{
+	"buildFiles" : [ "F:/feigouplus/plus/CMakeLists.txt" ],
+	"cleanCommands" : 
+	[
+		"C:\\Users\\Administrator\\AppData\\Local\\Android\\Sdk\\cmake\\3.6.3155560\\bin\\cmake.exe --build F:\\feigouplus\\plus\\.externalNativeBuild\\cmake\\cheweitongRelease\\mips64 --target clean"
+	],
+	"cppFileExtensions" : [ "cpp" ],
+	"libraries" : 
+	{
+		"native-lib-Release-mips64" : 
+		{
+			"abi" : "mips64",
+			"artifactName" : "native-lib",
+			"buildCommand" : "C:\\Users\\Administrator\\AppData\\Local\\Android\\Sdk\\cmake\\3.6.3155560\\bin\\cmake.exe --build F:\\feigouplus\\plus\\.externalNativeBuild\\cmake\\cheweitongRelease\\mips64 --target native-lib",
+			"buildType" : "release",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  --target=mips64el-none-linux-android --gcc-toolchain=C:/Users/Administrator/AppData/Local/Android/sdk/ndk-bundle/toolchains/mips64el-linux-android-4.9/prebuilt/windows-x86_64 --sysroot=C:/Users/Administrator/AppData/Local/Android/sdk/ndk-bundle/sysroot  -Dnative_lib_EXPORTS -isystem C:\\Users\\Administrator\\AppData\\Local\\Android\\sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem C:\\Users\\Administrator\\AppData\\Local\\Android\\sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\mips64\\include -isystem C:\\Users\\Administrator\\AppData\\Local\\Android\\sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem C:/Users/Administrator/AppData/Local/Android/sdk/ndk-bundle/sysroot/usr/include/mips64el-linux-android -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fintegrated-as -Wa,--noexecstack -Wformat -Werror=format-security  -fexceptions -O2 -DNDEBUG  -fPIC    -c ",
+					"src" : "F:/feigouplus/plus/src/main/cpp/Md5.cpp",
+					"workingDirectory" : "F:/feigouplus/plus/.externalNativeBuild/cmake/cheweitongRelease/mips64"
+				},
+				
+				{
+					"flags" : "  --target=mips64el-none-linux-android --gcc-toolchain=C:/Users/Administrator/AppData/Local/Android/sdk/ndk-bundle/toolchains/mips64el-linux-android-4.9/prebuilt/windows-x86_64 --sysroot=C:/Users/Administrator/AppData/Local/Android/sdk/ndk-bundle/sysroot  -Dnative_lib_EXPORTS -isystem C:\\Users\\Administrator\\AppData\\Local\\Android\\sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem C:\\Users\\Administrator\\AppData\\Local\\Android\\sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\mips64\\include -isystem C:\\Users\\Administrator\\AppData\\Local\\Android\\sdk\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem C:/Users/Administrator/AppData/Local/Android/sdk/ndk-bundle/sysroot/usr/include/mips64el-linux-android -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fintegrated-as -Wa,--noexecstack -Wformat -Werror=format-security  -fexceptions -O2 -DNDEBUG  -fPIC    -c ",
+					"src" : "F:/feigouplus/plus/src/main/cpp/native-lib.cpp",
+					"workingDirectory" : "F:/feigouplus/plus/.externalNativeBuild/cmake/cheweitongRelease/mips64"
+				}
+			],
+			"output" : "F:/feigouplus/plus/build/intermediates/cmake/cheweitong/release/obj/mips64/libnative-lib.so",
+			"toolchain" : "1733420917"
+		}
+	},
+	"toolchains" : 
+	{
+		"1733420917" : 
+		{
+			"cCompilerExecutable" : "C:/Users/Administrator/AppData/Local/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe",
+			"cppCompilerExecutable" : "C:/Users/Administrator/AppData/Local/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/clang++.exe"
+		}
+	}
+}

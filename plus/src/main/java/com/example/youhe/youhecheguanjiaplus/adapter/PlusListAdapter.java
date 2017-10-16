@@ -45,7 +45,10 @@ public class PlusListAdapter extends CommonBindAdapter<PlusBean> {
             return;
         item.state.setText(bean.getStatus_name());
         item.price.setText("¥ " + bean.getPrice() + "");
-        item.date.setText("有效期至：" + bean.getExpire_time() + "");
+        if (StringUtils.isEmpty(bean.getExpire_time())) {
+            item.date.setText("");
+        } else
+            item.date.setText("有效期至：" + bean.getExpire_time() + "");
         if (!StringUtils.isEmpty(bean.getCard_number()) && bean.getCard_number().length() == 16) {
             String a = bean.getCard_number();
             String bb = a.substring(0, 4) + "  " + a.substring(4, 8) + "  " + a.substring(8, 12) + "  " + a.substring(12, 16);
@@ -54,7 +57,7 @@ public class PlusListAdapter extends CommonBindAdapter<PlusBean> {
             item.carNumber.setText("");
         }
 //2分销车主卡3普通车主卡
-        if (bean.getClient_type()==3)
+        if (bean.getClient_type() == 3)
             item.imageType.setImageDrawable(context.getResources().getDrawable(R.drawable.putgong));
         else
             item.imageType.setImageDrawable(context.getResources().getDrawable(R.drawable.sanji));
@@ -63,14 +66,14 @@ public class PlusListAdapter extends CommonBindAdapter<PlusBean> {
         item.textShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!StringUtils.isEmpty(bean.getContent())){
-                    UMWeb umWeb=new UMWeb(bean.getUrl());
+                if (!StringUtils.isEmpty(bean.getContent())) {
+                    UMWeb umWeb = new UMWeb(bean.getUrl());
                     umWeb.setDescription(bean.getContent());
                     umWeb.setTitle(bean.getTitle());
-                    umWeb.setThumb(new UMImage(context,R.mipmap.icon_app));
-                    share(umWeb,item.getRoot());
-                }else {
-                    ToastUtil.getShortToastByString(context,"获取分享内容失败");
+                    umWeb.setThumb(new UMImage(context, R.mipmap.icon_app));
+                    share(umWeb, item.getRoot());
+                } else {
+                    ToastUtil.getShortToastByString(context, "获取分享内容失败");
                 }
             }
         });
@@ -78,10 +81,10 @@ public class PlusListAdapter extends CommonBindAdapter<PlusBean> {
         item.textCopy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!StringUtils.isEmpty(bean.getContent())){
+                if (!StringUtils.isEmpty(bean.getContent())) {
                     copy(bean.getCard_number());
-                }else {
-                    ToastUtil.getShortToastByString(context,"复制车主卡号失败");
+                } else {
+                    ToastUtil.getShortToastByString(context, "复制车主卡号失败");
                 }
             }
         });
@@ -90,18 +93,17 @@ public class PlusListAdapter extends CommonBindAdapter<PlusBean> {
         item.textQR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (StringUtils.isEmpty(bean.getUrl())){
-                    ToastUtil.getShortToastByString(context,"生成二维码失败");
+                if (StringUtils.isEmpty(bean.getUrl())) {
+                    ToastUtil.getShortToastByString(context, "生成二维码失败");
                     return;
                 }
-                ImageView imageView=new ImageView(context);
-                imageView.setImageBitmap(QrCodeUtil.generateBitmap(bean.getUrl(),450,450));
-                Dialog dialog=new Dialog(context);
+                ImageView imageView = new ImageView(context);
+                imageView.setImageBitmap(QrCodeUtil.generateBitmap(bean.getUrl(), 450, 450));
+                Dialog dialog = new Dialog(context);
                 dialog.setContentView(imageView);
                 dialog.show();
             }
         });
-
 
 
         switch (bean.getStatus()) {
@@ -171,6 +173,7 @@ public class PlusListAdapter extends CommonBindAdapter<PlusBean> {
         }
 
     }
+
     /**
      * 复制内容到粘贴板
      *
@@ -188,13 +191,13 @@ public class PlusListAdapter extends CommonBindAdapter<PlusBean> {
      */
     PopWindowShare popWindowShare = null;
 
-    private void share(UMWeb U,View view) {
+    private void share(UMWeb U, View view) {
         if (popWindowShare == null)
             popWindowShare = new PopWindowShare(context);
 
         popWindowShare.setDate(U);
         popWindowShare.showAtLocation(view,
-                        Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+                Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
 
     }
 }

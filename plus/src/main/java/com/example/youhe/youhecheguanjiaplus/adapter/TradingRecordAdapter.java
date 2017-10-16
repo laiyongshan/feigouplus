@@ -22,12 +22,12 @@ import java.util.List;
  * Created by Administrator on 2017/7/26 0026.
  */
 
-public class TradingRecordAdapter extends BaseExpandableListAdapter{
+public class TradingRecordAdapter extends BaseExpandableListAdapter {
 
     private List<TradingModel> datas;
     private Context mContext;
 
-    public TradingRecordAdapter( Context context,List<TradingModel> datas) {
+    public TradingRecordAdapter(Context context, List<TradingModel> datas) {
         this.datas = datas;
         this.mContext = context;
     }
@@ -43,13 +43,17 @@ public class TradingRecordAdapter extends BaseExpandableListAdapter{
         } else {
             m = (ItemRecordGroupBinding) convertView.getTag();
         }
-        String dateStr=datas.get(groupPosition).getYearMonth();
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月");
-        long lt = new Long(dateStr);
-        Date date = new Date(lt*1000);
-       String res = simpleDateFormat.format(date);
-       m.tvDate.setText(res);
+        try {
+            String dateStr = datas.get(groupPosition).getYearMonth();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月");
+            long lt = new Long(dateStr);
+            Date date = new Date(lt * 1000);
+            String res = simpleDateFormat.format(date);
+            m.tvDate.setText(res);
+        } catch (Exception e) {
+            m.tvDate.setText("");
+        }
 
         return convertView;
     }
@@ -65,20 +69,20 @@ public class TradingRecordAdapter extends BaseExpandableListAdapter{
             m = (ItemRecordChildBinding) convertView.getTag();
         }
 
-        if (childPosition==(datas.get(groupPosition).getDetailList().size()-1)){
+        if (childPosition == (datas.get(groupPosition).getDetailList().size() - 1)) {
             m.line.setVisibility(View.GONE);
-        }else
+        } else
             m.line.setVisibility(View.VISIBLE);
-        TradingModel.TradingSubModel model=datas.get(groupPosition).getDetailList().get(childPosition);
-        if (model!=null) {
-            m.title.setText(StringUtils.isEmpty(model.getTitle())?"":model.getTitle());
+        TradingModel.TradingSubModel model = datas.get(groupPosition).getDetailList().get(childPosition);
+        if (model != null) {
+            m.title.setText(StringUtils.isEmpty(model.getTitle()) ? "" : model.getTitle());
 
-            m.source.setText(StringUtils.isEmpty(model.getPay_flowing())?"":(""+model.getPay_flowing()));
+            m.source.setText(StringUtils.isEmpty(model.getPay_flowing()) ? "" : ("" + model.getPay_flowing()));
 
-            m.time.setText(StringUtils.isEmpty(model.getCreatetimestr())?"":model.getCreatetimestr());
+            m.time.setText(StringUtils.isEmpty(model.getCreatetimestr()) ? "" : model.getCreatetimestr());
 
-            m.money.setText(StringUtils.isEmpty(model.getMoney())?"":
-                    ((model.getPlus_minus().equals("1")?"+":"-")+model.getMoney()));
+            m.money.setText(StringUtils.isEmpty(model.getMoney()) ? "" :
+                    ((model.getPlus_minus().equals("1") ? "+" : "-") + model.getMoney()));
         }
 
         return convertView;
@@ -118,7 +122,6 @@ public class TradingRecordAdapter extends BaseExpandableListAdapter{
     public boolean hasStableIds() {
         return true;
     }
-
 
 
     @Override

@@ -475,6 +475,7 @@ public class AppStart extends YeoheActivity implements View.OnClickListener {
             // TODO Auto-generated method stub
             super.onPostExecute(result);
             if (result != null) {
+
                 start_img.setImageBitmap(result);
             } else {
                 start_img.setImageResource(R.mipmap.start_emty);

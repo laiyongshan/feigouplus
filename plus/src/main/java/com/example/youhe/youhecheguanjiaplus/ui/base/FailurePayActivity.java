@@ -21,7 +21,7 @@ public class FailurePayActivity extends AppCompatActivity {
 
     private String error_msg;
     private Bundle dataBundle = null;
-
+    public static final String EXTRA_BUNDLE="customer_bundle";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +36,8 @@ public class FailurePayActivity extends AppCompatActivity {
         text2 = (TextView) findViewById(R.id.textdoll);
         repay_btn = (Button) findViewById(R.id.repay_btn);
         Intent intent = getIntent();
-        if (intent.hasExtra("bundle"))
-            dataBundle = intent.getBundleExtra("bundle");
+        if (intent.hasExtra(EXTRA_BUNDLE))
+            dataBundle = intent.getBundleExtra(EXTRA_BUNDLE);
         String error_msg=intent.getStringExtra("show_msg");
 
         text2.setText(error_msg+"");
@@ -112,4 +112,5 @@ public class FailurePayActivity extends AppCompatActivity {
             finish();
         }
     }
+
 }

@@ -121,10 +121,6 @@ public class VolleyUtil {
         catch (KeyManagementException e) {
             e.printStackTrace();
         }
-//        if (factory == null)
-//            Log.d("TAG", "dddddddddddddddddddddddd");
-//        else
-//            Log.d("TAG", "kkkkkkkkkkkkkkkkkkkkk");
 
         return factory;
     }
@@ -215,7 +211,13 @@ public class VolleyUtil {
                 volleyInterface.ResponError(volleyError);
                 Log.i(TAG, "请求错误");
             }
-        });
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                return (Map<String, String>)EncryptUtil.encrypt(null);
+            }
+        };
         //加入队列 及设置 请求时间
         AddrequestQueue(stringRequest, true);
     }
@@ -252,11 +254,12 @@ public class VolleyUtil {
      */
 
     public void StringRequestPostVolley(final String url, final HashMap<?, ?> hashMap, final VolleyInterface volleyInterface) {
-//        if (hashMap.containsKey("token")&& StringUtils.isEmpty(TokenSQLUtils.check())){
-//            VolleyError volleyError=new VolleyError("token值失效");
-//            volleyInterface.ResponseResult(volleyError);
-//            return;
-//        }
+        if (hashMap!=null&&hashMap.containsKey("token")&& StringUtils.isEmpty(TokenSQLUtils.check())){
+            VolleyError volleyError=new VolleyError("token值失效");
+            volleyInterface.ResponseResult(volleyError);
+            return;
+        }
+
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
@@ -273,7 +276,10 @@ public class VolleyUtil {
         }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                return (Map<String, String>) hashMap;
+                HashMap hashMap1=hashMap;
+                if (hashMap1==null)
+                    hashMap1=EncryptUtil.encrypt(null);
+                return (Map<String, String>) hashMap1;
             }
         };
         //加入队列 及设置 请求时间
@@ -282,7 +288,7 @@ public class VolleyUtil {
 
     public void postRequest(final Context mContext, final String url, final HashMap<?, ?> hashMap, final String defaultError, final OnVolleyInterface onVolleyInterface) {
 
-        if (hashMap.containsKey("token")&& StringUtils.isEmpty(TokenSQLUtils.check())){
+        if (hashMap!=null&&hashMap.containsKey("token")&& StringUtils.isEmpty(TokenSQLUtils.check())){
             onVolleyInterface.failed(null, "", "token值失效");
             return;
         }
@@ -330,7 +336,11 @@ public class VolleyUtil {
         }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                return (Map<String, String>) EncryptUtil.encrypt(hashMap);
+                HashMap hashMap1=EncryptUtil.encrypt(hashMap);
+                if (hashMap1==null)
+                    hashMap1=EncryptUtil.encrypt(null);
+                return (Map<String, String>) hashMap1;
+//                return (Map<String, String>) EncryptUtil.encrypt(hashMap);
             }
         };
         //加入队列 及设置 请求时间

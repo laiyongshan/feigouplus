@@ -1,0 +1,3 @@
+F:/feigouplus/plus/.externalNativeBuild/cmake/cheweitongRelease/mips/CMakeFiles/native-lib.dir
+F:/feigouplus/plus/.externalNativeBuild/cmake/cheweitongRelease/mips/CMakeFiles/edit_cache.dir
+F:/feigouplus/plus/.externalNativeBuild/cmake/cheweitongRelease/mips/CMakeFiles/rebuild_cache.dir

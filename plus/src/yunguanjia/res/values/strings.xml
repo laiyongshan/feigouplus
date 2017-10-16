@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">云管家</string>
+    <string name="main_title">云管家</string>
+    <string name="plus_title">车主卡</string>
+    <string name="plus_invite">邀请码</string>
+    <string name="scan_tips">将二维码图片对准扫描框即可自动扫描</string>
+    <string name="tips">您尚未添加违章查询的车辆，\n系统无法判断您是否有违章需要办理</string>
+    <string name="exit">确定退出云管家吗？</string>
+    <string name="apptype">3</string>
+    <string name="xieyi">《云管家用户服务协议》</string>
+
+    <string name="packagename">com.example.youhe.yunguanjiaplus</string>
+
+    <string name="QQ_APP_ID">1106333257</string>
+    <string name="QQ_APP_KEY">FjWvapnOWBQAy8Uf</string>
+
+    <string name="WEI_XIN_APP_ID">wx33f2a9e6ce8d193b</string>
+    <string name="WEI_XIN_APP_KEY">afa8747f9c6788af4c87fb8f0d4f5e21</string>
+
+</resources>

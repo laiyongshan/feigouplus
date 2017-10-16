@@ -15,6 +15,10 @@ import android.util.Log;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.baidu.mapapi.SDKInitializer;
+import com.baidu.ocr.sdk.OCR;
+import com.baidu.ocr.sdk.OnResultListener;
+import com.baidu.ocr.sdk.exception.OCRError;
+import com.baidu.ocr.sdk.model.AccessToken;
 import com.example.youhe.youhecheguanjiaplus.biz.SaveNameDao;
 import com.example.youhe.youhecheguanjiaplus.utils.StringUtils;
 import com.example.youhe.youhecheguanjiaplus.utils.XGUtils;
@@ -101,6 +105,25 @@ public class AppContext extends Application {
         PlatformConfig.setWeixin(CommentSetting.WEI_XIN_APP_ID,CommentSetting.WEI_XIN_APP_KEY);
         PlatformConfig.setQQZone(CommentSetting.QQ_APP_ID,CommentSetting.QQ_APP_KEY);
         initImageLoader(this);
+        initOCR();
+    }
+    /**
+     * 初始化百度云
+     */
+    private void initOCR(){
+        OCR.getInstance().initAccessToken(new OnResultListener<AccessToken>() {
+            @Override
+            public void onResult(AccessToken result) {
+                // 调用成功，返回AccessToken对象
+                String token = result.getAccessToken();
+                Log.d("TAG","ocr："+token);
+            }
+            @Override
+            public void onError(OCRError error) {
+                // 调用失败，返回OCRError子类SDKError对象
+                Log.d("TAG","ocr："+error.toString());
+            }
+        }, getApplicationContext());
     }
 
     /**
